@@ -1,0 +1,155 @@
+@import url('./scheme-color.css');
+@import url('./scheme-types.css');
+@import url('./scheme.css');
+
+@import url('./node-banner.css');
+@import url('./node-reader.css');
+
+/* */
+
+html {
+  font-size: 16px;
+
+  --cm: 2.5rem; /* 40px/cm */
+
+  --paper-ratio: 21 / 29.7; /* A4 */
+  --paper-wid: 52.5rem; /* 840px -> 21cm */
+  --paper-pad: 4.375rem;
+  --paper-mar: 0.625rem;
+  --paper-gut: 0.75rem;
+  --paper-shadow: 0 0.4px 2px 0.5px rgb(0 0 0 / 6%);
+  --paper-radius: 0.5rem;
+
+  --float-shadow: 0 0.4px 2px 1px rgb(0 0 0 / 6%);
+
+  --type: #363636;
+
+  --modal-ground: rgb(0 0 0 / 23%);
+  --modal-shadow: 0 0 2px 4px rgb(0 0 0 / 3%);
+
+  --banner-hei: 14.5rem;
+  --banner-vis: 0;
+
+  accent-color: #d75e63;
+
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* */
+
+body,
+body * {
+  box-sizing: border-box;
+}
+
+/* */
+
+body {
+  all: unset;
+
+  position: fixed;
+
+  width: 100%;
+  height: 100%;
+  margin: 0rem 0rem;
+  padding: 0rem 0rem;
+
+  overflow: auto;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* */
+
+.node.bounds {
+  position: fixed;
+  inset: 0rem 0rem;
+
+  display: flex;
+  flex-direction: column;
+  flex: none;
+
+  background: #f6f6f7;
+  overflow: hidden;
+}
+.node.bounds > .bounds-inner {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  overflow: hidden auto;
+  overflow: hidden overlay;
+  scroll-snap-type: y proximity;
+}
+
+.node.banner > .banner-content,
+.node.banner > .banner-actions {
+  scroll-snap-align: start;
+}
+
+/* */
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+::selection {
+  color: #ffffff;
+  background: #191919;
+  text-decoration: none;
+}
+
+/* */
+
+@page {
+  margin: 0rem 0rem;
+}
+
+@media print {
+  html {
+    font-size: calc(1cm / 40 * 16);
+  }
+
+  body {
+    overflow: auto;
+  }
+
+  .node.bounds {
+    position: unset;
+    inset: unset;
+    height: unset;
+    overflow: visible;
+  }
+
+  body,
+  .node.reader {
+    padding: 0rem 0rem;
+  }
+
+  body,
+  .node.reader,
+  .node.reader > .reader-section {
+    margin: 0rem 0rem;
+
+    background: white;
+    border-radius: none;
+    outline: none;
+    box-shadow: none;
+  }
+
+  .node.reader {
+    gap: 0rem;
+    width: var(--a4-wid);
+  }
+
+  .node.banner,
+  .node.reader-nav {
+    display: none;
+  }
+}

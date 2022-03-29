@@ -1,0 +1,99 @@
+/* */
+
+.node.reader {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: var(--paper-gut);
+
+  margin: 0rem 0rem var(--banner-hei) 0rem;
+  padding: var(--paper-gut) 0rem 0rem;
+}
+
+.reader-section {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+
+  width: min(calc(100vw - var(--paper-mar) * 2), var(--paper-wid));
+  aspect-ratio: var(--paper-ratio);
+  padding: var(--paper-pad);
+
+  background: #fcfcfc;
+  border-radius: var(--paper-radius);
+
+  box-shadow: var(--paper-shadow);
+}
+
+/* */
+
+.action-icon,
+.action-icon-sm {
+  all: unset;
+  position: relative;
+
+  flex: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.action-icon {
+  height: 2rem;
+  width: 2rem;
+
+  padding: 0rem;
+  margin: 0rem;
+
+  border-radius: 1rem;
+}
+
+.action-icon-sm {
+  height: 2rem;
+  width: 2rem;
+
+  padding: 0rem;
+  margin: 0rem;
+
+  border-radius: 1rem;
+}
+
+.action-icon::after,
+.action-icon-sm::after {
+  content: '';
+
+  position: absolute;
+  inset: 0rem 0rem;
+
+  background: #000;
+  opacity: 0;
+  border-radius: 50%;
+
+  transition: inset 200ms;
+}
+
+.action-icon::after {
+  inset: -0.5rem -0.5rem;
+}
+
+/*.action-icon:hover::after,
+.action-icon-sm:hover::after {
+  opacity: 0.07;
+}*/
+.action-icon:active::after,
+.action-icon-sm:active::after {
+  opacity: 0.1;
+}
+
+.action-icon[disabled],
+.action-icon[disabled] *,
+.action-icon-sm[disabled],
+.action-icon-sm[disabled] * {
+  color: #b3b3b4 !important;
+  pointer-events: none;
+}

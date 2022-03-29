@@ -1,0 +1,32 @@
+on:
+  workflow_call:
+    secrets:
+      booklet_token:
+        required: true
+      booklet_cname:
+        required: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: denolib/setup-deno@v2
+
+      - run: deno run -A --unstable https://github.com/applicdev/booklet/raw/main/packages/booklet/install.ts
+      
+      - run: booklet --bundle -f
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_branch: gh-production
+          publish_dir: ./docs/.booklet/
+          github_token: ${{ secrets.booklet_token }}
+          cname: ${{ secrets.booklet_cname }}
+      
+      - run: booklet --bundle -f -p
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_branch: gh-pages
+          publish_dir: ./docs/.booklet/
+          github_token: ${{ secrets.booklet_token }}
+          cname: ${{ secrets.booklet_cname }}

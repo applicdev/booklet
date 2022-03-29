@@ -1,0 +1,6 @@
+.DS_Store
+
+*.draft*
+*.notes*
+
+.booklet
