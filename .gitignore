@@ -1,0 +1,10 @@
+# ~ dependencies and compiled output
+node_modules
+result
+
+# ~ environment
+.env
+
+# ~ misc
+.DS_Store
+npm-debug.log
