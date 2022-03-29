@@ -1,7 +1,0 @@
-{
-  "name": "deno-pages",
-  "scripts": {
-    "create": "deno run --allow-env --allow-net --allow-read ./source/deno-create.ts",
-    "stream": "deno run --allow-env --allow-net --allow-read ./source/deno-stream.ts"
-  }
-}
