@@ -10,7 +10,7 @@ internal.connect = new Promise((res) => (internal.resolveConnected = res));
 fragment.connectedCallback = async ({ option }: any): Promise<void> => {
   console.log(option);
   // ...
-  const ghReadme = `This branch is automated with with [GitHub Actions](https://github.com/features/actions). Its content should not be manually edited.`;
+  const ghReadme = `This branch is automated with [GitHub Actions](https://github.com/features/actions). Its content should not be manually edited.`;
 
   await ensureDir(resolve(option.public));
   await Deno.writeTextFile(resolve(option.public, './README.md'), ghReadme);
