@@ -7,8 +7,8 @@ const internal: { [prop: string]: any } = {};
 fragment.whenConnected = (): Promise<void> => internal.connect;
 internal.connect = new Promise((res) => (internal.resolveConnected = res));
 
-fragment.connectedCallback = async ({ option }: any): Promise<void> => {
-  internal.option = option;
+fragment.connectedCallback = async ({ output }: any): Promise<void> => {
+  internal.option = { output };
   internal.server = Deno.listen({ port: 8080 });
 
   console.log('File server running on http://localhost:8080/');
@@ -30,12 +30,12 @@ internal.handleHttp = async (conn: Deno.Conn) => {
     let status = 203;
     let file = null;
 
-    file = await internal.requestFile({ urn: path.resolve(internal.option.public, `./${uri}`) });
+    file = await internal.requestFile({ urn: path.resolve(internal.option.output, `./${uri}`) });
 
     // 404-file
     if (!file) {
       status = 404;
-      file = await internal.requestFile({ urn: path.resolve(internal.option.public, `./404.html`) });
+      file = await internal.requestFile({ urn: path.resolve(internal.option.output, `./404.html`) });
     }
 
     // 404
