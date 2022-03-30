@@ -30,13 +30,11 @@ internal.handleHttp = async (conn: Deno.Conn) => {
     let status = 203;
     let file = null;
 
-    console.log('try file');
     file = await internal.requestFile({ urn: path.resolve(internal.option.public, `./${uri}`) });
 
     // 404-file
     if (!file) {
       status = 404;
-      console.log('try 404');
       file = await internal.requestFile({ urn: path.resolve(internal.option.public, `./404.html`) });
     }
 
@@ -57,11 +55,8 @@ internal.handleHttp = async (conn: Deno.Conn) => {
 
 internal.requestFile = async ({ urn }: { urn: string }) => {
   try {
-    console.log({ urn });
     let stat = await Deno.stat(urn);
     let file = null;
-
-    console.log(urn);
 
     if (stat.isDirectory) {
       file = await internal.requestFile({ urn: path.resolve(urn, './index.html') });

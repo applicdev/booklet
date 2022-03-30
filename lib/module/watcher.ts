@@ -18,7 +18,7 @@ fragment.connectedCallback = async ({ option }: any): Promise<void> => {
   await Deno.writeTextFile(path.resolve(internal.option.public, './README.md'), ghReadme);
 
   await ensureDir(path.resolve(internal.option.public, './outline'));
-  await Deno.writeTextFile(path.resolve(internal.option.public, './outline/index.html'), `Hi from /outline/`);
+  await Deno.writeTextFile(path.resolve(internal.option.public, './outline/index.html'), `Hi from /outline/index.html`);
   await Deno.writeTextFile(path.resolve(internal.option.public, './404.html'), `Hi from /404.html`);
   // ...
 
