@@ -1,4 +1,6 @@
 import { default as watcher } from './module/watcher.ts';
+import { default as streams } from './module/streams.ts';
+
 import { resolve } from 'https://deno.land/std@0.132.0/path/mod.ts';
 
 watcher.connectedCallback({
@@ -9,5 +11,12 @@ watcher.connectedCallback({
 });
 
 watcher.whenConnected().then(async () => {
-  watcher.disconnectedCallback();
+  streams.connectedCallback({
+    option: {
+      public: resolve('./.github/gh-pages'),
+    },
+  });
+
+  // streams.disconnectedCallback();
+  // watcher.disconnectedCallback();
 });
