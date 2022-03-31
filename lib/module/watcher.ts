@@ -12,7 +12,7 @@ internal.connect = new Promise((res) => (internal.resolveConnected = res));
 fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
   internal.option = { source, output };
 
-  console.log(path.resolve(internal.option.output));
+  // console.log(path.resolve(internal.option.output));
 
   // + create and clear output folder
   // await file.ensureDir(path.resolve(internal.option.output));
