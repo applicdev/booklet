@@ -7,7 +7,6 @@ fragment.pattern = {};
 internal.pattern = {};
 
 internal.dir = path.dirname(path.fromFileUrl(import.meta.url));
-console.log({ ...internal });
 
 fragment.pattern['page:document'] = {
   render: async (params: any) => {
