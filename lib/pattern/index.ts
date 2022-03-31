@@ -11,14 +11,18 @@ console.log({ ...internal });
 
 fragment.pattern['page:document'] = {
   render: async (params: any) => {
-    const plain = await Deno.readTextFile(path.resolve(internal.dir, './page-document.html'));
+    const plainUrn = path.resolve(internal.dir, './page-document.html');
+    console.log('READ', plainUrn);
+    const plain = await Deno.readTextFile(plainUrn);
     return plain;
   },
 };
 
 fragment.pattern['page:fallback'] = {
   render: async (params: any) => {
-    const plain = await Deno.readTextFile(path.resolve(internal.dir, './page-fallback.html'));
+    const plainUrn = path.resolve(internal.dir, './page-fallback.html');
+    console.log('READ', plainUrn);
+    const plain = await Deno.readTextFile(plainUrn);
     return plain;
   },
 };
