@@ -19,7 +19,7 @@ fragment.pattern['page:fallback'] = {
   },
 };
 
-fragment.pattern['file:service-worker'] = {
+fragment.pattern['pwa-file:service-worker'] = {
   render: ({ page }: any) => `
     const PRECACHE = \`${Date.now()}\`;
     const RUNTIME = 'runtime';
@@ -71,7 +71,13 @@ fragment.pattern['file:service-worker'] = {
   `,
 };
 
-fragment.pattern['file:webmanifest'] = {
+fragment.pattern['pwa-file:webmanifest'] = {
+  render: ({ page }: any) => `
+  
+  `,
+};
+
+fragment.pattern['pwa-file:sitemap'] = {
   render: ({ page }: any) => `
   
   `,

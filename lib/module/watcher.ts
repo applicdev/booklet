@@ -15,7 +15,7 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
   console.log(path.resolve(internal.option.output));
 
   // + create and clear output folder
-  await file.ensureDir(path.resolve(internal.option.output));
+  // await file.ensureDir(path.resolve(internal.option.output));
   await file.emptyDir(path.resolve(internal.option.output));
 
   // + create files
@@ -41,11 +41,16 @@ This branch is automated with [GitHub Actions][github-actions]. Its content shou
 };
 
 internal.createDocuments = async (): Promise<void> => {
-  const plainDocument = pattern['page:document'].render({ page: {} });
-  const plainFallback = pattern['page:fallback'].render({ page: {} });
+  const writePattern = async ({ pat, urn }: any) => {
+    const plain = pattern[pat].render({ page: {} });
+    await Deno.writeTextFile(path.resolve(internal.option.output, urn), plain);
+  };
 
-  await Deno.writeTextFile(path.resolve(internal.option.output, './index.html'), plainDocument);
-  await Deno.writeTextFile(path.resolve(internal.option.output, './404.html'), plainFallback);
+  await writePattern({ pat: 'page:fallback', urn: './404.html' });
+  await writePattern({ pat: 'page:document', urn: './index.html' });
+  await writePattern({ pat: 'pwa-file:webmanifest', urn: './index.webmanifest' });
+  await writePattern({ pat: 'pwa-file:service-worker', urn: './service-worker.js' });
+  await writePattern({ pat: 'pwa-file:sitemap', urn: './sitemap.xml' });
 };
 
 export default { ...fragment };

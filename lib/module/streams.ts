@@ -1,5 +1,6 @@
 import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 import { readableStreamFromReader } from 'https://deno.land/std@0.132.0/streams/mod.ts';
+import { mime } from 'https://deno.land/x/mimetypes@v1.0.0/mod.ts';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
@@ -11,7 +12,7 @@ fragment.connectedCallback = async ({ output }: any): Promise<void> => {
   internal.option = { output };
   internal.server = Deno.listen({ port: 8080 });
 
-  console.log('File server running on http://localhost:8080/');
+  console.log('\nFile server running on http://localhost:8080/\n');
   for await (const conn of internal.server) internal.handleHttp(conn);
 
   internal.resolveConnected();
@@ -27,44 +28,52 @@ internal.handleHttp = async (conn: Deno.Conn) => {
     const url = new URL(requestEvent.request.url);
     const uri = decodeURIComponent(url.pathname);
 
-    let status = 203;
-    let file = null;
+    let status = 200;
+    let result = null;
 
-    file = await internal.requestFile({ urn: path.resolve(internal.option.output, `./${uri}`) });
+    result = await internal.requestFile({
+      urn: path.resolve(internal.option.output, `./${uri}`),
+    });
 
-    // 404-file
-    if (!file) {
+    // + 404-file
+    if (!result) {
       status = 404;
-      file = await internal.requestFile({ urn: path.resolve(internal.option.output, `./404.html`) });
+      result = await internal.requestFile({
+        urn: path.resolve(internal.option.output, `./404.html`),
+      });
     }
 
-    // 404
-    if (!file) {
-      status = 404;
-      const notFoundResponse = new Response('404 Not Found', { status });
+    // + 404
+    if (!result) {
+      const notFoundResponse = new Response('404 Not Found', { status: 404 });
       await requestEvent.respondWith(notFoundResponse);
+
       return;
     }
 
-    // 203
-    const readableStream = readableStreamFromReader(file);
-    const response = new Response(readableStream, { status: status || 404 });
+    // + 203
+    const readableStream = readableStreamFromReader(result.file);
+    const response = new Response(readableStream, {
+      status,
+      headers: result.type ? { 'content-type': result.type } : {},
+    });
+
     await requestEvent.respondWith(response);
   }
 };
 
 internal.requestFile = async ({ urn }: { urn: string }) => {
-  try {
-    let stat = await Deno.stat(urn);
-    let file = null;
+  const result: { file?: Deno.FsFile; type?: string } = {};
 
-    if (stat.isDirectory) {
-      file = await internal.requestFile({ urn: path.resolve(urn, './index.html') });
-    } else {
-      file = await Deno.open(urn, { read: true });
+  try {
+    if ((await Deno.stat(urn)).isDirectory) {
+      return await internal.requestFile({ urn: path.resolve(urn, './index.html') });
     }
 
-    return file;
+    result.file = await Deno.open(urn, { read: true });
+    result.type = mime.getType(urn);
+
+    return result;
   } catch {
     return null;
   }
