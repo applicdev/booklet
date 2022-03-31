@@ -21,6 +21,7 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
   // + create files
   await internal.createConfigs();
   await internal.createDocuments();
+  await internal.createContents();
 
   internal.resolveConnected();
 };
@@ -42,7 +43,7 @@ This branch is automated with [GitHub Actions][github-actions]. Its content shou
 
 internal.createDocuments = async (): Promise<void> => {
   const writePattern = async ({ pat, urn }: any) => {
-    const plain = pattern[pat].render({ page: {} });
+    const plain = await pattern[pat].render({ page: {} });
     await Deno.writeTextFile(path.resolve(internal.option.output, urn), plain);
   };
 
@@ -51,6 +52,18 @@ internal.createDocuments = async (): Promise<void> => {
   await writePattern({ pat: 'pwa-file:webmanifest', urn: './index.webmanifest' });
   await writePattern({ pat: 'pwa-file:service-worker', urn: './service-worker.js' });
   await writePattern({ pat: 'pwa-file:sitemap', urn: './sitemap.xml' });
+};
+
+internal.createContents = async (): Promise<void> => {
+  // const writePattern = async ({ pat, urn }: any) => {
+  //   const plain = await pattern[pat].render({ page: {} });
+  //   await Deno.writeTextFile(path.resolve(internal.option.output, urn), plain);
+  // };
+  // await writePattern({ pat: 'page:fallback', urn: './404.html' });
+  // await writePattern({ pat: 'page:document', urn: './index.html' });
+  // await writePattern({ pat: 'pwa-file:webmanifest', urn: './index.webmanifest' });
+  // await writePattern({ pat: 'pwa-file:service-worker', urn: './service-worker.js' });
+  // await writePattern({ pat: 'pwa-file:sitemap', urn: './sitemap.xml' });
 };
 
 export default { ...fragment };

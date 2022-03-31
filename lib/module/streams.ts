@@ -1,6 +1,8 @@
-import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 import { readableStreamFromReader } from 'https://deno.land/std@0.132.0/streams/mod.ts';
 import { mime } from 'https://deno.land/x/mimetypes@v1.0.0/mod.ts';
+
+import * as file from 'https://deno.land/std@0.78.0/fs/mod.ts';
+import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};

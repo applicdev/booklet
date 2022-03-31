@@ -1,0 +1,9 @@
+<pre>
+<script>
+  try {
+    document.write(JSON.stringify(JSON.parse('${{ page.content }}'), null, 2))
+  } catch (error) {
+    document.write('err;')
+  }
+</script>
+</pre>

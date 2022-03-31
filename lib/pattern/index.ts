@@ -1,5 +1,4 @@
-import { default as pageDocument } from './page-document.ts';
-import { default as pageFallback } from './page-fallback.ts';
+import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
@@ -7,15 +6,20 @@ const internal: { [prop: string]: any } = {};
 fragment.pattern = {};
 internal.pattern = {};
 
+internal.dir = path.dirname(path.fromFileUrl(import.meta.url));
+console.log({ ...internal });
+
 fragment.pattern['page:document'] = {
-  render: (params: any) => {
-    return pageDocument.render({ ...params, pattern: { ...internal.pattern } });
+  render: async (params: any) => {
+    const plain = await Deno.readTextFile(path.resolve(internal.dir, './page-document.html'));
+    return plain;
   },
 };
 
 fragment.pattern['page:fallback'] = {
-  render: (params: any) => {
-    return pageFallback.render({ ...params, pattern: { ...internal.pattern } });
+  render: async (params: any) => {
+    const plain = await Deno.readTextFile(path.resolve(internal.dir, './page-fallback.html'));
+    return plain;
   },
 };
 
