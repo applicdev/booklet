@@ -3,7 +3,7 @@ import { default as pattern } from '../pattern/index.ts';
 import * as file from 'https://deno.land/std@0.78.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 
-import dirname from 'https://x.nest.land/denoname@0.8.2/mod/dirname.ts';
+// import dirname from 'https://x.nest.land/denoname@0.8.2/mod/dirname.ts';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
@@ -56,8 +56,8 @@ This branch is automated with [GitHub Actions][github-actions]. Its content shou
 
   // + assets
 
-  const __dirname = dirname(import.meta);
-  console.log({ dir: __dirname });
+  // const __dirname = dirname(import.meta);
+  // console.log({ dir: __dirname });
 
   // console.log(getFiles('./'));
   // await Deno.copyFile(
