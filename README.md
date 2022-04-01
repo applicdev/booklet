@@ -13,7 +13,7 @@ A minmal interpreter for converting Markdown repositories into Documents structu
 To work locally, run the following command after [installing Deno][deon:install] to stream a preview over localhost –
 
 ```console
-deno run -A --unstable https://github.com/milotheirself/reader/raw/main/lib/reader-stream.ts
+deno run -A --unstable https://raw.githubusercontent.com/milotheirself/reader/main/lib/reader-stream.ts
 ```
 
 [deon:install]: https://deno.land/manual/getting_started/installation
