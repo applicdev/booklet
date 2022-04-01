@@ -4,7 +4,7 @@ import { resolve } from 'https://deno.land/std@0.132.0/path/mod.ts';
 
 watcher.connectedCallback({
   source: resolve('./'),
-  output: resolve('./.github-pages'),
+  output: resolve('./.github-reader/public'),
 });
 
 watcher.whenConnected().then(async () => {
