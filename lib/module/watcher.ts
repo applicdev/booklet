@@ -64,6 +64,10 @@ internal.createContents = async (): Promise<void> => {
   // await writePattern({ pat: 'pwa-file:webmanifest', urn: './index.webmanifest' });
   // await writePattern({ pat: 'pwa-file:service-worker', urn: './service-worker.js' });
   // await writePattern({ pat: 'pwa-file:sitemap', urn: './sitemap.xml' });
+
+  for await (const dirEntry of Deno.readDir('content')) {
+    console.log(dirEntry);
+  }
 };
 
 export default { ...fragment };

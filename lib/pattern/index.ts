@@ -6,22 +6,16 @@ const internal: { [prop: string]: any } = {};
 fragment.pattern = {};
 internal.pattern = {};
 
-internal.dir = path.dirname(path.fromFileUrl(Deno.mainModule));
-
 fragment.pattern['page:document'] = {
   render: async (params: any) => {
-    const plainUrn = path.resolve(internal.dir, './pattern/page-document.html');
-    console.log('READ', plainUrn);
-    const plain = await Deno.readTextFile(plainUrn);
+    const plain = await (await fetch(new URL('./page-document.html', import.meta.url))).text();
     return plain;
   },
 };
 
 fragment.pattern['page:fallback'] = {
   render: async (params: any) => {
-    const plainUrn = path.resolve(internal.dir, './pattern/page-fallback.html');
-    console.log('READ', plainUrn);
-    const plain = await Deno.readTextFile(plainUrn);
+    const plain = await (await fetch(new URL('./page-fallback.html', import.meta.url))).text();
     return plain;
   },
 };
