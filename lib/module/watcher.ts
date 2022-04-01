@@ -19,9 +19,8 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
   await file.emptyDir(path.resolve(internal.option.output));
 
   // + create files
-  await internal.createConfigs();
-  await internal.createDocuments();
-  await internal.createContents();
+  await internal.createStatics();
+  await internal.createPublics();
 
   internal.resolveConnected();
 };
@@ -30,7 +29,8 @@ fragment.disconnectedCallback = async () => {
   // ...
 };
 
-internal.createConfigs = async (): Promise<void> => {
+internal.createStatics = async (): Promise<void> => {
+  // + configs
   const plainReadme = `
 This branch is automated with [GitHub Actions][github-actions]. Its content should not be manually edited.
 
@@ -39,32 +39,35 @@ This branch is automated with [GitHub Actions][github-actions]. Its content shou
 
   await Deno.writeTextFile(path.resolve(internal.option.output, './README.md'), plainReadme);
   await Deno.writeTextFile(path.resolve(internal.option.output, './.nojekyll'), '');
-};
 
-internal.createDocuments = async (): Promise<void> => {
+  // + files
   const writePattern = async ({ pat, urn }: any) => {
     const plain = await pattern[pat].render({ page: {} });
     await Deno.writeTextFile(path.resolve(internal.option.output, urn), plain);
   };
 
-  await writePattern({ pat: 'page:fallback', urn: './404.html' });
   await writePattern({ pat: 'page:document', urn: './index.html' });
+  await writePattern({ pat: 'page:fallback', urn: './404.html' });
   await writePattern({ pat: 'pwa-file:webmanifest', urn: './index.webmanifest' });
   await writePattern({ pat: 'pwa-file:service-worker', urn: './service-worker.js' });
   await writePattern({ pat: 'pwa-file:sitemap', urn: './sitemap.xml' });
+
+  // + assets
+  const __filename = new URL('', import.meta.url).pathname;
+  // Will contain trailing slash
+  const __dirname = new URL('.', import.meta.url).pathname;
+
+  console.log({ dir: __dirname });
+  console.log({ fil: __filename });
+
+  // console.log(getFiles('./'));
+  // await Deno.copyFile(
+  //   new URL('../pattern/assets', import.meta.url).pathname, //
+  //   path.resolve(internal.option.output, './assets')
+  // );
 };
 
-internal.createContents = async (): Promise<void> => {
-  // const writePattern = async ({ pat, urn }: any) => {
-  //   const plain = await pattern[pat].render({ page: {} });
-  //   await Deno.writeTextFile(path.resolve(internal.option.output, urn), plain);
-  // };
-  // await writePattern({ pat: 'page:fallback', urn: './404.html' });
-  // await writePattern({ pat: 'page:document', urn: './index.html' });
-  // await writePattern({ pat: 'pwa-file:webmanifest', urn: './index.webmanifest' });
-  // await writePattern({ pat: 'pwa-file:service-worker', urn: './service-worker.js' });
-  // await writePattern({ pat: 'pwa-file:sitemap', urn: './sitemap.xml' });
-
+internal.createPublics = async (): Promise<void> => {
   for await (const dirEntry of Deno.readDir('content')) {
     console.log(dirEntry);
   }

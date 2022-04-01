@@ -8,14 +8,14 @@ internal.pattern = {};
 
 fragment.pattern['page:document'] = {
   render: async (params: any) => {
-    const plain = await (await fetch(new URL('./page-document.html', import.meta.url))).text();
+    const plain = await (await fetch(new URL('./document.html', import.meta.url))).text();
     return plain;
   },
 };
 
 fragment.pattern['page:fallback'] = {
   render: async (params: any) => {
-    const plain = await (await fetch(new URL('./page-fallback.html', import.meta.url))).text();
+    const plain = await (await fetch(new URL('./fallback.html', import.meta.url))).text();
     return plain;
   },
 };
