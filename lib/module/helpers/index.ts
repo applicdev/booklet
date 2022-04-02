@@ -19,6 +19,7 @@ const internal: { [prop: string]: any } = {};
 // };
 
 fragment.audit = async (host: string, plain: string): Promise<void> => {
+  if (Deno.env.get('GITHUB_ACTION')) return;
   console.log(Colors.rgb24(host, 0x5674e0), plain);
 };
 
