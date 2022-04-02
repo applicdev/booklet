@@ -1,6 +1,8 @@
-import { default as pattern } from '../pattern/index.ts';
+import { default as publics } from './watcher/watcher-publics.ts';
+import { default as statics } from './watcher/watcher-statics.ts';
 
-import * as file from 'https://deno.land/std@0.78.0/fs/mod.ts';
+import * as style from 'https://deno.land/std@0.132.0/fmt/colors.ts';
+import * as file from 'https://deno.land/std@0.132.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 
 // import dirname from 'https://x.nest.land/denoname@0.8.2/mod/dirname.ts';
@@ -12,18 +14,21 @@ fragment.whenConnected = (): Promise<void> => internal.connect;
 internal.connect = new Promise((res) => (internal.resolveConnected = res));
 
 fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
-  internal.option = { source, output };
+  const option = { source, output };
 
-  // console.log(path.resolve(internal.option.output));
+  const whenChanged = async () => {
+    // + create and clear output folder
+    await file.emptyDir(path.resolve(option.output));
 
-  // + create and clear output folder
-  // await file.ensureDir(path.resolve(internal.option.output));
-  await file.emptyDir(path.resolve(internal.option.output));
+    // + create files
+    await publics.create({ option });
+    await statics.create({ option });
 
-  // + create files
-  await internal.createStatics();
-  await internal.createPublics();
+    console.log(style.rgb24('Watcher', 0x5674e0), 'bundle completed');
+  };
 
+  await whenChanged();
+  internal.watchDirectories({ urn: ['pattern', 'content'], whenChanged });
   internal.resolveConnected();
 };
 
@@ -31,44 +36,17 @@ fragment.disconnectedCallback = async () => {
   // ...
 };
 
-internal.createStatics = async (): Promise<void> => {
-  // + configs
-  const plainReadme = `
-This branch is automated with [GitHub Actions][github-actions]. Its content should not be manually edited.
+internal.watchDirectories = async ({ urn, whenChanged }: any): Promise<void> => {
+  const watcher = Deno.watchFs(urn);
+  let willUpdate = null;
 
-[github-actions]: https://github.com/features/actions
-`;
+  for await (const event of watcher) {
+    if (willUpdate != null) globalThis.clearTimeout(willUpdate);
 
-  await Deno.writeTextFile(path.resolve(internal.option.output, './README.md'), plainReadme);
-  await Deno.writeTextFile(path.resolve(internal.option.output, './.nojekyll'), '');
-
-  // + files
-  const writePattern = async ({ pat, urn }: any) => {
-    const plain = await pattern[pat].render({ page: {} });
-    await Deno.writeTextFile(path.resolve(internal.option.output, urn), plain);
-  };
-
-  await writePattern({ pat: 'page:document', urn: './index.html' });
-  await writePattern({ pat: 'page:fallback', urn: './404.html' });
-  await writePattern({ pat: 'pwa-file:webmanifest', urn: './index.webmanifest' });
-  await writePattern({ pat: 'pwa-file:service-worker', urn: './service-worker.js' });
-  await writePattern({ pat: 'pwa-file:sitemap', urn: './sitemap.xml' });
-
-  // + assets
-
-  // const __dirname = dirname(import.meta);
-  // console.log({ dir: __dirname });
-
-  // console.log(getFiles('./'));
-  // await Deno.copyFile(
-  //   new URL('../pattern/assets', import.meta.url).pathname, //
-  //   path.resolve(internal.option.output, './assets')
-  // );
-};
-
-internal.createPublics = async (): Promise<void> => {
-  for await (const dirEntry of Deno.readDir('content')) {
-    console.log(dirEntry);
+    willUpdate = globalThis.setTimeout(() => {
+      willUpdate = null;
+      whenChanged();
+    }, 1500);
   }
 };
 

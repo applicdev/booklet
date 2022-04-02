@@ -8,5 +8,7 @@ watcher.connectedCallback({
 });
 
 watcher.whenConnected().then(async () => {
-  watcher.disconnectedCallback();
+  await watcher.disconnectedCallback();
+
+  Deno.exit(0);
 });
