@@ -41,7 +41,9 @@ fragment.disconnectedCallback = async () => {
 };
 
 internal.watchDirectories = async ({ urn, whenChanged }: any): Promise<void> => {
-  if (Deno.env.get('GITHUB_ACTION')) return;
+  console.log('CI', Deno.env.get('CI'));
+
+  if (Deno.env.get('CI') != undefined) return;
 
   const watcher = Deno.watchFs(urn);
   let willUpdate = null;
