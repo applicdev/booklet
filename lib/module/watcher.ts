@@ -39,17 +39,20 @@ fragment.disconnectedCallback = async () => {
   // ...
 };
 
-// internal.watchDirectories = async ({ urn, whenChanged }: any): Promise<void> => {
-//   const watcher = Deno.watchFs(urn);
-//   let willUpdate = null;
-//   for await (const event of watcher) {
-//     if (willUpdate != null) clearTimeout(willUpdate);
-//     willUpdate = setTimeout(() => {
-//       willUpdate = null;
-//       whenChanged();
-//     }, 1500);
-//   }
-// };
+internal.watchDirectories = async ({ urn, whenChanged }: any): Promise<void> => {
+  if (Deno.env.get('GITHUB_ACTION')) return;
+
+  const watcher = Deno.watchFs(urn);
+  let willUpdate = null;
+
+  for await (const event of watcher) {
+    if (willUpdate != null) clearTimeout(willUpdate);
+    willUpdate = setTimeout(() => {
+      willUpdate = null;
+      whenChanged();
+    }, 1500);
+  }
+};
 
 internal.readContent = async ({ urn }: any): Promise<any> => {
   return {
