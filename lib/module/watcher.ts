@@ -16,7 +16,8 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
 
   const whenChanged = async () => {
     // + create and clear output folder
-    console.log(path.resolve(option.output));
+    console.log(option.output);
+
     // await file.emptyDir(path.resolve(option.output));
 
     // // + query data
