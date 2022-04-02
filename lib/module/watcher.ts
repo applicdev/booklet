@@ -1,9 +1,9 @@
-// import { default as publics } from './watcher/watcher-publics.ts';
-// import { default as statics } from './watcher/watcher-statics.ts';
-import { default as helpers } from './helpers/index.ts';
+import { default as publics } from './watcher/watcher-publics.ts';
+import { default as statics } from './watcher/watcher-statics.ts';
+// import { default as helpers } from './helpers/index.ts';
 
-// import * as file from 'https://deno.land/std@0.132.0/fs/mod.ts';
-// import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
+import * as file from 'https://deno.land/std@0.132.0/fs/mod.ts';
+import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
@@ -15,17 +15,19 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
   const option = { source, output };
 
   const whenChanged = async () => {
-    //   // + create and clear output folder
-    //   // console.log(option.output);
-    //   // await file.emptyDir(path.resolve(option.output));
-    //   // // + query data
-    //   // const content = await internal.readContent({ urn: 'content' });
-    //   // const pattern = await internal.readPattern({ urn: 'pattern' });
-    //   // // + create files
-    //   // await publics.create({ option, content, pattern });
-    //   // await statics.create({ option, content, pattern });
+    // + create and clear output folder
+    console.log(option.output);
+    await file.emptyDir(path.resolve(option.output));
 
-    helpers.audit('Watcher', 'bundle completed');
+    // + query data
+    const content = await internal.readContent({ urn: 'content' });
+    const pattern = await internal.readPattern({ urn: 'pattern' });
+
+    // + create files
+    await publics.create({ option, content, pattern });
+    await statics.create({ option, content, pattern });
+
+    // helpers.audit('Watcher', 'bundle completed');
     console.log(option);
   };
 
