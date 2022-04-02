@@ -2,7 +2,7 @@ import { default as publics } from './watcher/watcher-publics.ts';
 import { default as statics } from './watcher/watcher-statics.ts';
 import { default as helpers } from './helpers/index.ts';
 
-// import * as file from 'https://deno.land/std@0.132.0/fs/mod.ts';
+import * as file from 'https://deno.land/std@0.132.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 
 const fragment: { [prop: string]: any } = {};
@@ -15,6 +15,7 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
   const option = { source, output };
 
   const whenChanged = async () => {
+    console.log(option);
     // + create and clear output folder
     // await file.emptyDir(path.resolve(option.output));
 
