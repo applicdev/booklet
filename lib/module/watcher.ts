@@ -1,9 +1,9 @@
-// import { default as publics } from './watcher/watcher-publics.ts';
-// import { default as statics } from './watcher/watcher-statics.ts';
-// import { default as helpers } from './helpers/index.ts';
+import { default as publics } from './watcher/watcher-publics.ts';
+import { default as statics } from './watcher/watcher-statics.ts';
+import { default as helpers } from './helpers/index.ts';
 
 // import * as file from 'https://deno.land/std@0.132.0/fs/mod.ts';
-// import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
+import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
@@ -26,13 +26,12 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
     // await publics.create({ option, content, pattern });
     // await statics.create({ option, content, pattern });
 
-    // helpers.audit('Watcher', 'bundle completed');
-    console.log(option);
+    helpers.audit('Watcher', 'bundle completed');
   };
 
   await whenChanged();
 
-  // internal.watchDirectories({ urn: ['pattern', 'content'], whenChanged });
+  internal.watchDirectories({ urn: ['pattern', 'content'], whenChanged });
   internal.resolveConnected();
 };
 
