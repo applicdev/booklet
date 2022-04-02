@@ -18,15 +18,15 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
     console.log(option);
 
     // + create and clear output folder
-    // await file.emptyDir(path.resolve(option.output));
+    await file.emptyDir(path.resolve(option.output));
 
-    // // + query data
-    // const content = await internal.readContent({ urn: 'content' });
-    // const pattern = await internal.readPattern({ urn: 'pattern' });
+    // + query data
+    const content = await internal.readContent({ urn: 'content' });
+    const pattern = await internal.readPattern({ urn: 'pattern' });
 
-    // // + create files
-    // await publics.create({ option, content, pattern });
-    // await statics.create({ option, content, pattern });
+    // + create files
+    await publics.create({ option, content, pattern });
+    await statics.create({ option, content, pattern });
 
     helpers.audit('Watcher', 'bundle completed');
   };
