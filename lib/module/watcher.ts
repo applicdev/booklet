@@ -8,11 +8,12 @@ import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
-fragment.whenConnected = (): Promise<void> => internal.connect;
 internal.connect = new Promise((res) => (internal.resolveConnected = res));
+fragment.whenConnected = (): Promise<void> => internal.connect;
 
 fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
-  const option = { source, output };
+  // const option = { source, output };
+  console.log('connectedCallback');
 
   // const whenChanged = async () => {
   //   // + create and clear output folder
@@ -25,13 +26,13 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
   //   // await publics.create({ option, content, pattern });
   //   // await statics.create({ option, content, pattern });
 
-  helpers.audit('Watcher', 'bundle completed');
+  // helpers.audit('Watcher', 'bundle completed');
   // };
 
   // await whenChanged();
 
   // internal.watchDirectories({ urn: ['pattern', 'content'], whenChanged });
-  internal.resolveConnected();
+  // internal.resolveConnected();
 };
 
 fragment.disconnectedCallback = async () => {

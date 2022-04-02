@@ -9,8 +9,8 @@ import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
-fragment.whenConnected = (): Promise<void> => internal.connect;
 internal.connect = new Promise((res) => (internal.resolveConnected = res));
+fragment.whenConnected = (): Promise<void> => internal.connect;
 
 fragment.connectedCallback = async ({ output }: any): Promise<void> => {
   internal.option = { output };
