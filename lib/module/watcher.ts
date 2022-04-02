@@ -12,32 +12,33 @@ fragment.whenConnected = (): Promise<void> => internal.connect;
 internal.connect = new Promise((res) => (internal.resolveConnected = res));
 
 fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
-  // const option = { source, output };
+  const option = { source, output };
 
-  // const whenChanged = async () => {
-  //   try {
-  //     // + create and clear output folder
-  //     await file.emptyDir(path.resolve(option.output));
+  const whenChanged = async () => {
+    // + create and clear output folder
+    await file.emptyDir(path.resolve(option.output));
 
-  //     // + query data
-  //     const content = await internal.readContent({ urn: 'content' });
-  //     const pattern = await internal.readPattern({ urn: 'pattern' });
+    // // + query data
+    // const content = await internal.readContent({ urn: 'content' });
+    // const pattern = await internal.readPattern({ urn: 'pattern' });
 
-  //     // + create files
-  //     await publics.create({ option, content, pattern });
-  //     await statics.create({ option, content, pattern });
+    // // + create files
+    // await publics.create({ option, content, pattern });
+    // await statics.create({ option, content, pattern });
+  };
 
-  //     helpers.audit('Watcher', 'bundle completed');
-  //   } catch (err) {
-  //     helpers.audit('Watcher', 'bundle faild');
-  //     console.log(err);
-  //     Deno.exit();
-  //   }
-  // };
+  await whenChanged()
+    .then(() => {
+      internal.watchDirectories({ urn: ['pattern', 'content'], whenChanged });
+      internal.resolveConnected();
 
-  // await whenChanged();
-  // internal.watchDirectories({ urn: ['pattern', 'content'], whenChanged });
-  internal.resolveConnected();
+      helpers.audit('Watcher', 'bundle completed');
+    })
+    .catch((err) => {
+      helpers.audit('Watcher', 'bundle faild');
+      console.log(err);
+      Deno.exit();
+    });
 };
 
 fragment.disconnectedCallback = async () => {
