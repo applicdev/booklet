@@ -1,7 +1,8 @@
+import { default as helpers } from './helpers/index.ts';
+
 import { readableStreamFromReader } from 'https://deno.land/std@0.132.0/streams/mod.ts';
 import { mime } from 'https://deno.land/x/mimetypes@v1.0.0/mod.ts';
 
-import * as style from 'https://deno.land/std@0.132.0/fmt/colors.ts';
 import * as file from 'https://deno.land/std@0.132.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 
@@ -15,7 +16,7 @@ fragment.connectedCallback = async ({ output }: any): Promise<void> => {
   internal.option = { output };
   internal.server = Deno.listen({ port: 8080 });
 
-  console.log(style.rgb24('Streams', 0x5674e0), 'server running on http://localhost:8080/');
+  helpers.audit('Streams', 'server running on http://localhost:8080/');
   for await (const conn of internal.server) internal.handleHttp(conn);
 
   internal.resolveConnected();

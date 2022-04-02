@@ -1,7 +1,7 @@
 import { default as publics } from './watcher/watcher-publics.ts';
 import { default as statics } from './watcher/watcher-statics.ts';
+import { default as helpers } from './helpers/index.ts';
 
-import * as style from 'https://deno.land/std@0.132.0/fmt/colors.ts';
 import * as file from 'https://deno.land/std@0.132.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 
@@ -16,15 +16,22 @@ internal.connect = new Promise((res) => (internal.resolveConnected = res));
 fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
   const option = { source, output };
 
+  console.log(Deno.env.get('GITHUB_ACTIONS'));
+  // if (!(await helpers.confirm('Is this the right path?'))) Deno.exit(0);
+
   const whenChanged = async () => {
     // + create and clear output folder
     await file.emptyDir(path.resolve(option.output));
 
-    // + create files
-    await publics.create({ option });
-    await statics.create({ option });
+    // + query data
+    const content = await internal.readContent({ urn: 'content' });
+    const pattern = await internal.readPattern({ urn: 'pattern' });
 
-    console.log(style.rgb24('Watcher', 0x5674e0), 'bundle completed');
+    // + create files
+    await publics.create({ option, content, pattern });
+    await statics.create({ option, content, pattern });
+
+    helpers.audit('Watcher', 'bundle completed');
   };
 
   await whenChanged();
@@ -48,6 +55,13 @@ internal.watchDirectories = async ({ urn, whenChanged }: any): Promise<void> => 
       whenChanged();
     }, 1500);
   }
+};
+
+internal.readContent = async ({ urn }: any): Promise<any> => {
+  // ...
+};
+internal.readPattern = async ({ urn }: any): Promise<any> => {
+  // ...
 };
 
 export default { ...fragment };
