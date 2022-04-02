@@ -2,8 +2,6 @@ import { default as watcher } from './module/watcher.ts';
 
 import { resolve } from 'https://deno.land/std@0.132.0/path/mod.ts';
 
-console.log('CI', Deno.env.get('CI'));
-
 watcher.connectedCallback({
   source: resolve('./'),
   output: resolve('./.github/reader'),
@@ -12,5 +10,5 @@ watcher.connectedCallback({
 watcher.whenConnected().then(async () => {
   await watcher.disconnectedCallback();
 
-  Deno.exit(0);
+  Deno.exit();
 });

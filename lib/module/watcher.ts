@@ -5,8 +5,6 @@ import { default as helpers } from './helpers/index.ts';
 import * as file from 'https://deno.land/std@0.132.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 
-// import dirname from 'https://x.nest.land/denoname@0.8.2/mod/dirname.ts';
-
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
@@ -32,7 +30,7 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
   };
 
   await whenChanged();
-  internal.watchDirectories({ urn: ['pattern', 'content'], whenChanged });
+  // internal.watchDirectories({ urn: ['pattern', 'content'], whenChanged });
   internal.resolveConnected();
 };
 
@@ -40,25 +38,29 @@ fragment.disconnectedCallback = async () => {
   // ...
 };
 
-internal.watchDirectories = async ({ urn, whenChanged }: any): Promise<void> => {
-  const watcher = Deno.watchFs(urn);
-  let willUpdate = null;
+// internal.watchDirectories = async ({ urn, whenChanged }: any): Promise<void> => {
+//   const watcher = Deno.watchFs(urn);
+//   let willUpdate = null;
 
-  for await (const event of watcher) {
-    if (willUpdate != null) clearTimeout(willUpdate);
+//   for await (const event of watcher) {
+//     if (willUpdate != null) clearTimeout(willUpdate);
 
-    willUpdate = setTimeout(() => {
-      willUpdate = null;
-      whenChanged();
-    }, 1500);
-  }
-};
+//     willUpdate = setTimeout(() => {
+//       willUpdate = null;
+//       whenChanged();
+//     }, 1500);
+//   }
+// };
 
 internal.readContent = async ({ urn }: any): Promise<any> => {
-  // ...
+  return {
+    // [...]
+  };
 };
 internal.readPattern = async ({ urn }: any): Promise<any> => {
-  // ...
+  return {
+    // [...]
+  };
 };
 
 export default { ...fragment };
