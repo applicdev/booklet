@@ -16,9 +16,6 @@ internal.connect = new Promise((res) => (internal.resolveConnected = res));
 fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
   const option = { source, output };
 
-  console.log(Deno.env.get('GITHUB_ACTIONS'));
-  // if (!(await helpers.confirm('Is this the right path?'))) Deno.exit(0);
-
   const whenChanged = async () => {
     // + create and clear output folder
     await file.emptyDir(path.resolve(option.output));
