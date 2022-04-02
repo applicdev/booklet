@@ -1,4 +1,4 @@
-import * as Colors from 'https://deno.land/std@0.132.0/fmt/colors.ts';
+// import * as Colors from 'https://deno.land/std@0.132.0/fmt/colors.ts';
 // import Ask from 'https://deno.land/x/ask@1.0.6/mod.ts';
 
 const fragment: { [prop: string]: any } = {};
@@ -19,8 +19,8 @@ const internal: { [prop: string]: any } = {};
 // };
 
 fragment.audit = async (host: string, plain: string): Promise<void> => {
-  if (Deno.env.get('GITHUB_ACTION')) return;
-  console.log(Colors.rgb24(host, 0x5674e0), plain);
+  // console.log(Colors.rgb24(host, 0x5674e0), plain);
+  console.log(host, plain);
 };
 
 export default { ...fragment };
