@@ -1,5 +1,7 @@
 *	text=auto eol=lf 
 
 # linguist overrides 
-*.html -linguist-detectable
 *.css -linguist-detectable
+*.html -linguist-detectable
+*.js -linguist-detectable
+*.json -linguist-detectable

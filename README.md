@@ -1,6 +1,6 @@
 # Markdown Reader
 
-A minmal interpreter for converting Markdown repositories into Documents and structured JSON data.
+A minimal interpreter for converting Markdown repositories into Documents and structured JSON data.
 
 <!--
 ## Disclaimer
@@ -10,7 +10,7 @@ A minmal interpreter for converting Markdown repositories into Documents and str
 
 ## Install and use
 
-To work locally, run the following command after [installing Deno][deon:install] to stream a preview over localhost –
+To work locally, run the following command [after installing Deno][deon:install] to stream a preview over localhost –
 
 ```console
 deno run --allow-read --allow-write --allow-net --unstable --reload https://raw.githubusercontent.com/milotheirself/reader/main/lib/reader-stream.ts
@@ -30,7 +30,7 @@ deno run --allow-read --allow-write --allow-net --unstable --reload https://raw.
     <dt><code>--reload</code></dt>
     <dd>specifies to not use a cached version of the the module</dd>
     <dt><code>https://.../lib/reader-stream.ts</code></dt>
-    <dd>location of the module</dd>
+    <dd>specifies the location of the module</dd>
   </dl>
 </details>
 
