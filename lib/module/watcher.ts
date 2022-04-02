@@ -15,7 +15,7 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
   const option = { source, output };
 
   const whenChanged = async () => {
-    console.log(option);
+    // console.log(option);
 
     // + create and clear output folder
     await file.emptyDir(path.resolve(option.output));
