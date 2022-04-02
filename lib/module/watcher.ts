@@ -41,17 +41,13 @@ fragment.disconnectedCallback = async () => {
 };
 
 internal.watchDirectories = async ({ urn, whenChanged }: any): Promise<void> => {
-  console.log('CI', Deno.env.get('CI'));
-
-  if (Deno.env.get('CI') != undefined) return;
-
   const watcher = Deno.watchFs(urn);
   let willUpdate = null;
 
   for await (const event of watcher) {
-    if (willUpdate != null) globalThis.clearTimeout(willUpdate);
+    if (willUpdate != null) clearTimeout(willUpdate);
 
-    willUpdate = globalThis.setTimeout(() => {
+    willUpdate = setTimeout(() => {
       willUpdate = null;
       whenChanged();
     }, 1500);
