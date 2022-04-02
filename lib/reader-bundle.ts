@@ -12,5 +12,3 @@ watcher.whenConnected().then(async () => {
 
   Deno.exit();
 });
-
-console.log('foo');

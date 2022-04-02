@@ -16,31 +16,22 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
 
   const whenChanged = async () => {
     // + create and clear output folder
-    console.log(option.output);
-
+    // console.log(option.output);
     // await file.emptyDir(path.resolve(option.output));
-
     // // + query data
     // const content = await internal.readContent({ urn: 'content' });
     // const pattern = await internal.readPattern({ urn: 'pattern' });
-
     // // + create files
     // await publics.create({ option, content, pattern });
     // await statics.create({ option, content, pattern });
+
+    helpers.audit('Watcher', 'bundle completed');
   };
 
-  whenChanged()
-    .then(() => {
-      // internal.watchDirectories({ urn: ['pattern', 'content'], whenChanged });
-      internal.resolveConnected();
+  await whenChanged();
 
-      helpers.audit('Watcher', 'bundle completed');
-    })
-    .catch((err) => {
-      helpers.audit('Watcher', 'bundle faild');
-      console.log(err);
-      Deno.exit();
-    });
+  // internal.watchDirectories({ urn: ['pattern', 'content'], whenChanged });
+  internal.resolveConnected();
 };
 
 fragment.disconnectedCallback = async () => {
