@@ -15,8 +15,6 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
   const option = { source, output };
 
   const whenChanged = async () => {
-    // console.log(option);
-
     // + create and clear output folder
     await file.emptyDir(path.resolve(option.output));
 
@@ -28,13 +26,14 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
     await publics.create({ option, content, pattern });
     await statics.create({ option, content, pattern });
 
-    helpers.audit('Watcher', 'bundle completed');
+    helpers.audit('bundle completed', true);
+    helpers.audit(path.resolve(option.output));
   };
 
   await whenChanged();
 
-  internal.watchDirectories({ urn: ['pattern', 'content'], whenChanged });
   internal.resolveConnected();
+  internal.watchDirectories({ urn: ['pattern', 'content'], whenChanged });
 };
 
 fragment.disconnectedCallback = async () => {

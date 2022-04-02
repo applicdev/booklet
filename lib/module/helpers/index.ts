@@ -18,8 +18,8 @@ const internal: { [prop: string]: any } = {};
 //   return !!result.value;
 // };
 
-fragment.audit = async (host: string, plain: string): Promise<void> => {
-  console.log(Colors.rgb24(host, 0x5674e0), plain);
+fragment.audit = async (plain: string, start?: boolean): Promise<void> => {
+  console.log(start ? Colors.green('\ne ') : '+ ', plain);
 };
 
 export default { ...fragment };
