@@ -14,21 +14,21 @@ internal.connect = new Promise((res) => (internal.resolveConnected = res));
 fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
   const option = { source, output };
 
-  const whenChanged = async () => {
-    // + create and clear output folder
-    // console.log(option.output);
-    // await file.emptyDir(path.resolve(option.output));
-    // // + query data
-    // const content = await internal.readContent({ urn: 'content' });
-    // const pattern = await internal.readPattern({ urn: 'pattern' });
-    // // + create files
-    // await publics.create({ option, content, pattern });
-    // await statics.create({ option, content, pattern });
+  // const whenChanged = async () => {
+  //   // + create and clear output folder
+  //   // console.log(option.output);
+  //   // await file.emptyDir(path.resolve(option.output));
+  //   // // + query data
+  //   // const content = await internal.readContent({ urn: 'content' });
+  //   // const pattern = await internal.readPattern({ urn: 'pattern' });
+  //   // // + create files
+  //   // await publics.create({ option, content, pattern });
+  //   // await statics.create({ option, content, pattern });
 
-    helpers.audit('Watcher', 'bundle completed');
-  };
+  helpers.audit('Watcher', 'bundle completed');
+  // };
 
-  await whenChanged();
+  // await whenChanged();
 
   // internal.watchDirectories({ urn: ['pattern', 'content'], whenChanged });
   internal.resolveConnected();
