@@ -33,9 +33,6 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
   await whenChanged();
 
   internal.resolveConnected();
-
-  if (Deno.env.get('GITHUB_ACTION')) return;
-
   internal.watchDirectories({
     urn: [
       path.resolve(option.source, './content'), //
