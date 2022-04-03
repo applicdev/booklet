@@ -1,6 +1,6 @@
 # Markdown Reader
 
-A minimal interpreter for converting Markdown repositories into Documents and structured JSON data.
+A minimal interpreter for converting Markdown repositories into readable documents and structured JSON data.
 
 <!--
 ## Disclaimer
