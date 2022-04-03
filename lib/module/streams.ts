@@ -1,4 +1,4 @@
-import { default as helpers } from './helpers/index.ts';
+import { default as console } from './utils/console.ts';
 
 import { readableStreamFromReader } from 'https://deno.land/std@0.133.0/streams/mod.ts';
 import { mime } from 'https://deno.land/x/mimetypes@v1.0.0/mod.ts';
@@ -16,8 +16,8 @@ fragment.connectedCallback = async ({ output }: any): Promise<void> => {
   internal.option = { output };
   internal.server = Deno.listen({ port: 8080 });
 
-  helpers.audit('local file server active on', true);
-  helpers.audit('http://localhost:8080/');
+  console.audit('local file server active on', true);
+  console.audit('http://localhost:8080/');
 
   for await (const conn of internal.server) internal.handleHttp(conn);
 

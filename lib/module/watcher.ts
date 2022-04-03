@@ -1,6 +1,6 @@
 import { default as publics } from './watcher/watcher-publics.ts';
 import { default as statics } from './watcher/watcher-statics.ts';
-import { default as helpers } from './helpers/index.ts';
+import { default as console } from './utils/console.ts';
 
 import * as file from 'https://deno.land/std@0.133.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.133.0/path/mod.ts';
@@ -12,7 +12,7 @@ internal.connect = new Promise((res) => (internal.resolveConnected = res));
 fragment.whenConnected = (): Promise<void> => internal.connect;
 
 fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
-  const option = { source, output };
+  const option: any = { source, output };
 
   const whenChanged = async () => {
     // + create and clear output folder
@@ -26,32 +26,39 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
     await publics.create({ option, content, pattern });
     await statics.create({ option, content, pattern });
 
-    helpers.audit('bundle completed', true);
-    helpers.audit(path.resolve(option.output));
+    console.audit('bundle completed', true);
+    console.audit(path.resolve(option.output));
   };
 
   await whenChanged();
 
   internal.resolveConnected();
-  internal.watchDirectories({ urn: ['pattern', 'content'], whenChanged });
+
+  if (Deno.env.get('GITHUB_ACTION')) return;
+
+  internal.watchDirectories({
+    urn: [
+      path.resolve(option.source, './content'), //
+      path.resolve(option.source, './pattern'),
+    ],
+    whenChanged,
+  });
 };
 
 fragment.disconnectedCallback = async () => {
-  // ...
+  internal.watcher.close();
 };
 
 internal.watchDirectories = async ({ urn, whenChanged }: any): Promise<void> => {
-  if (Deno.env.get('GITHUB_ACTION')) return;
-
-  const watcher = Deno.watchFs(urn);
+  internal.watcher = Deno.watchFs(urn);
   let willUpdate = null;
 
-  for await (const event of watcher) {
+  for await (const event of internal.watcher) {
     if (willUpdate != null) clearTimeout(willUpdate);
     willUpdate = setTimeout(() => {
       willUpdate = null;
       whenChanged();
-    }, 1500);
+    }, 500);
   }
 };
 
