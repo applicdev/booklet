@@ -16,8 +16,7 @@ fragment.connectedCallback = async ({ output }: any): Promise<void> => {
   internal.option = { output };
   internal.server = Deno.listen({ port: 8080 });
 
-  console.audit('local file server active on', true);
-  console.audit('http://localhost:8080/');
+  console.info('Server active on http://localhost:8080/');
 
   for await (const conn of internal.server) internal.handleHttp(conn);
 

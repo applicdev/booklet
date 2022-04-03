@@ -26,8 +26,7 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
     await publics.create({ option, content, pattern });
     await statics.create({ option, content, pattern });
 
-    console.audit('bundle completed', true);
-    console.audit(path.resolve(option.output));
+    console.info('Bundle completed');
   };
 
   await whenChanged();
