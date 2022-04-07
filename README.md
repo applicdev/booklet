@@ -10,13 +10,13 @@ A minimal interpreter for converting Markdown repositories into readable documen
 
 ## Install and use
 
-To work locally, run the following command [after installing Deno][deon:install] to stream a preview over localhost –
+Reader is made with Deno. To work locally, run the install with following command [after installing Deno][deon:install] –
 
 ```console
-deno run --allow-read --allow-write --allow-net --unstable --reload https://raw.githubusercontent.com/milotheirself/reader/main/lib/reader-stream.ts
+deno install --allow-read --allow-write --allow-net --unstable --reload -f -n deno-reader https://raw.githubusercontent.com/milotheirself/reader/main/lib/reader.ts
 ```
 
-<details>
+<!-- <details>
   <summary>command breakdown</summary>
   <dl>
     <dt><code>deno run</code></dt>
@@ -32,6 +32,23 @@ deno run --allow-read --allow-write --allow-net --unstable --reload https://raw.
     <dt><code>https://.../lib/reader-stream.ts</code></dt>
     <dd>specifies the location of the module</dd>
   </dl>
-</details>
+</details> -->
 
+Navigate to your project's directory and run the following command to stream a preview server on localhost –
+
+```console
+deno-reader --stream
+```
+
+<!-- <details>
+  <summary>command breakdown</summary>
+  <dl>
+    <dt><code>deno-reader</code></dt>
+    <dd>runs the Reader module with Deno when installed</dd>
+    <dt><code>--stream</code></dt>
+    <dd>specifies to build, stream and listen for file changes</dd>
+  </dl>
+</details> -->
+
+[deon:install-reader]: https://github.com/milotheirself/reader
 [deon:install]: https://deno.land/manual/getting_started/installation

@@ -7,4 +7,8 @@ fragment.info = async (plain: string): Promise<void> => {
   console.log(Colors.gray('[INFO]'), Colors.gray(plain));
 };
 
+console.info = async (plain: string): Promise<void> => {
+  console.log(Colors.gray('i '), Colors.gray(plain));
+};
+
 export default { ...fragment };

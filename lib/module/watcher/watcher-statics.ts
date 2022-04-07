@@ -21,6 +21,8 @@ This branch is automated with [GitHub Actions][github-actions]. Its content shou
   const writePattern = async ({ pat, urn }: any) => {
     const plain = await pattern[pat].render({ page: {} });
     await Deno.writeTextFile(path.resolve(option.output, urn), plain);
+
+    console.log('✔ ', 'Wrote ', urn);
   };
 
   await writePattern({ pat: 'page:document', urn: './index.html' });

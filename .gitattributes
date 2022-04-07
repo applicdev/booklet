@@ -1,6 +1,5 @@
 *	text=auto eol=lf 
 
-# linguist overrides 
 *.css -linguist-detectable
 *.html -linguist-detectable
 *.js -linguist-detectable

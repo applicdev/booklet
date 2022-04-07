@@ -20,13 +20,13 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
 
     // + query data
     const content = await internal.readContent({ urn: 'content' });
-    const pattern = await internal.readPattern({ urn: 'pattern' });
+    const pattern = await internal.readPattern({ urn: 'lib/pattern' });
 
     // + create files
     await publics.create({ option, content, pattern });
     await statics.create({ option, content, pattern });
 
-    console.info('Bundle completed');
+    console.info(`Bundle completed!`);
   };
 
   await whenChanged();
@@ -35,7 +35,7 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
   internal.watchDirectories({
     urn: [
       path.resolve(option.source, './content'), //
-      path.resolve(option.source, './pattern'),
+      path.resolve(option.source, './lib'),
     ],
     whenChanged,
   });
