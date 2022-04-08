@@ -13,7 +13,7 @@ A lightweight bundler for transforming Markdown repositories into readable docum
 Reader is made with Deno. To work locally, run the install with following command [after installing Deno][deon:install] –
 
 ```console
-deno install --allow-read --allow-write --allow-net --unstable --reload -f -n deno-reader https://raw.githubusercontent.com/milotheirself/reader/main/lib/reader.ts
+deno install --allow-read --allow-write --allow-net --unstable --reload -f -n markdown-reader https://raw.githubusercontent.com/milotheirself/reader/main/lib/reader.ts
 ```
 
 <!-- <details>
@@ -37,7 +37,7 @@ deno install --allow-read --allow-write --allow-net --unstable --reload -f -n de
 Navigate to your project's directory and run the following command to stream a preview on localhost –
 
 ```console
-deno-reader --stream
+markdown-reader --stream
 ```
 
 <!-- <details>
