@@ -8,7 +8,7 @@ export function initialize({ source, output }: { source: string; output: string 
     streams.connectedCallback({ output });
 
     // ---
-    // TODO: run disconnected on deno close
+    // FIXME: find a better implementationl; disconnected has to run on deno close
     // streams.disconnectedCallback();
     // watcher.disconnectedCallback();
     // ---
