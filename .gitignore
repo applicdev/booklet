@@ -1,10 +1,12 @@
-# ~ dependencies and compiled output
-node_modules
-result
+.DS_Store
 
-# ~ environment
+*.draft.*
+*.notes.*
+*out
+
+.obsidian
+.trash
 .env
 
-# ~ misc
-.DS_Store
-npm-debug.log
+node_modules
+package-lock.json

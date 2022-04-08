@@ -22,7 +22,8 @@ This branch is automated with [GitHub Actions][github-actions]. Its content shou
     const plain = await pattern[pat].render({ page: {} });
     await Deno.writeTextFile(path.resolve(option.output, urn), plain);
 
-    console.log('✔ ', 'Wrote ', urn);
+    const wrote = path.resolve(option.output, urn).replace(path.resolve('.'), '');
+    console.log('✔ ', `Wrote ${wrote.replace('\\', '').replaceAll('\\', '/')}`);
   };
 
   await writePattern({ pat: 'page:document', urn: './index.html' });

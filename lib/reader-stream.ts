@@ -1,18 +1,16 @@
 import { default as watcher } from './module/watcher.ts';
 import { default as streams } from './module/streams.ts';
 
-import { resolve } from 'https://deno.land/std@0.132.0/path/mod.ts';
+export function initialize({ source, output }: { source: string; output: string }): void {
+  watcher.connectedCallback({ source, output, listen: true });
 
-watcher.connectedCallback({
-  source: resolve('./'),
-  output: resolve('./.github/reader'),
-});
+  watcher.whenConnected().then(async () => {
+    streams.connectedCallback({ output });
 
-watcher.whenConnected().then(async () => {
-  streams.connectedCallback({
-    output: resolve('./.github/reader'),
+    // ---
+    // TODO: run disconnected on deno close
+    // streams.disconnectedCallback();
+    // watcher.disconnectedCallback();
+    // ---
   });
-
-  // streams.disconnectedCallback();
-  // watcher.disconnectedCallback();
-});
+}

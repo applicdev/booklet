@@ -11,8 +11,8 @@ const internal: { [prop: string]: any } = {};
 internal.connect = new Promise((res) => (internal.resolveConnected = res));
 fragment.whenConnected = (): Promise<void> => internal.connect;
 
-fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
-  const option: any = { source, output };
+fragment.connectedCallback = async ({ source, output, listen }: any): Promise<void> => {
+  const option: any = { source, output, listen };
 
   const whenChanged = async () => {
     // + create and clear output folder
@@ -32,6 +32,10 @@ fragment.connectedCallback = async ({ source, output }: any): Promise<void> => {
   await whenChanged();
 
   internal.resolveConnected();
+
+  // + listen for changes in the source directory; when requested
+  if (!option.listen) return;
+
   internal.watchDirectories({
     urn: [
       path.resolve(option.source, './content'), //
