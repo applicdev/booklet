@@ -34,7 +34,7 @@ deno install --allow-read --allow-write --allow-net --unstable --reload -f -n de
   </dl>
 </details> -->
 
-Navigate to your project's directory and run the following command to stream a preview server on localhost –
+Navigate to your project's directory and run the following command to stream a preview on localhost –
 
 ```console
 deno-reader --stream
