@@ -1,6 +1,6 @@
 # Markdown Reader
 
-📖 A lightweight Markdown bundler for transforming repositories into readable documents and structured JSON data –
+A lightweight Markdown bundler for transforming repositories into readable documents and structured JSON data –
 
 <!--
 ## Disclaimer
