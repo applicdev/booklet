@@ -46,7 +46,7 @@ fragment.connectedCallback = async ({ source, output, listen }: any): Promise<vo
 };
 
 fragment.disconnectedCallback = async () => {
-  internal.watcher.close();
+  if (internal.watcher) internal.watcher.close();
 };
 
 internal.watchDirectories = async ({ urn, whenChanged }: any): Promise<void> => {
