@@ -8,14 +8,14 @@ internal.pattern = {};
 
 fragment.pattern['page:document'] = {
   render: async (params: any) => {
-    const plain = await (await fetch(new URL('./document.html', import.meta.url))).text();
+    const plain = await (await fetch(new URL('./document.html', import.meta.url) as any)).text();
     return plain;
   },
 };
 
 fragment.pattern['page:fallback'] = {
   render: async (params: any) => {
-    const plain = await (await fetch(new URL('./fallback.html', import.meta.url))).text();
+    const plain = await (await fetch(new URL('./fallback.html', import.meta.url) as any)).text();
     return plain;
   },
 };
@@ -74,7 +74,26 @@ fragment.pattern['pwa-file:service-worker'] = {
 
 fragment.pattern['pwa-file:webmanifest'] = {
   render: ({ page }: any) => `
-  
+    {
+      "short_name": "{{ page.label }}",
+      "name": "{{ page.title }}",
+      "icons": [
+        {
+          "src": "{{ page.figure.192w }}",
+          "sizes": "192x192",
+          "type": "image/png"
+        },
+        {
+          "src": "{{ page.figure.512w }}",
+          "sizes": "512x512",
+          "type": "image/png"
+        }
+      ],
+      "start_url": ".",
+      "display": "standalone",
+      "theme_color": "#f6f6f6",
+      "background_color": "#f6f6f6"
+    }
   `,
 };
 

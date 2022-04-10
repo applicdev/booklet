@@ -1,4 +1,5 @@
 import { default as pattern } from '../../pattern/index.ts';
+import { default as console } from '../utils/console.ts';
 
 import * as file from 'https://deno.land/std@0.78.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
@@ -23,7 +24,7 @@ This branch is automated with [GitHub Actions][github-actions]. Its content shou
     await Deno.writeTextFile(path.resolve(option.output, urn), plain);
 
     const wrote = path.resolve(option.output, urn).replace(path.resolve('.'), '');
-    console.log('✔ ', `Wrote ${wrote.replace('\\', '').replaceAll('\\', '/')}`);
+    console.done('Wrote', `${wrote.replace('\\', '').replaceAll('\\', '/')}`);
   };
 
   await writePattern({ pat: 'page:document', urn: './index.html' });

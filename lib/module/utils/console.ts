@@ -7,8 +7,11 @@ fragment.info = async (plain: string): Promise<void> => {
   console.log(Colors.gray('[INFO]'), Colors.gray(plain));
 };
 
-console.info = async (plain: string): Promise<void> => {
-  console.log(Colors.gray('i '), Colors.gray(plain));
+fragment.done = async (plain: string, state: string): Promise<void> => {
+  console.log(Colors.green('✔ '), plain, Colors.bold(state));
+};
+fragment.warn = async (plain: string, state: string): Promise<void> => {
+  console.log(Colors.red('✘ '), plain, Colors.bold(state));
 };
 
 export default { ...fragment };
