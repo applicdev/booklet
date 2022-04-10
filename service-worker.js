@@ -1,5 +1,5 @@
 
-    const PRECACHE = `1649436419800`;
+    const PRECACHE = `1649578580978`;
     const RUNTIME = 'runtime';
 
     const PRECACHE_URLS = [

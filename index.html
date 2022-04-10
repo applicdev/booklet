@@ -6,7 +6,6 @@
     <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport" />
 
     <!---->
-    <link rel="preconnect" href="https://applic.dev" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <!---->
@@ -47,23 +46,23 @@
     <!---->
 
     <!---->
-    {{ page.loads_inline }}
+    {{ page.module_inline }}
     <!---->
   </head>
 
   <body>
     <!---->
     <reader-bounds>
-      <reader-document-wireframe>
-        <!---->
-        <div class="body-node unresolved-scrim"></div>
-        <!---->
-      </reader-document-wireframe>
+      {{ page.append }}
+
+      <!---->
+      <div class="body-node unresolved-scrim"></div>
+      <!---->
     </reader-bounds>
     <!---->
 
     <!---->
-    {{ page.loads }}
+    {{ page.module }}
     <!---->
 
     <!---->
