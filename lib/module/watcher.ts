@@ -47,6 +47,9 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
     ...(await internal.readPattern({ urn: 'lib/pattern' })),
   };
 
+  console.log({ content });
+  console.log({ pattern });
+
   // + create files
   await publics.create({ option, content, pattern });
   await statics.create({ option, content, pattern });
