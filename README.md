@@ -10,7 +10,7 @@ A lightweight bundler for transforming Markdown repositories into readable docum
 
 ## Install and use
 
-To work locally, get [Deno][deon:install], 1.20.5 or higher, and run the following install command –
+To work locally, get the most recent version of [Deno][deon:install] and execute the following install command –
 
 ```console
 deno install --unstable --allow-read --allow-write --allow-net --reload -f --name markdown-reader https://raw.githubusercontent.com/milotheirself/reader/main/lib/reader.ts
