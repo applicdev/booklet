@@ -9,22 +9,30 @@ import * as path from 'https://deno.land/std@0.134.0/path/mod.ts';
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
+// === instantiation
+
 internal.connect = new Promise((res) => (internal.resolveConnected = res));
 fragment.whenConnected = (): Promise<void> => internal.connect;
 
 fragment.connectedCallback = async ({ output }: any): Promise<void> => {
   internal.option = { output };
-  internal.server = Deno.listen({ port: 8080 });
 
-  console.info('Server active on http://localhost:8080/');
-
-  for await (const conn of internal.server) internal.handleHttp(conn);
-
+  await internal.create();
   internal.resolveConnected();
 };
 
 fragment.disconnectedCallback = async () => {
   internal.server.close();
+};
+
+// === behaviour
+
+internal.create = async function () {
+  internal.server = Deno.listen({ port: 8080 });
+
+  console.info('Server active on http://localhost:8080/');
+
+  for await (const conn of internal.server) internal.handleHttp(conn);
 };
 
 internal.handleHttp = async (conn: Deno.Conn) => {

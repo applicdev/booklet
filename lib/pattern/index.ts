@@ -75,8 +75,11 @@ fragment.pattern['pwa-file:service-worker'] = {
 fragment.pattern['pwa-file:webmanifest'] = {
   render: ({ page }: any) => `
     {
+      "start_url": ".",
+
       "short_name": "{{ page.label }}",
       "name": "{{ page.title }}",
+
       "icons": [
         {
           "src": "{{ page.figure.192w }}",
@@ -89,8 +92,12 @@ fragment.pattern['pwa-file:webmanifest'] = {
           "type": "image/png"
         }
       ],
-      "start_url": ".",
+
+      "launch_handler": { "route_to": "new-client" },
+
       "display": "standalone",
+      "display_override": ["window-controls-overlay"],
+
       "theme_color": "#f6f6f6",
       "background_color": "#f6f6f6"
     }

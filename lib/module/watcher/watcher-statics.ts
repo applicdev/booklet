@@ -1,5 +1,5 @@
 import { default as pattern } from '../../pattern/index.ts';
-import { default as console } from '../utils/console.ts';
+import { default as console } from '../commons/console.ts';
 
 import * as file from 'https://deno.land/std@0.78.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
