@@ -93,8 +93,12 @@ internal.readContent = async ({ dir }: any): Promise<any> => {
   const state: any = {};
 
   for (const fil of files) {
+    const stats = await Deno.stat(fil.urn);
+
     state[fil.urn] = fil;
     state[fil.urn].plain = await Deno.readTextFile(fil.urn);
+    state[fil.urn].changed = stats.mtime;
+    state[fil.urn].created = stats.birthtime;
   }
 
   return { ...state };
