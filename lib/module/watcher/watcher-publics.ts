@@ -26,38 +26,50 @@ fragment.create = async ({ option, content, pattern }: any): Promise<void> => {
 };
 
 internal.createParsed = ({ ent, parsed }: any) => {
-  const resultText = ({ typ, fal }: { typ: string; fal: string }) => {
-    return parsed[typ] && typeof parsed[typ] === 'string' ? parsed[typ] : fal;
-  };
+  const result: {
+    changed?: Date;
+    created?: Date;
+    title?: string;
+    label?: string;
 
-  const resultDate = ({ typ }: { typ: string }) => {
-    const entDate = new Date(ent[typ]);
-    const parDate = new Date(parsed[typ]);
+    field?: { [prop: string]: any };
+    content?: string;
 
-    if (parDate.toString() !== 'Invalid Date') return parDate;
-    else return entDate;
-  };
+    module?: string[];
+    module_inline?: string[];
+  } = {};
 
-  const result = {
-    // ? search parameters
-    changed: resultDate({ typ: 'changed' }),
-    created: resultDate({ typ: 'created' }),
+  // ? search parameters
+  result.changed = internal.isolateDate({ typ: 'changed', ent, parsed });
+  result.created = internal.isolateDate({ typ: 'created', ent, parsed });
+  result.title = internal.isolateText({ typ: 'title', fal: ent.name, parsed });
+  result.label = internal.isolateText({ typ: 'label', fal: result.title });
 
-    title: resultText({ typ: 'title', fal: ent.name }),
-    label: resultText({ typ: 'label', fal: resultText({ typ: 'title', fal: ent.name }) }),
+  // ? custom parameters and markdown contents as html-plain
+  result.field = parsed.field && typeof parsed.field === 'object' ? { ...parsed.field } : {};
+  result.content = parsed.content || '';
 
-    // ? custom parameters
-    field: parsed.field && typeof parsed.field === 'object' ? { ...parsed.field } : {},
-
-    // ? markdown contents as html-plain
-    content: parsed.content || '',
-  };
+  // ? typescript imports
+  result.module = [...parsed.module] || [];
+  result.module_inline = [...parsed.module_inline] || [];
 
   console.log({ parsed });
   console.log({ result });
   console.log('---');
 
   return result;
+};
+
+internal.isolateText = ({ typ, fal, parsed }: any) => {
+  return parsed[typ] && typeof parsed[typ] === 'string' ? parsed[typ] : fal;
+};
+
+internal.isolateDate = ({ typ, ent, parsed }: any) => {
+  const entDate = new Date(ent[typ]);
+  const parDate = new Date(parsed[typ]);
+
+  if (parDate.toString() !== 'Invalid Date') return parDate;
+  else return entDate;
 };
 
 export default { ...fragment };
