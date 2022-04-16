@@ -11,14 +11,14 @@
     <!---->
 
     <!---->
-    <title>{{ page.title }}</title>
-    <meta content="{{ page.field.caption }}" name="description" />
-    <meta content="{{ page.field.keyword }}" name="keywords" />
+    <title>{{ parsed.title }}</title>
+    <meta content="{{ parsed.field.caption }}" name="description" />
+    <meta content="{{ parsed.field.keyword }}" name="keywords" />
     <!---->
 
     <!---->
-    <link href="{{ page.figure.48w }}" rel="icon" />
-    <link href="{{ page.figure.192w }}" rel="apple-touch-icon" />
+    <link href="{{ parsed.figure.48w }}" rel="icon" />
+    <link href="{{ parsed.figure.192w }}" rel="apple-touch-icon" />
     <!---->
 
     <!---->
@@ -30,10 +30,10 @@
 
     <!---->
     <meta content="en-NL" property="og:locale" />
-    <meta content="{{ page.image.512w }}" property="og:image" />
-    <meta content="{{ page.title }}" property="og:title" />
-    <meta content="{{ page.url }}" property="og:url" />
-    <meta content="{{ page.field.caption }}" property="og:description" />
+    <meta content="{{ parsed.image.512w }}" property="og:image" />
+    <meta content="{{ parsed.title }}" property="og:title" />
+    <meta content="{{ parsed.url }}" property="og:url" />
+    <meta content="{{ parsed.field.caption }}" property="og:description" />
     <meta content="summary_large_image" property="twitter:card" />
     <!---->
 
@@ -42,18 +42,18 @@
     <!---->
 
     <!---->
-    {{ page.style_inline }}
+    {{ parsed.style_inline }}
     <!---->
 
     <!---->
-    {{ page.module_inline }}
+    {{ parsed.module_inline }}
     <!---->
   </head>
 
   <body>
     <!---->
     <reader-bounds>
-      {{ page.append }}
+      {{ parsed.append }}
 
       <!---->
       <div class="body-node unresolved-scrim"></div>
@@ -62,11 +62,11 @@
     <!---->
 
     <!---->
-    {{ page.module }}
+    {{ parsed.module }}
     <!---->
 
     <!---->
-    <template>{{ page.content }}</template>
+    <template>{{ parsed.content }}</template>
     <!---->
   </body>
 </html>

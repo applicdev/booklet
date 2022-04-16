@@ -7,5 +7,5 @@ label: Markdown Reader
 
 field:
   caption: A lightweight bundler for transforming Markdown repositories into readable documents and structured JSON data –
-  keyword: Milo, Reader, Markdown, MD, JSON, HTML
+  keyword: Reader, Markdown, MD, JSON, HTML
 ---

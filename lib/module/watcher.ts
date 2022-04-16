@@ -1,6 +1,5 @@
-import { default as publics } from './watcher/watcher-publics.ts';
-import { default as statics } from './watcher/watcher-statics.ts';
-import { default as utilsConsole } from './utils/console.ts';
+import { default as snippet } from './snippet/index.ts';
+import { default as watcher } from './watcher/index.ts';
 
 import * as file from 'https://deno.land/std@0.134.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.134.0/path/mod.ts';
@@ -31,7 +30,7 @@ fragment.connectedCallback = async ({ source, output, listen }: any): Promise<vo
 };
 
 fragment.disconnectedCallback = async () => {
-  if (internal.watcher) internal.watcher.close();
+  if (internal.fileObserver) internal.fileObserver.close();
 };
 
 internal.whenChanged = async ({ source, output, listen }: any): Promise<void> => {
@@ -41,27 +40,24 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
   await file.emptyDir(path.resolve(option.output));
 
   // + query data
-  const content = await internal.readContent({ urn: 'content' });
-  const pattern = {
-    ...(await internal.readPattern({ urn: 'lib/pattern' })),
-    ...(await internal.readPattern({ urn: 'lib/pattern' })),
-  };
+  const content = await internal.readContent({ dir: path.resolve('./content') });
+  const pattern = await internal.readPattern({ dir: path.resolve('./lib/pattern') });
 
-  console.log({ content });
-  console.log({ pattern });
+  // console.log({ content });
+  // console.log({ pattern });
 
   // + create files
-  await publics.create({ option, content, pattern });
-  await statics.create({ option, content, pattern });
+  await watcher.publics.create({ option, content, pattern });
+  await watcher.statics.create({ option, content, pattern });
 
-  utilsConsole.info(`Bundle completed!`);
+  snippet.out.info(`Bundle completed!`);
 };
 
 internal.watchDirectories = async ({ urn, whenChanged }: any): Promise<void> => {
-  internal.watcher = Deno.watchFs(urn);
+  internal.fileObserver = Deno.watchFs(urn);
   let willUpdate = null;
 
-  for await (const event of internal.watcher) {
+  for await (const event of internal.fileObserver) {
     if (willUpdate != null) clearTimeout(willUpdate);
 
     willUpdate = setTimeout(() => {
@@ -71,13 +67,40 @@ internal.watchDirectories = async ({ urn, whenChanged }: any): Promise<void> => 
   }
 };
 
-internal.readContent = async ({ urn }: any): Promise<any> => {
-  return {
-    // [...]
-  };
+internal.readAll = async ({ dir, match }: any): Promise<string[]> => {
+  const files: any[] = [];
+
+  for await (const dirEntry of Deno.readDir(dir)) {
+    const urn = path.resolve(dir, `./${dirEntry.name}`);
+
+    if (dirEntry.isFile) {
+      if (!match || match(dirEntry))
+        files.push({
+          dir: dir,
+          urn: urn,
+          name: dirEntry.name,
+        });
+    } else {
+      for (const ent of await internal.readAll({ dir: urn, match })) files.push(ent);
+    }
+  }
+
+  return files;
 };
 
-internal.readPattern = async ({ urn }: any): Promise<any> => {
+internal.readContent = async ({ dir }: any): Promise<any> => {
+  const files: any = await internal.readAll({ dir, match: (ent: any) => ent.name.endsWith('.md') });
+  const state: any = {};
+
+  for (const fil of files) {
+    state[fil.urn] = fil;
+    state[fil.urn].plain = await Deno.readTextFile(fil.urn);
+  }
+
+  return { ...state };
+};
+
+internal.readPattern = async ({ dir }: any): Promise<any> => {
   return {
     // [...]
   };

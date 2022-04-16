@@ -1,4 +1,4 @@
-import { default as console } from './utils/console.ts';
+import { default as snippet } from './snippet/index.ts';
 
 import { readableStreamFromReader } from 'https://deno.land/std@0.134.0/streams/mod.ts';
 import { mime } from 'https://deno.land/x/mimetypes@v1.0.0/mod.ts';
@@ -30,7 +30,7 @@ fragment.disconnectedCallback = async () => {
 internal.create = async function () {
   internal.server = Deno.listen({ port: 8080 });
 
-  console.info('Server active on http://localhost:8080/');
+  snippet.out.info('Server active on http://localhost:8080/');
 
   for await (const conn of internal.server) internal.handleHttp(conn);
 };
