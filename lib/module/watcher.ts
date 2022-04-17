@@ -7,6 +7,8 @@ import * as path from 'https://deno.land/std@0.134.0/path/mod.ts';
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
+// === instantiation
+
 internal.connect = new Promise((res) => (internal.resolveConnected = res));
 fragment.whenConnected = (): Promise<void> => internal.connect;
 
@@ -32,6 +34,8 @@ fragment.connectedCallback = async ({ source, output, listen }: any): Promise<vo
 fragment.disconnectedCallback = async () => {
   if (internal.fileObserver) internal.fileObserver.close();
 };
+
+// === behaviour
 
 internal.whenChanged = async ({ source, output, listen }: any): Promise<void> => {
   const option: any = { source, output, listen };
