@@ -35,12 +35,10 @@ internal.createParsed = ({ ent, par }: any) => {
     label?: string;
 
     field?: { [prop: string]: any };
-    figure?: { [prop: string]: any };
-    images?: { [prop: string]: any };
     content?: string;
 
-    module?: string[];
-    module_inline?: string[];
+    figure?: { urn: string; role?: 'masked' | 'window' }[];
+    module?: { urn: string; role?: 'inline' }[];
   } = {};
 
   // ? search parameters
@@ -54,18 +52,16 @@ internal.createParsed = ({ ent, par }: any) => {
   result.field = par.field && typeof par.field === 'object' ? { ...par.field } : {};
   result.content = par.content || '';
 
-  // ? images
+  // ? figures and other document images
   // ---
-  // TODO: implement images
-  result.figure = {};
-  result.images = {};
+  // TODO: implement figure scalling
+  result.figure = internal.isolateArray({ typ: 'figure', par });
   // ---
 
   // ? typescript imports
   // ---
   // TODO: implement typscript imports
   result.module = internal.isolateArray({ typ: 'module', par });
-  result.module_inline = internal.isolateArray({ typ: 'module_inline', par });
   // ---
 
   return result;
