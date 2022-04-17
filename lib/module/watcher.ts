@@ -77,19 +77,23 @@ internal.readAll = async ({ dir, match }: any): Promise<string[]> => {
   for await (const dirEntry of Deno.readDir(dir)) {
     const urn = path.resolve(dir, `./${dirEntry.name}`);
 
-    if (dirEntry.isFile) {
-      if (!match || match(dirEntry))
-        files.push({
-          dir: dir,
-          urn: urn,
-          name: dirEntry.name,
-        });
-    } else {
+    // ? traverse directories
+    if (dirEntry.isDirectory) {
       for (const ent of await internal.readAll({ dir: urn, match })) files.push(ent);
+      continue;
+    }
+
+    // ? append matching files
+    if (!match || match(dirEntry)) {
+      files.push({
+        dir: dir,
+        urn: urn,
+        name: dirEntry.name,
+      });
     }
   }
 
-  return [...files];
+  return files;
 };
 
 internal.readContent = async ({ dir }: any): Promise<any> => {
@@ -105,7 +109,7 @@ internal.readContent = async ({ dir }: any): Promise<any> => {
     state[fil.urn].created = stats.birthtime;
   }
 
-  return { ...state };
+  return state;
 };
 
 internal.readPattern = async ({ dir }: any): Promise<any> => {
