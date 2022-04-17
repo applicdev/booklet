@@ -7,7 +7,7 @@ import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
-fragment.create = async ({ option }: any): Promise<void> => {
+fragment.create = async ({ option, content, pattern, publics }: any): Promise<void> => {
   // + configs
   const plainReadme = `
 This branch is automated with [GitHub Actions][github-actions]. Its content should not be manually edited.

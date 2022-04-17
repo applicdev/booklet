@@ -42,15 +42,15 @@ internal.createParsed = ({ ent, par }: any) => {
   result.field = par.field && typeof par.field === 'object' ? { ...par.field } : {};
   result.content = par.content || '';
 
-  // ? figures and other document images
   // ---
   // TODO: implement figure scalling
+  // ? figures and other document images
   result.figure = internal.isolateArray({ typ: 'figure', par });
   // ---
 
-  // ? typescript imports
   // ---
   // TODO: implement typscript imports
+  // ? typescript imports
   result.module = internal.isolateArray({ typ: 'module', par });
   // ---
 
@@ -69,8 +69,7 @@ internal.isolateDate = ({ typ, ent, par }: any) => {
   const entDate = new Date(ent[typ]);
   const parDate = new Date(par[typ]);
 
-  if (parDate.toString() !== 'Invalid Date') return parDate;
-  else return entDate;
+  return parDate.toString() !== 'Invalid Date' ? parDate : entDate;
 };
 
 export default { ...fragment };

@@ -51,8 +51,8 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
   // console.log({ pattern });
 
   // + create files
-  await watcher.publics.create({ option, content, pattern });
-  await watcher.statics.create({ option, content, pattern });
+  const publics = await watcher.publics.create({ option, content, pattern });
+  const statics = await watcher.statics.create({ option, content, pattern, publics });
 
   snippet.out.info(`Bundle completed!`);
 };
@@ -89,7 +89,7 @@ internal.readAll = async ({ dir, match }: any): Promise<string[]> => {
     }
   }
 
-  return files;
+  return [...files];
 };
 
 internal.readContent = async ({ dir }: any): Promise<any> => {
