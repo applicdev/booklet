@@ -4,17 +4,41 @@ const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
 // import * as file from 'https://deno.land/std@0.78.0/fs/mod.ts';
-// import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
+import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 
 fragment.create = async ({ option, content, pattern }: any): Promise<void> => {
+  const mapFiles: any = {};
+  const mapIndex: any = {};
+
   for (const i in content) {
     const result = internal.createParsed({
       ent: content[i],
       par: await snippet.parse.md(content[i].plain),
     });
 
-    console.log(result);
+    const resultHash = await snippet.index.hash(JSON.stringify(result));
+    const resultPublic = result.public.filter((pub: any) => !pub.role);
+
+    mapFiles[resultHash] = { ...result };
+    mapIndex[resultHash] = {
+      // ?
+      changed: result.changed,
+      created: result.created,
+      title: result.title,
+      label: result.label,
+
+      // ?
+      public: resultPublic.length ? resultPublic : null,
+      source: [{ urn: internal.toRelativePath({ urn: content[i].urn }) }],
+    };
   }
+
+  console.log(mapFiles);
+  console.log(mapIndex);
+};
+
+internal.toRelativePath = ({ urn }: any) => {
+  return `.${urn.replace(path.resolve('./'), '').replaceAll('\\', '/')}`;
 };
 
 internal.createParsed = ({ ent, par }: any) => {
@@ -26,6 +50,8 @@ internal.createParsed = ({ ent, par }: any) => {
 
     field?: { [prop: string]: any };
     content?: string;
+
+    public?: { urn: string; role?: 'forward' }[];
 
     figure?: { urn: string; role?: 'masked' | 'window' }[];
     module?: { urn: string; role?: 'inline' }[];
@@ -41,6 +67,9 @@ internal.createParsed = ({ ent, par }: any) => {
   // ? custom parameters and markdown contents as html-plain
   result.field = par.field && typeof par.field === 'object' ? { ...par.field } : {};
   result.content = par.content || '';
+
+  // ? redirects
+  result.public = internal.isolateArray({ typ: 'public', par });
 
   // ---
   // TODO: implement figure scalling

@@ -9,10 +9,14 @@ field:
   caption: A lightweight bundler for transforming Markdown repositories into readable documents and structured JSON data –
   keyword: Reader, Markdown, MD, JSON, HTML
 
+public:
+  - { urn: ./outline/ }
+  - { urn: ./, role: forward }
+
 figure:
-  - { urn: './lib/pattern/assets/figure/document.png' }
-  - { urn: './lib/pattern/assets/figure/document-masked.png', role: masked }
-  - { urn: './lib/pattern/assets/figure/document-window.png', role: window }
+  - { urn: ./lib/pattern/assets/figure/document.png }
+  - { urn: ./lib/pattern/assets/figure/document-masked.png, role: masked }
+  - { urn: ./lib/pattern/assets/figure/document-window.png, role: window }
 
 module:
   - { urn: ./lib/module/my-app.ts }
