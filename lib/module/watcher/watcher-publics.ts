@@ -1,15 +1,17 @@
+import { default as typeset } from '../typeset/index.ts';
 import { default as snippet } from '../snippet/index.ts';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
-// import * as file from 'https://deno.land/std@0.78.0/fs/mod.ts';
+import * as file from 'https://deno.land/std@0.78.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 
 fragment.create = async ({ option, content, pattern }: any): Promise<void> => {
   const inputMap: any = {};
   const indexMap: any = {};
 
+  // + map contents
   for (const i in content) {
     const result = internal.createParsed({
       ent: content[i],
@@ -33,8 +35,26 @@ fragment.create = async ({ option, content, pattern }: any): Promise<void> => {
     };
   }
 
-  console.log(inputMap);
-  console.log(indexMap);
+  // + write directory
+  await file.ensureDir(path.resolve(option.output, `./content/`));
+
+  // + write content outline
+  const plain = new TextEncoder().encode(JSON.stringify(indexMap, null, 2));
+  await Deno.writeFile(path.resolve(option.output, './content.json'), plain);
+
+  const wrote = path.resolve(option.output, './content').replace(path.resolve('.'), '');
+  snippet.out.done('Wrote', `${wrote.replace('\\', '').replaceAll('\\', '/')}`);
+
+  // + map contents
+  for (const i in inputMap) {
+    const plain = new TextEncoder().encode(JSON.stringify(inputMap[i], null, 2));
+    await Deno.writeFile(path.resolve(option.output, `./content/${i}.json`), plain);
+
+    const wrote = path.resolve(option.output, './content').replace(path.resolve('.'), '');
+    snippet.out.done('Wrote', `${wrote.replace('\\', '').replaceAll('\\', '/')}`);
+  }
+  // console.log(inputMap);
+  // console.log(indexMap);
 };
 
 internal.toRelativePath = ({ urn }: any) => {
