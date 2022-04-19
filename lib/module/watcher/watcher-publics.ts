@@ -7,8 +7,8 @@ const internal: { [prop: string]: any } = {};
 import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 
 fragment.create = async ({ option, content, pattern }: any): Promise<void> => {
-  const mapFiles: any = {};
-  const mapIndex: any = {};
+  const inputMap: any = {};
+  const indexMap: any = {};
 
   for (const i in content) {
     const result = internal.createParsed({
@@ -19,8 +19,8 @@ fragment.create = async ({ option, content, pattern }: any): Promise<void> => {
     const resultHash = await snippet.index.hash(JSON.stringify(result));
     const resultPublic = result.public.filter((pub: any) => !pub.role);
 
-    mapFiles[resultHash] = { ...result };
-    mapIndex[resultHash] = {
+    inputMap[resultHash] = { ...result };
+    indexMap[resultHash] = {
       // ?
       changed: result.changed,
       created: result.created,
@@ -33,8 +33,8 @@ fragment.create = async ({ option, content, pattern }: any): Promise<void> => {
     };
   }
 
-  console.log(mapFiles);
-  console.log(mapIndex);
+  console.log(inputMap);
+  console.log(indexMap);
 };
 
 internal.toRelativePath = ({ urn }: any) => {
