@@ -41,7 +41,7 @@ fragment.create = async ({ option, content, pattern }: any): Promise<void> => {
   // + write content outline
   {
     const urn = path.resolve(option.output, `./content.json`);
-    await Deno.writeTextFile(urn, JSON.stringify(indexMap, null, 2));
+    await Deno.writeTextFile(urn, JSON.stringify(indexMap));
 
     // ?
     const wrote = urn //
@@ -55,7 +55,7 @@ fragment.create = async ({ option, content, pattern }: any): Promise<void> => {
   // + map contents
   for (const i in inputMap) {
     const urn = path.resolve(option.output, `./content/${i}.json`);
-    await Deno.writeTextFile(urn, JSON.stringify(inputMap[i], null, 2));
+    await Deno.writeTextFile(urn, JSON.stringify(inputMap[i]));
 
     // ?
     const wrote = urn //
