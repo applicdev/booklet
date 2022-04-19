@@ -39,19 +39,31 @@ fragment.create = async ({ option, content, pattern }: any): Promise<void> => {
   await file.ensureDir(path.resolve(option.output, `./content/`));
 
   // + write content outline
-  const plain = new TextEncoder().encode(JSON.stringify(indexMap, null, 2));
-  await Deno.writeFile(path.resolve(option.output, './content.json'), plain);
+  {
+    const urn = path.resolve(option.output, `./content.json`);
+    await Deno.writeTextFile(urn, JSON.stringify(indexMap, null, 2));
 
-  const wrote = path.resolve(option.output, './content').replace(path.resolve('.'), '');
-  snippet.out.done('Wrote', `${wrote.replace('\\', '').replaceAll('\\', '/')}`);
+    // ?
+    const wrote = urn //
+      .replace(path.resolve('.'), '')
+      .replace('\\', '')
+      .replaceAll('\\', '/');
+
+    snippet.out.done('Wrote', `${wrote}`);
+  }
 
   // + map contents
   for (const i in inputMap) {
-    const plain = new TextEncoder().encode(JSON.stringify(inputMap[i], null, 2));
-    await Deno.writeFile(path.resolve(option.output, `./content/${i}.json`), plain);
+    const urn = path.resolve(option.output, `./content/${i}.json`);
+    await Deno.writeTextFile(urn, JSON.stringify(inputMap[i], null, 2));
 
-    const wrote = path.resolve(option.output, './content').replace(path.resolve('.'), '');
-    snippet.out.done('Wrote', `${wrote.replace('\\', '').replaceAll('\\', '/')}`);
+    // ?
+    const wrote = urn //
+      .replace(path.resolve('.'), '')
+      .replace('\\', '')
+      .replaceAll('\\', '/');
+
+    snippet.out.done('Wrote', `${wrote}`);
   }
   // console.log(inputMap);
   // console.log(indexMap);
