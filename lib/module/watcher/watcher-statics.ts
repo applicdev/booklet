@@ -1,5 +1,5 @@
-import { default as pattern } from '../../pattern/index.ts';
 import { default as snippet } from '../snippet/index.ts';
+import { default as statics } from '../../pattern/index.ts';
 
 import * as file from 'https://deno.land/std@0.78.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
@@ -20,7 +20,7 @@ This branch is automated with [GitHub Actions][github-actions]. Its content shou
 
   // + files
   const writePattern = async ({ pat, urn }: any) => {
-    const plain = await pattern[pat].render({ page: {} });
+    const plain = await statics[pat].render({ page: {} });
     await Deno.writeTextFile(path.resolve(option.output, urn), plain);
 
     const wrote = path.resolve(option.output, urn).replace(path.resolve('.'), '');
@@ -28,9 +28,9 @@ This branch is automated with [GitHub Actions][github-actions]. Its content shou
   };
 
   // await writePattern({ pat: 'page:document', urn: './index.html' });
-  // await writePattern({ pat: 'page:fallback', urn: './404.html' });
+  await writePattern({ pat: 'static:fallback', urn: './404.html' });
   // await writePattern({ pat: 'pwa-file:webmanifest', urn: './index.webmanifest' });
-  // await writePattern({ pat: 'pwa-file:service-worker', urn: './service-worker.js' });
+  await writePattern({ pat: 'static:service-worker', urn: './service-worker.js' });
   // await writePattern({ pat: 'pwa-file:sitemap', urn: './sitemap.xml' });
 };
 

@@ -6,21 +6,21 @@ const internal: { [prop: string]: any } = {};
 fragment.pattern = {};
 internal.pattern = {};
 
-fragment.pattern['page:document'] = {
+fragment.pattern['static:document'] = {
   render: async (params: any) => {
     const plain = await (await fetch(new URL('./document.html', import.meta.url) as any)).text();
     return plain;
   },
 };
 
-fragment.pattern['page:fallback'] = {
+fragment.pattern['static:fallback'] = {
   render: async (params: any) => {
     const plain = await (await fetch(new URL('./fallback.html', import.meta.url) as any)).text();
     return plain;
   },
 };
 
-fragment.pattern['pwa-file:service-worker'] = {
+fragment.pattern['static:service-worker'] = {
   render: ({ page }: any) => `
     const PRECACHE = \`${Date.now()}\`;
     const RUNTIME = 'runtime';
