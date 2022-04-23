@@ -18,9 +18,7 @@ internal.connect = new Promise((res) => (internal.resolveConnected = res));
 fragment.whenConnected = (): Promise<void> => internal.connect;
 
 fragment.connectedCallback = async ({ output, hosted }: InterfaceOption): Promise<void> => {
-  internal.option = {
-    output: output.urn,
-  };
+  internal.option = { output, hosted };
 
   await internal.create();
   internal.resolveConnected();
@@ -41,6 +39,8 @@ internal.create = async function () {
 };
 
 internal.handleHttp = async (conn: Deno.Conn) => {
+  const { output, hosted } = internal.option;
+
   const httpConn = Deno.serveHttp(conn);
   for await (const requestEvent of httpConn) {
     const url = new URL(requestEvent.request.url);
@@ -49,15 +49,17 @@ internal.handleHttp = async (conn: Deno.Conn) => {
     let status = 200;
     let result = null;
 
-    result = await internal.requestFile({
-      urn: path.resolve(internal.option.output.urn, `./${uri}`),
-    });
+    if (uri.startsWith(hosted.path)) {
+      result = await internal.requestFile({
+        urn: path.resolve(output.urn, `./${uri.slice(hosted.path.length)}`),
+      });
+    }
 
     // + 404-file
     if (!result) {
       status = 404;
       result = await internal.requestFile({
-        urn: path.resolve(internal.option.output.urn, `./404.html`),
+        urn: path.resolve(output.urn, `./404.html`),
       });
     }
 
