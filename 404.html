@@ -23,7 +23,7 @@
 
     <!---->
     <script>
-      let shorts = { o: 'outline' };
+      let shorts = { o: 'outline', p: 'people', s: 'search' };
       let params = new URLSearchParams(globalThis.location.search).get(`redirect`) || ``;
       let active = globalThis.location.pathname.split(`/`).slice(1);
       let target = '';
@@ -49,10 +49,16 @@
           break;
 
         // ? trusted fallback when root path was not resolvable or
-        //   redirect down ".../foo/boo/" to ".../foo/?redirect=/boo/"
+        case active.length == 0:
+          {
+            target = 'https://applic.dev/manual/reader/fallback-page';
+          }
+          break;
+
+        // ? redirect down ".../foo/boo/" to ".../foo/?redirect=/boo/"
         default:
           {
-            let rout = `/${active.pop()}${params}`;
+            let rout = `/${active.pop()}${params || ''}`;
             let path = `/${active.join(`/`)}?redirect=${rout}`;
 
             target = `${path}`;
