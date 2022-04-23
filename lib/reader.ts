@@ -1,19 +1,59 @@
-import Input from 'https://deno.land/x/input@2.0.3/index.ts';
-import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
+import './module/typeset/index.ts';
 
-// + path check
-if (Deno.args.indexOf('--force') == -1 && Deno.args.indexOf('-f') == -1) {
+import Input from 'https://deno.land/x/input@2.0.3/index.ts';
+
+import * as file from 'https://deno.land/std@0.132.0/fs/mod.ts';
+import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
+import * as flag from 'https://deno.land/std@0.132.0/flags/mod.ts';
+
+const optionInterface = flag.parse(Deno.args);
+const option: InterfaceOption = {
+  source: { urn: path.resolve('./') },
+  output: { urn: path.resolve('./.github/workflows-out') },
+  hosted: {
+    // ? ckeck public path
+    path: await (async () => {
+      let path =
+        'p' in optionInterface
+          ? (optionInterface['p'] as string | boolean | undefined) //
+          : (optionInterface['public-path'] as string | boolean | undefined);
+
+      // ? when not path; try to use the repo name
+      if (path === true) {
+        try {
+          const cmd = Deno.run({
+            cmd: ['git', 'config', '--get', 'remote.origin.url'],
+            stdout: 'piped',
+            stderr: 'piped',
+          });
+
+          const output = await cmd.output();
+          const outStr = new TextDecoder().decode(output);
+
+          if (!outStr.endsWith('github.io.git')) {
+            path = outStr.split('/').pop()?.replace('.git', '');
+          }
+        } catch (err) {}
+      }
+
+      // ---
+      // FIXME: better validate the path interface option
+      if (!path || typeof path != 'string') path = '';
+      return `/${path.replace(/[^a-zA-Z0-9-_]/g, '')}/`.replace(/\/\//g, '/');
+      // ---
+    })(),
+  },
+};
+
+// ? check work directory
+if (!('f' in optionInterface || 'force' in optionInterface)) {
   console.log(`You're about to initialize a reader project in this directory:\n\n${path.resolve()}\n\n`);
 
-  const input = new Input();
-  await input.wait();
+  await new Input().wait();
 }
 
-// + run reader bundle and stream
-const urn = Deno.args.indexOf('--stream') != -1 ? './reader-stream.ts' : './reader-bundle.ts';
-const mod = await import(urn);
+// ? initialize bundle or bundle and stream
+const workerUrn = 'stream' in optionInterface ? './reader-stream.ts' : './reader-bundle.ts';
+const worker = await import(workerUrn);
 
-mod.initialize({
-  source: path.resolve('./'),
-  output: path.resolve('./.github/workflows-out'),
-});
+worker.initialize({ ...option });

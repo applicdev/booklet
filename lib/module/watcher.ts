@@ -24,8 +24,8 @@ fragment.connectedCallback = async ({ source, output, listen }: any): Promise<vo
 
   internal.watchDirectories({
     urn: [
-      path.resolve(option.source, './content'), //
-      path.resolve(option.source, './lib'),
+      path.resolve(option.source.urn, './content'), //
+      path.resolve(option.source.urn, './lib'),
     ],
     whenChanged: internal.whenChanged.bind(null, { ...option }),
   });
@@ -41,7 +41,7 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
   const option: any = { source, output, listen };
 
   // + create and clear output folder
-  await file.emptyDir(path.resolve(option.output));
+  await file.emptyDir(path.resolve(option.output.urn));
 
   // + query data
   const content = await internal.readContent({ dir: path.resolve('./content') });

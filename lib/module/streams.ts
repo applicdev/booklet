@@ -1,4 +1,7 @@
+import './typeset/index.ts';
+
 import { default as snippet } from './snippet/index.ts';
+import { default as bundles } from './snippet/index.ts';
 
 import { readableStreamFromReader } from 'https://deno.land/std@0.134.0/streams/mod.ts';
 import { mime } from 'https://deno.land/x/mimetypes@v1.0.0/mod.ts';
@@ -14,8 +17,10 @@ const internal: { [prop: string]: any } = {};
 internal.connect = new Promise((res) => (internal.resolveConnected = res));
 fragment.whenConnected = (): Promise<void> => internal.connect;
 
-fragment.connectedCallback = async ({ output }: any): Promise<void> => {
-  internal.option = { output };
+fragment.connectedCallback = async ({ output, hosted }: InterfaceOption): Promise<void> => {
+  internal.option = {
+    output: output.urn,
+  };
 
   await internal.create();
   internal.resolveConnected();
@@ -45,14 +50,14 @@ internal.handleHttp = async (conn: Deno.Conn) => {
     let result = null;
 
     result = await internal.requestFile({
-      urn: path.resolve(internal.option.output, `./${uri}`),
+      urn: path.resolve(internal.option.output.urn, `./${uri}`),
     });
 
     // + 404-file
     if (!result) {
       status = 404;
       result = await internal.requestFile({
-        urn: path.resolve(internal.option.output, `./404.html`),
+        urn: path.resolve(internal.option.output.urn, `./404.html`),
       });
     }
 
@@ -64,7 +69,7 @@ internal.handleHttp = async (conn: Deno.Conn) => {
       return;
     }
 
-    // + 203
+    // + 200
     const readableStream = readableStreamFromReader(result.file);
     const response = new Response(readableStream, {
       status,
@@ -80,7 +85,9 @@ internal.requestFile = async ({ urn }: { urn: string }) => {
 
   try {
     if ((await Deno.stat(urn)).isDirectory) {
-      return await internal.requestFile({ urn: path.resolve(urn, './index.html') });
+      return await internal.requestFile({
+        urn: path.resolve(urn, './index.html'),
+      });
     }
 
     result.file = await Deno.open(urn, { read: true });

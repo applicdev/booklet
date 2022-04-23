@@ -15,15 +15,15 @@ This branch is automated with [GitHub Actions][github-actions]. Its content shou
 [github-actions]: https://github.com/features/actions
 `;
 
-  await Deno.writeTextFile(path.resolve(option.output, './README.md'), plainReadme);
-  await Deno.writeTextFile(path.resolve(option.output, './.nojekyll'), '');
+  await Deno.writeTextFile(path.resolve(option.output.urn, './README.md'), plainReadme);
+  await Deno.writeTextFile(path.resolve(option.output.urn, './.nojekyll'), '');
 
   // + files
   const writePattern = async ({ pat, urn }: any) => {
     const plain = await statics[pat].render({ page: {} });
-    await Deno.writeTextFile(path.resolve(option.output, urn), plain);
+    await Deno.writeTextFile(path.resolve(option.output.urn, urn), plain);
 
-    const wrote = path.resolve(option.output, urn).replace(path.resolve('.'), '');
+    const wrote = path.resolve(option.output.urn, urn).replace(path.resolve('.'), '');
     snippet.out.done('Wrote', `${wrote.replace('\\', '').replaceAll('\\', '/')}`);
   };
 
