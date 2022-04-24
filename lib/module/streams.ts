@@ -36,7 +36,7 @@ internal.create = async function () {
   snippet.out.info('Server active on http://localhost:8080/');
 
   for await (const conn of internal.server) {
-    internal.handleHttp(conn).catch((err: any) => console.log(err));
+    internal.handleHttp(conn).catch((err: Error) => console.log(err));
   }
 };
 
