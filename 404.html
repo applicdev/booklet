@@ -10,15 +10,15 @@
     <!---->
 
     <!---->
-    <link href="{{ parsed.figure.48w }}" rel="icon" />
-    <link href="{{ parsed.figure.192w }}" rel="apple-touch-icon" />
+    <!-- <link href="{{ parsed.figure.48w }}" rel="icon" /> -->
+    <!-- <link href="{{ parsed.figure.192w }}" rel="apple-touch-icon" /> -->
     <!---->
 
     <!---->
     <meta content="#f6f6f6" name="theme-color" />
     <meta content="#f6f6f6" name="theme-color" media="(prefers-color-scheme: light)" />
     <meta content="#171b22" name="theme-color" media="(prefers-color-scheme: dark)" />
-    <link href="/index.webmanifest" rel="manifest" />
+    <!-- <link href="/index.webmanifest" rel="manifest" /> -->
     <!---->
 
     <!---->
@@ -48,14 +48,17 @@
           }
           break;
 
-        // ? trusted fallback when root path was not resolvable or
+        // ? trusted fallback when root path was not resolvable
         case active.length == 0:
           {
-            target = 'https://applic.dev/manual/reader/fallback-page';
+            let rout = `${params || ''}`;
+            let host = `${location.hostname}`;
+
+            target = `https://applic.dev/manual/reader/fallback-page?redirect=${rout}&redirect-origin=${host}`;
           }
           break;
 
-        // ? redirect down ".../foo/boo/" to ".../foo/?redirect=/boo/"
+        // ? redirect down ".../foo/boo/" to ".../foo?redirect=/boo/"
         default:
           {
             let rout = `/${active.pop()}${params || ''}`;
@@ -70,10 +73,4 @@
     </script>
     <!---->
   </head>
-
-  <body>
-    <!---->
-    <p>Please <a href="/">click here</a>, if you do not get redirected automatically.</p>
-    <!---->
-  </body>
 </html>
