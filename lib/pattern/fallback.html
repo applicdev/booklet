@@ -63,9 +63,9 @@
         default:
           {
             let rout = `/${active.pop()}${params || ''}`;
-            let path = `/${active.join(`/`)}?redirect=${rout}`;
+            let path = `/${active.join(`/`)}`;
 
-            target = `${path}`;
+            target = `${path}?redirect=${rout}`;
           }
           break;
       }
