@@ -53,8 +53,9 @@
           {
             let rout = `${params || ''}`;
             let host = `${location.hostname}`;
+            let path = `applic.dev/manual/reader/fallback-page`;
 
-            target = `https://applic.dev/manual/reader/fallback-page?redirect=${rout}&redirect-origin=${host}`;
+            target = `https://${path}?redirect=${rout}&redirect-origin=${host}`;
           }
           break;
 
@@ -62,9 +63,9 @@
         default:
           {
             let rout = `/${active.pop()}${params || ''}`;
-            let path = `/${active.join(`/`)}?redirect=${rout}`;
+            let path = `/${active.join(`/`)}`;
 
-            target = `${path}`;
+            target = `${path}?redirect=${rout}`;
           }
           break;
       }
