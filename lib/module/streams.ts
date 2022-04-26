@@ -30,10 +30,12 @@ fragment.disconnectedCallback = async () => {
 
 // === behaviour
 
-internal.create = async function () {
+internal.create = async () => {
+  const { output, hosted } = internal.option;
+
   internal.server = Deno.listen({ port: 8080 });
 
-  snippet.out.info('Server active on http://localhost:8080/');
+  snippet.out.info(`Server active on http://localhost:8080${hosted.path}`);
 
   for await (const conn of internal.server) {
     internal.handleHttp(conn).catch((err: Error) => console.log(err));

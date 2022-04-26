@@ -11,15 +11,15 @@ const option: InterfaceOption = {
   source: { urn: path.resolve('./') },
   output: { urn: path.resolve('./.github/workflows-out') },
   hosted: {
-    // ? ckeck public path
+    // ? create public path
     path: await (async () => {
       let path =
         'p' in optionInterface
-          ? (optionInterface['p'] as string | boolean | undefined) //
-          : (optionInterface['public-path'] as string | boolean | undefined);
+          ? (optionInterface['p'] as any) //
+          : (optionInterface['public-path'] as any);
 
       // ? when not path; try to use the repo name
-      if (path === true) {
+      if (!!path && path === true) {
         try {
           const cmd = Deno.run({
             cmd: ['git', 'config', '--get', 'remote.origin.url'],
@@ -38,7 +38,7 @@ const option: InterfaceOption = {
 
       // ---
       // FIXME: better validate the path interface option
-      if (!path || typeof path != 'string') path = '';
+      if (!path || path instanceof String) path = '';
       return `/${path.replace(/[^a-zA-Z0-9-_]/g, '')}/`.replace(/\/\//g, '/');
       // ---
     })(),
