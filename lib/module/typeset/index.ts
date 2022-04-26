@@ -1,23 +1,25 @@
+// === interface
+
 type InterfaceOption = {
   source: { urn: string; listen?: boolean };
   output: { urn: string };
   hosted: { path: string };
 };
 
-type InterfaceMarkdownYaml = {
-  [prop: string]: {
-    changed?: Date;
-    created?: Date;
-    title?: string;
-    label?: string;
+type InterfaceMarkdownOption = {
+  changed?: Date;
+  created?: Date;
+  title?: string;
+  label?: string;
 
-    field?: { [prop: string]: any };
+  field?: { [prop: string]: any };
 
-    public?: { urn: string; role?: 'forward' }[];
-    figure?: { urn: string; role?: 'masked' | 'window' }[];
-    module?: { urn: string; role?: 'inline' }[];
-  };
+  public?: { urn: string; role?: 'forward' }[];
+  figure?: { urn: string; role?: 'masked' | 'window' }[];
+  module?: { urn: string; role?: 'inline' }[];
 };
+
+// === outputs
 
 type OutputContentIndex = {
   [prop: string]: {
@@ -32,18 +34,16 @@ type OutputContentIndex = {
 };
 
 type OutputContentOption = {
-  [prop: string]: {
-    changed: Date;
-    created: Date;
-    title: string;
-    label: string;
+  changed: Date;
+  created: Date;
+  title: string;
+  label: string;
 
-    field: { [prop: string]: any };
+  field: { [prop: string]: any };
 
-    content: string;
+  content: string;
 
-    public: { urn: string; role?: 'forward' }[];
-    figure: { urn: string; role?: 'masked' | 'window' }[];
-    module: { urn: string; role?: 'inline' }[];
-  };
+  public: { urn: string; role?: 'forward' }[];
+  figure: { urn: string; role?: 'masked' | 'window' }[];
+  module: { urn: string; role?: 'inline' }[];
 };
