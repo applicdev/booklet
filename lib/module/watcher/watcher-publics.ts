@@ -26,6 +26,7 @@ fragment.create = async ({ option, content, pattern }: any): Promise<void> => {
       // ?
       changed: result.changed,
       created: result.created,
+
       title: result.title,
       label: result.label,
 
