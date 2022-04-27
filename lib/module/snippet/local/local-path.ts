@@ -6,7 +6,7 @@ const internal: { [prop: string]: any } = {};
 fragment.create = ({ urn }: { urn: string }) => {
   return urn //
     .replace(path.resolve('.'), '')
-    .replace('\\', '')
+    .slice(1)
     .replaceAll('\\', '/');
 };
 
