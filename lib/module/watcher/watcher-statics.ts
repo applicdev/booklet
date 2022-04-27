@@ -8,23 +8,21 @@ const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
 fragment.create = async ({ option, content, pattern, publics }: any): Promise<void> => {
-  // + configs
-  const plainReadme = `
+  await snippet.write.text({ urn: path.resolve(option.output.urn, './.nojekyll'), val: '' });
+  await snippet.write.text({
+    urn: path.resolve(option.output.urn, './README.md'),
+    val: `
 This branch is automated with [GitHub Actions][github-actions]. Its content should not be manually edited.
 
-[github-actions]: https://github.com/features/actions
-`;
+[github-actions]: https://github.com/features/actions  
+    `,
+  });
 
-  await Deno.writeTextFile(path.resolve(option.output.urn, './README.md'), plainReadme);
-  await Deno.writeTextFile(path.resolve(option.output.urn, './.nojekyll'), '');
-
-  // + files
   const writePattern = async ({ pat, urn }: any) => {
-    const plain = await statics[pat].render({ page: {} });
-    await Deno.writeTextFile(path.resolve(option.output.urn, urn), plain);
-
-    const wrote = path.resolve(option.output.urn, urn).replace(path.resolve('.'), '');
-    snippet.out.done('Wrote', `${wrote.replace('\\', '').replaceAll('\\', '/')}`);
+    await snippet.write.text({
+      urn: path.resolve(option.output.urn, urn), //
+      val: await statics[pat].render({ page: {} }),
+    });
   };
 
   // await writePattern({ pat: 'page:document', urn: './index.html' });

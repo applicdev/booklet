@@ -9,6 +9,7 @@ import { default as parseMD } from './parse/parse-markdown.ts';
 import { default as writeGzip } from './write/write-gzip.ts';
 import { default as writeHash } from './write/write-hash.ts';
 import { default as writeJson } from './write/write-json.ts';
+import { default as writeText } from './write/write-text.ts';
 
 export default {
   out,
@@ -26,6 +27,7 @@ export default {
     gzip: writeGzip.compress,
     hash: writeHash.create,
     json: writeJson.create,
+    text: writeText.create,
   },
 
   parse: {
