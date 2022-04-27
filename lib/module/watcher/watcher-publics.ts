@@ -18,7 +18,7 @@ fragment.create = async ({ option, content, pattern }: any): Promise<void> => {
       par: await snippet.parse.md(content[i].plain),
     });
 
-    const resultHash = await snippet.index.hash(JSON.stringify(result));
+    const resultHash = await snippet.write.hash(JSON.stringify(result));
     const resultPublic = result.public.filter((pub: any) => !pub.role);
 
     inputMap[resultHash] = { ...result };
@@ -37,37 +37,20 @@ fragment.create = async ({ option, content, pattern }: any): Promise<void> => {
   }
 
   // + write directory
-  await file.ensureDir(path.resolve(option.output.urn, `./content/`));
+  await file.ensureDir(path.resolve(option.output.urn, `./assets/`));
 
   // + write content outline
   {
-    const urn = path.resolve(option.output.urn, `./content.json`);
-    await Deno.writeTextFile(urn, JSON.stringify(indexMap));
-
-    // ?
-    const wrote = urn //
-      .replace(path.resolve('.'), '')
-      .replace('\\', '')
-      .replaceAll('\\', '/');
-
-    snippet.out.done('Wrote', `${wrote}`);
+    const i = await snippet.write.hash(JSON.stringify(indexMap));
+    const urn = path.resolve(option.output.urn, `./assets/${i}.json`);
+    await snippet.write.json({ urn, val: indexMap });
   }
 
   // + map contents
   for (const i in inputMap) {
-    const urn = path.resolve(option.output.urn, `./content/${i}.json`);
-    await Deno.writeTextFile(urn, JSON.stringify(inputMap[i]));
-
-    // ?
-    const wrote = urn //
-      .replace(path.resolve('.'), '')
-      .replace('\\', '')
-      .replaceAll('\\', '/');
-
-    snippet.out.done('Wrote', `${wrote}`);
+    const urn = path.resolve(option.output.urn, `./assets/${i}.json`);
+    await snippet.write.json({ urn, val: inputMap[i] });
   }
-  // console.log(inputMap);
-  // console.log(indexMap);
 };
 
 internal.toRelativePath = ({ urn }: any) => {
