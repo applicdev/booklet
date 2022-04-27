@@ -1,1 +1,71 @@
-"<!DOCTYPE html>\n<html lang=\"en-NL\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta content=\"noarchive, notranslate, noindex\" name=\"robots\" />\n    <meta content=\"width=device-width, initial-scale=1, user-scalable=no\" name=\"viewport\" />\n\n    <!---->\n    <title>&#65279;</title>\n    <!---->\n\n    <!---->\n    <meta content=\"#f6f6f6\" name=\"theme-color\" />\n    <meta content=\"#f6f6f6\" name=\"theme-color\" media=\"(prefers-color-scheme: light)\" />\n    <meta content=\"#171b22\" name=\"theme-color\" media=\"(prefers-color-scheme: dark)\" />\n    <!---->\n\n    <!---->\n    <script>\n      let shorts = { o: 'outline', p: 'people', s: 'search' };\n      let params = new URLSearchParams(globalThis.location.search).get(`redirect`) || ``;\n      let active = globalThis.location.pathname.split(`/`).slice(1);\n      let target = '';\n\n      if (active[active.length - 1] == ``) active.pop();\n\n      switch (true) {\n        // ? try \"/o/foo/boo[/][?redirect=...]\" to \"/outline/foo/boo[/][?redirect=...]\"\n        case active[0] in shorts:\n          {\n            active[0] = shorts[active[0]];\n            let path = `/${active.join(`/`)}`;\n            target = params == `` ? `${path}` : `${path}?redirect=${params}`;\n          }\n          break;\n\n        // ? try \".../foo/boo[?redirect=...]\" to \".../foo/boo/[?redirect=...]\"\n        case !globalThis.location.pathname.endsWith(`/`):\n          {\n            let path = `/${active.join(`/`)}`;\n            target = params == `` ? `${path}/` : `${path}/?redirect=${params}`;\n          }\n          break;\n\n        // ? trusted fallback when root path was not resolvable\n        case active.length == 0:\n          {\n            let rout = `${params || ''}`;\n            let host = `${location.hostname}`;\n            let path = `applic.dev/manual/reader/fallback-page`;\n\n            target = `https://${path}?redirect=${rout}&redirect-origin=${host}`;\n          }\n          break;\n\n        // ? redirect down \".../foo/boo/\" to \".../foo?redirect=/boo/\"\n        default:\n          {\n            let rout = `/${active.pop()}${params || ''}`;\n            let path = `/${active.join(`/`)}`;\n\n            target = `${path}?redirect=${rout}`;\n          }\n          break;\n      }\n\n      globalThis.location.replace(target);\n    </script>\n    <!---->\n  </head>\n</html>\n"
+<!DOCTYPE html>
+<html lang="en-NL">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="noarchive, notranslate, noindex" name="robots" />
+    <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport" />
+
+    <!---->
+    <title>&#65279;</title>
+    <!---->
+
+    <!---->
+    <meta content="#f6f6f6" name="theme-color" />
+    <meta content="#f6f6f6" name="theme-color" media="(prefers-color-scheme: light)" />
+    <meta content="#171b22" name="theme-color" media="(prefers-color-scheme: dark)" />
+    <!---->
+
+    <!---->
+    <script>
+      let shorts = { o: 'outline', p: 'people', s: 'search' };
+      let params = new URLSearchParams(globalThis.location.search).get(`redirect`) || ``;
+      let active = globalThis.location.pathname.split(`/`).slice(1);
+      let target = '';
+
+      if (active[active.length - 1] == ``) active.pop();
+
+      switch (true) {
+        // ? try "/o/foo/boo[/][?redirect=...]" to "/outline/foo/boo[/][?redirect=...]"
+        case active[0] in shorts:
+          {
+            active[0] = shorts[active[0]];
+            let path = `/${active.join(`/`)}`;
+            target = params == `` ? `${path}` : `${path}?redirect=${params}`;
+          }
+          break;
+
+        // ? try ".../foo/boo[?redirect=...]" to ".../foo/boo/[?redirect=...]"
+        case !globalThis.location.pathname.endsWith(`/`):
+          {
+            let path = `/${active.join(`/`)}`;
+            target = params == `` ? `${path}/` : `${path}/?redirect=${params}`;
+          }
+          break;
+
+        // ? trusted fallback when root path was not resolvable
+        case active.length == 0:
+          {
+            let rout = `${params || ''}`;
+            let host = `${location.hostname}`;
+            let path = `applic.dev/manual/reader/fallback-page`;
+
+            target = `https://${path}?redirect=${rout}&redirect-origin=${host}`;
+          }
+          break;
+
+        // ? redirect down ".../foo/boo/" to ".../foo?redirect=/boo/"
+        default:
+          {
+            let rout = `/${active.pop()}${params || ''}`;
+            let path = `/${active.join(`/`)}`;
+
+            target = `${path}?redirect=${rout}`;
+          }
+          break;
+      }
+
+      globalThis.location.replace(target);
+    </script>
+    <!---->
+  </head>
+</html>

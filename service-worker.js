@@ -1,1 +1,49 @@
-"\n    const PRECACHE = `1651044144426`;\n    const RUNTIME = 'runtime';\n\n    const PRECACHE_URLS = [\n      '/'\n    ];\n\n    self.addEventListener('install', event => {\n      event.waitUntil(\n        caches.open(PRECACHE)\n          .then(cache => cache.addAll(PRECACHE_URLS))\n          .then(self.skipWaiting())\n      );\n    });\n\n    self.addEventListener('activate', event => {\n      const currentCaches = [PRECACHE, RUNTIME];\n      event.waitUntil(\n        caches.keys().then(cacheNames => {\n          return cacheNames.filter(cacheName => !currentCaches.includes(cacheName));\n        }).then(cachesToDelete => {\n          return Promise.all(cachesToDelete.map(cacheToDelete => {\n            return caches.delete(cacheToDelete);\n          }));\n        }).then(() => self.clients.claim())\n      );\n    });\n\n    self.addEventListener('fetch', event => {\n      if (event.request.url.startsWith(self.location.origin)) {\n        event.respondWith(\n          caches.match(event.request).then(cachedResponse => {\n            if (cachedResponse) {\n              return cachedResponse;\n            }\n\n            return caches.open(RUNTIME).then(cache => {\n              return fetch(event.request).then(response => {\n                return cache.put(event.request, response.clone()).then(() => {\n                  return response;\n                });\n              });\n            });\n          })\n        );\n      }\n    });\n  "
+
+    const PRECACHE = `1651045801297`;
+    const RUNTIME = 'runtime';
+
+    const PRECACHE_URLS = [
+      '/'
+    ];
+
+    self.addEventListener('install', event => {
+      event.waitUntil(
+        caches.open(PRECACHE)
+          .then(cache => cache.addAll(PRECACHE_URLS))
+          .then(self.skipWaiting())
+      );
+    });
+
+    self.addEventListener('activate', event => {
+      const currentCaches = [PRECACHE, RUNTIME];
+      event.waitUntil(
+        caches.keys().then(cacheNames => {
+          return cacheNames.filter(cacheName => !currentCaches.includes(cacheName));
+        }).then(cachesToDelete => {
+          return Promise.all(cachesToDelete.map(cacheToDelete => {
+            return caches.delete(cacheToDelete);
+          }));
+        }).then(() => self.clients.claim())
+      );
+    });
+
+    self.addEventListener('fetch', event => {
+      if (event.request.url.startsWith(self.location.origin)) {
+        event.respondWith(
+          caches.match(event.request).then(cachedResponse => {
+            if (cachedResponse) {
+              return cachedResponse;
+            }
+
+            return caches.open(RUNTIME).then(cache => {
+              return fetch(event.request).then(response => {
+                return cache.put(event.request, response.clone()).then(() => {
+                  return response;
+                });
+              });
+            });
+          })
+        );
+      }
+    });
+  
