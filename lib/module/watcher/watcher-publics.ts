@@ -43,13 +43,13 @@ fragment.create = async ({ option, content, pattern }: any): Promise<void> => {
   {
     const i = await snippet.write.hash(JSON.stringify(indexMap));
     const urn = path.resolve(option.output.urn, `./assets/${i}.json`);
-    await snippet.write.json({ urn, val: indexMap });
+    await snippet.write.json({ urn, val: indexMap, zip: true });
   }
 
   // + map contents
   for (const i in inputMap) {
     const urn = path.resolve(option.output.urn, `./assets/${i}.json`);
-    await snippet.write.json({ urn, val: inputMap[i] });
+    await snippet.write.json({ urn, val: inputMap[i], zip: true });
   }
 };
 
