@@ -3,9 +3,9 @@ const internal: { [prop: string]: any } = {};
 
 import { default as snippet } from '../index.ts';
 
-fragment.create = async ({ urn, val }: { urn: string; val: { [prop: string]: any } }): Promise<any> => {
+fragment.create = async ({ urn, val }: { urn: string; val: string }): Promise<any> => {
   const paths = [urn];
-  const plain = JSON.stringify(val);
+  const plain = val;
 
   await Deno.writeTextFile(paths[0], plain);
 
