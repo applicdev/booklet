@@ -34,9 +34,6 @@ fragment.disconnectedCallback = async () => {
 };
 
 internal.whenChanged = async ({ source, output, listen }: any): Promise<void> => {
-  // ? ensure, and clear out contents of, output folder
-  await file.emptyDir(path.resolve(output.urn));
-
   // 🔍 locate work directories
   const locate: any = {};
 
@@ -55,7 +52,10 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
   tasked.fetched = await workers.tasks.fetch({ locate, orderd, tasked });
   // tasked.fetched = await workers.tasks.fetch({ locate, orderd, tasked });
 
-  // // ✏️ write
+  // ✔️ ensure, and clear out contents of, output directory
+  await file.emptyDir(path.resolve(output.urn));
+
+  // // ✏️ write to output directory
   // const writes: any = {};
   // writes.content = await workers.tasks.write({ locate, orderd, tasked });
 
