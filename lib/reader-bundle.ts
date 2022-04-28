@@ -1,3 +1,5 @@
+import './module/typeset/index.ts';
+
 import { default as watcher } from './module/watcher.ts';
 
 export function initialize({ source, output, hosted }: InterfaceOption): void {

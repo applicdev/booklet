@@ -4,7 +4,7 @@ const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
 fragment.create = ({ urn }: { urn: string }) => {
-  return urn.replace(path.resolve('.'), '').slice(1).replaceAll('\\', '/');
+  return urn.replace(path.resolve('./'), '.').replaceAll('\\', '/');
 };
 
 export default { ...fragment };

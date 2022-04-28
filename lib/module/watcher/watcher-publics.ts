@@ -18,7 +18,7 @@ fragment.create = async ({ option, content, pattern }: any): Promise<void> => {
       par: await snippet.parse.md(content[i].plain),
     });
 
-    const resultHash = await snippet.write.hash(JSON.stringify(result));
+    const resultHash = await snippet.write.hash({ val: JSON.stringify(result) });
     const resultPublic = result.public.filter((pub: any) => !pub.role);
 
     inputMap[resultHash] = { ...result };
@@ -41,7 +41,7 @@ fragment.create = async ({ option, content, pattern }: any): Promise<void> => {
 
   // + write content outline
   {
-    const i = await snippet.write.hash(JSON.stringify(indexMap));
+    const i = await snippet.write.hash({ val: JSON.stringify(indexMap) });
     const urn = path.resolve(option.output.urn, `./assets/${i}.json`);
     await snippet.write.json({ urn, val: indexMap, zip: true });
   }

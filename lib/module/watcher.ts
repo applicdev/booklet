@@ -38,21 +38,40 @@ fragment.disconnectedCallback = async () => {
 // === behaviour
 
 internal.whenChanged = async ({ source, output, listen }: any): Promise<void> => {
-  const option: any = { source, output, listen };
+  // const option: any = { source, output, listen };
 
-  // + create and clear output folder
-  await file.emptyDir(path.resolve(option.output.urn));
+  // ? ensure, and clear out contents of, output folder
+  await file.emptyDir(path.resolve(output.urn));
 
-  // + query data
-  const content = await internal.readContent({ dir: path.resolve('./content') });
-  const pattern = await internal.readPattern({ dir: path.resolve('./lib/pattern') });
+  // 1. locate
+  const locate = {
+    pattern: { urn: path.resolve('./lib/pattern') },
+    content: { urn: path.resolve('./content') },
+  };
 
-  // console.log({ content });
-  // console.log({ pattern });
+  console.log({ locate });
 
-  // + create files
-  const publics = await watcher.publics.create({ option, content, pattern });
-  const statics = await watcher.statics.create({ option, content, pattern, publics });
+  // 2. order and index given files
+  const orderd = {
+    pattern: await watcher.order.pattern({ locate }),
+    content: await watcher.order.content({ locate }),
+  };
+
+  // 3.
+
+  console.log({ orderd });
+
+  /// ---
+  // const content = await internal.readContent({ dir: path.resolve('./content') });
+  // const pattern = await internal.readPattern({ dir: path.resolve('./lib/pattern') });
+  //
+  // // console.log({ content });
+  // // console.log({ pattern });
+  //
+  // // + create files
+  // const publics = await watcher.publics.create({ option, content, pattern });
+  // const statics = await watcher.statics.create({ option, content, pattern, publics });
+  /// ---
 
   snippet.out.info(`Bundle completed!`);
 };
@@ -71,51 +90,51 @@ internal.watchDirectories = async ({ urn, whenChanged }: any): Promise<void> => 
   }
 };
 
-internal.readAll = async ({ dir, match }: any): Promise<string[]> => {
-  const files: any[] = [];
+// internal.readAll = async ({ dir, match }: any): Promise<string[]> => {
+//   const files: any[] = [];
 
-  for await (const dirEntry of Deno.readDir(dir)) {
-    const urn = path.resolve(dir, `./${dirEntry.name}`);
+//   for await (const dirEntry of Deno.readDir(dir)) {
+//     const urn = path.resolve(dir, `./${dirEntry.name}`);
 
-    // ? traverse directories
-    if (dirEntry.isDirectory) {
-      for (const ent of await internal.readAll({ dir: urn, match })) files.push(ent);
-      continue;
-    }
+//     // ? traverse directories
+//     if (dirEntry.isDirectory) {
+//       for (const ent of await internal.readAll({ dir: urn, match })) files.push(ent);
+//       continue;
+//     }
 
-    // ? append matching files
-    if (!match || match(dirEntry)) {
-      files.push({
-        dir: dir,
-        urn: urn,
-        name: dirEntry.name,
-      });
-    }
-  }
+//     // ? append matching files
+//     if (!match || match(dirEntry)) {
+//       files.push({
+//         dir: dir,
+//         urn: urn,
+//         name: dirEntry.name,
+//       });
+//     }
+//   }
 
-  return files;
-};
+//   return files;
+// };
 
-internal.readContent = async ({ dir }: any): Promise<any> => {
-  const files: any = await internal.readAll({ dir, match: (ent: any) => ent.name.endsWith('.md') });
-  const state: any = {};
+// internal.readContent = async ({ dir }: any): Promise<any> => {
+//   const files: any = await internal.readAll({ dir, match: (ent: any) => ent.name.endsWith('.md') });
+//   const state: any = {};
 
-  for (const fil of files) {
-    const stats = await Deno.stat(fil.urn);
+//   for (const fil of files) {
+//     const stats = await Deno.stat(fil.urn);
 
-    state[fil.urn] = fil;
-    state[fil.urn].plain = await Deno.readTextFile(fil.urn);
-    state[fil.urn].changed = stats.mtime;
-    state[fil.urn].created = stats.birthtime;
-  }
+//     state[fil.urn] = fil;
+//     state[fil.urn].plain = await Deno.readTextFile(fil.urn);
+//     state[fil.urn].changed = stats.mtime;
+//     state[fil.urn].created = stats.birthtime;
+//   }
 
-  return state;
-};
+//   return state;
+// };
 
-internal.readPattern = async ({ dir }: any): Promise<any> => {
-  return {
-    // [...]
-  };
-};
+// internal.readPattern = async ({ dir }: any): Promise<any> => {
+//   return {
+//     // [...]
+//   };
+// };
 
 export default { ...fragment };
