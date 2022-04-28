@@ -34,19 +34,19 @@ fragment.disconnectedCallback = async () => {
 };
 
 internal.whenChanged = async ({ source, output, listen }: any): Promise<void> => {
-  // 🔍 locate work directories
+  // 🔍 locate the work directories
   const locate: any = {};
 
   locate.pattern = { urn: path.resolve('./lib/pattern') };
   locate.content = { urn: path.resolve('./content') };
 
-  // 🏷️ order and index given files
+  // 🏷️ order relevant files from the work directories
   const orderd: any = {};
 
   orderd.pattern = await workers.order.pattern({ locate });
   orderd.content = await workers.order.content({ locate });
 
-  // 🗂️ tasks
+  // 🗂️ run all interlinked bundle tasks
   const tasked: any = {};
 
   tasked.fetched = await workers.tasks.fetch({ locate, orderd, tasked });
@@ -55,7 +55,7 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
   // ✔️ ensure, and clear out contents of, output directory
   await file.emptyDir(path.resolve(output.urn));
 
-  // // ✏️ write to output directory
+  // ✏️ write to output directory
   // const writes: any = {};
   // writes.content = await workers.tasks.write({ locate, orderd, tasked });
 
@@ -75,52 +75,5 @@ internal.watchDirectories = async ({ urn, whenChanged }: any): Promise<void> => 
     }, 500);
   }
 };
-
-// internal.readAll = async ({ dir, match }: any): Promise<string[]> => {
-//   const files: any[] = [];
-
-//   for await (const dirEntry of Deno.readDir(dir)) {
-//     const urn = path.resolve(dir, `./${dirEntry.name}`);
-
-//     // ? traverse directories
-//     if (dirEntry.isDirectory) {
-//       for (const ent of await internal.readAll({ dir: urn, match })) files.push(ent);
-//       continue;
-//     }
-
-//     // ? append matching files
-//     if (!match || match(dirEntry)) {
-//       files.push({
-//         dir: dir,
-//         urn: urn,
-//         name: dirEntry.name,
-//       });
-//     }
-//   }
-
-//   return files;
-// };
-
-// internal.readContent = async ({ dir }: any): Promise<any> => {
-//   const files: any = await internal.readAll({ dir, match: (ent: any) => ent.name.endsWith('.md') });
-//   const state: any = {};
-
-//   for (const fil of files) {
-//     const stats = await Deno.stat(fil.urn);
-
-//     state[fil.urn] = fil;
-//     state[fil.urn].plain = await Deno.readTextFile(fil.urn);
-//     state[fil.urn].changed = stats.mtime;
-//     state[fil.urn].created = stats.birthtime;
-//   }
-
-//   return state;
-// };
-
-// internal.readPattern = async ({ dir }: any): Promise<any> => {
-//   return {
-//     // [...]
-//   };
-// };
 
 export default { ...fragment };
