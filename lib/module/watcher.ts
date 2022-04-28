@@ -34,8 +34,6 @@ fragment.disconnectedCallback = async () => {
 };
 
 internal.whenChanged = async ({ source, output, listen }: any): Promise<void> => {
-  // const option: any = { source, output, listen };
-
   // ? ensure, and clear out contents of, output folder
   await file.emptyDir(path.resolve(output.urn));
 
@@ -45,17 +43,16 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
     content: { urn: path.resolve('./content') },
   };
 
-  console.log({ locate });
-
   // 2 - order and index given files
-  const orderd = {
-    pattern: await watcher.order.pattern({ locate }),
-    content: await watcher.order.content({ locate }),
-  };
+  const orderd: any = {};
 
-  // 3 -
+  orderd.pattern = await watcher.order.pattern({ locate });
+  orderd.content = await watcher.order.content({ locate });
 
-  console.log({ orderd });
+  // 3 - tasks
+  const tasked: any = {};
+
+  tasked.fetched = await watcher.tasks.fetch({ locate, orderd, tasked });
 
   /// ---
   // const content = await internal.readContent({ dir: path.resolve('./content') });
@@ -68,6 +65,9 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
   // const publics = await watcher.publics.create({ option, content, pattern });
   // const statics = await watcher.statics.create({ option, content, pattern, publics });
   /// ---
+
+  // 4 - write
+  const writes: any = {};
 
   snippet.out.info(`Bundle completed!`);
 };

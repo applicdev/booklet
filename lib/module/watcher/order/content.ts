@@ -12,19 +12,25 @@ fragment.request = async ({ locate }: any) => {
   });
 
   for (const i in filesMap) {
-    const path = await snippet.local.path({ urn: filesMap[i].locate.urn });
-    const hash = await snippet.write.hash({ val: path });
+    const node = await internal.resolve({ node: filesMap[i] });
 
-    result[hash] = {
-      path,
-      hash,
-
-      changed: filesMap[i].changed,
-      created: filesMap[i].created,
-    };
+    result[node.hash] = node;
+    result[node.hash].role = 'content:document';
   }
 
   return { ...result };
+};
+
+internal.resolve = async ({ node }: any) => {
+  const path = await snippet.local.path({ urn: node.locate.urn });
+  const hash = await snippet.write.hash({ val: path });
+
+  return {
+    path,
+    hash,
+    changed: node.changed,
+    created: node.created,
+  };
 };
 
 export default { ...fragment };
