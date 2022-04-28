@@ -53,8 +53,9 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
   const tasked: any = {};
 
   tasked.fetched = await workers.tasks.fetch({ locate, orderd, tasked });
+  // tasked.fetched = await workers.tasks.fetch({ locate, orderd, tasked });
 
-  // ✏️ write
+  // // ✏️ write
   // const writes: any = {};
   // writes.content = await workers.tasks.write({ locate, orderd, tasked });
 
