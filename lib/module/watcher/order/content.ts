@@ -1,15 +1,12 @@
 import { default as snippet } from '../../snippet/index.ts';
 
-import * as file from 'https://deno.land/std@0.134.0/fs/mod.ts';
-import * as path from 'https://deno.land/std@0.134.0/path/mod.ts';
-
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
 fragment.request = async ({ locate }: any) => {
   const result: any = {};
 
-  const filesMap = await internal.readAll({
+  const filesMap = await snippet.fetch.find({
     urn: locate.content.urn, //
     match: (ent: any) => ent.name.endsWith('.md'),
   });
@@ -28,34 +25,6 @@ fragment.request = async ({ locate }: any) => {
   }
 
   return { ...result };
-};
-
-internal.readAll = async ({ urn, match }: any): Promise<string[]> => {
-  const files: any[] = [];
-
-  for await (const dirEntry of Deno.readDir(urn)) {
-    const entryUrn = path.resolve(urn, `./${dirEntry.name}`);
-
-    // ? traverse directories
-    if (dirEntry.isDirectory) {
-      for (const ent of await internal.readAll({ urn: entryUrn, match })) files.push(ent);
-      continue;
-    }
-
-    // ? append matching files
-    if (!match || match(dirEntry)) {
-      const entryState = await Deno.stat(entryUrn);
-
-      files.push({
-        locate: { urn: entryUrn },
-
-        changed: entryState.mtime,
-        created: entryState.birthtime,
-      });
-    }
-  }
-
-  return files;
 };
 
 export default { ...fragment };

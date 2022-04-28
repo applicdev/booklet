@@ -1,5 +1,7 @@
 import { default as out } from './console-output.ts';
 
+import { default as fetchFind } from './fetch/fetch-find.ts';
+
 import { default as localDate } from './local/local-date.ts';
 import { default as localPath } from './local/local-path.ts';
 
@@ -20,6 +22,7 @@ export default {
   },
 
   fetch: {
+    find: fetchFind.request,
     gzip: writeGzip.decompress,
   },
 

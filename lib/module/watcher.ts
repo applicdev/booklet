@@ -7,19 +7,17 @@ import * as path from 'https://deno.land/std@0.134.0/path/mod.ts';
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
-// === instantiation
-
 internal.connect = new Promise((res) => (internal.resolveConnected = res));
 fragment.whenConnected = (): Promise<void> => internal.connect;
 
 fragment.connectedCallback = async ({ source, output, listen }: any): Promise<void> => {
   const option: any = { source, output, listen };
 
-  // + bundle once
+  // ? bundle once
   await internal.whenChanged({ ...option });
   internal.resolveConnected();
 
-  // + listen for changes in the source directory; when requested
+  // ? listen for changes in the source directory; when requested
   if (!listen) return;
 
   internal.watchDirectories({
@@ -35,15 +33,13 @@ fragment.disconnectedCallback = async () => {
   if (internal.fileObserver) internal.fileObserver.close();
 };
 
-// === behaviour
-
 internal.whenChanged = async ({ source, output, listen }: any): Promise<void> => {
   // const option: any = { source, output, listen };
 
   // ? ensure, and clear out contents of, output folder
   await file.emptyDir(path.resolve(output.urn));
 
-  // 1. locate
+  // 1 - locate work directories
   const locate = {
     pattern: { urn: path.resolve('./lib/pattern') },
     content: { urn: path.resolve('./content') },
@@ -51,13 +47,13 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
 
   console.log({ locate });
 
-  // 2. order and index given files
+  // 2 - order and index given files
   const orderd = {
     pattern: await watcher.order.pattern({ locate }),
     content: await watcher.order.content({ locate }),
   };
 
-  // 3.
+  // 3 -
 
   console.log({ orderd });
 
