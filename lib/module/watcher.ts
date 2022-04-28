@@ -1,5 +1,5 @@
 import { default as snippet } from './snippet/index.ts';
-import { default as watcher } from './watcher/index.ts';
+import { default as workers } from './workers/index.ts';
 
 import * as file from 'https://deno.land/std@0.134.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.134.0/path/mod.ts';
@@ -17,7 +17,7 @@ fragment.connectedCallback = async ({ source, output, listen }: any): Promise<vo
   await internal.whenChanged({ ...option });
   internal.resolveConnected();
 
-  // ? listen for changes in the source directory; when requested
+  // ? sync bundle for changes in the source directory; when requested
   if (!listen) return;
 
   internal.watchDirectories({
@@ -37,37 +37,26 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
   // ? ensure, and clear out contents of, output folder
   await file.emptyDir(path.resolve(output.urn));
 
-  // 1 - locate work directories
-  const locate = {
-    pattern: { urn: path.resolve('./lib/pattern') },
-    content: { urn: path.resolve('./content') },
-  };
+  // 🔍 locate work directories
+  const locate: any = {};
 
-  // 2 - order and index given files
+  locate.pattern = { urn: path.resolve('./lib/pattern') };
+  locate.content = { urn: path.resolve('./content') };
+
+  // 🏷️ order and index given files
   const orderd: any = {};
 
-  orderd.pattern = await watcher.order.pattern({ locate });
-  orderd.content = await watcher.order.content({ locate });
+  orderd.pattern = await workers.order.pattern({ locate });
+  orderd.content = await workers.order.content({ locate });
 
-  // 3 - tasks
+  // 🗂️ tasks
   const tasked: any = {};
 
-  tasked.fetched = await watcher.tasks.fetch({ locate, orderd, tasked });
+  tasked.fetched = await workers.tasks.fetch({ locate, orderd, tasked });
 
-  /// ---
-  // const content = await internal.readContent({ dir: path.resolve('./content') });
-  // const pattern = await internal.readPattern({ dir: path.resolve('./lib/pattern') });
-  //
-  // // console.log({ content });
-  // // console.log({ pattern });
-  //
-  // // + create files
-  // const publics = await watcher.publics.create({ option, content, pattern });
-  // const statics = await watcher.statics.create({ option, content, pattern, publics });
-  /// ---
-
-  // 4 - write
-  const writes: any = {};
+  // ✏️ write
+  // const writes: any = {};
+  // writes.content = await workers.tasks.write({ locate, orderd, tasked });
 
   snippet.out.info(`Bundle completed!`);
 };
