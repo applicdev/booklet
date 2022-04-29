@@ -37,8 +37,16 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
   // 🔍 locate the work directories
   const locate: any = {};
 
-  locate.pattern = { urn: path.resolve('./lib/pattern') };
-  locate.content = { urn: path.resolve('./content') };
+  locate.source = {
+    urn: path.resolve(source.urn),
+
+    pattern: { urn: path.resolve(source.urn, './lib/pattern') },
+    content: { urn: path.resolve(source.urn, './content') },
+  };
+
+  locate.output = {
+    urn: path.resolve(output.urn),
+  };
 
   // 🏷️ index and order relevant files from the work directories
   const orderd: any = {};
@@ -60,9 +68,9 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
   // ✏️ write to output directory
   const writes: any = {};
 
-  await workers.write.order({ locate, orderd, tasked, output, writes });
-  await workers.write.clean({ locate, orderd, tasked, output, writes });
-  await workers.write.apply({ locate, orderd, tasked, output, writes });
+  await workers.write.order({ locate, orderd, tasked, writes });
+  await workers.write.clean({ locate, orderd, tasked, writes });
+  await workers.write.apply({ locate, orderd, tasked, writes });
   // ...
 
   snippet.out.info(`Bundle completed!`);

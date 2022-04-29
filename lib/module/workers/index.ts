@@ -18,8 +18,8 @@ export default {
   },
 
   write: {
-    order: writeOrder,
-    clean: writeClean,
-    apply: writeApply,
+    order: writeOrder.request,
+    clean: writeClean.request,
+    apply: writeApply.request,
   },
 };

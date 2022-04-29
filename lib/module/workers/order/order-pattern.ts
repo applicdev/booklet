@@ -8,7 +8,7 @@ fragment.request = async ({ locate, orderd }: any) => {
 
   // ? document patterns
   const documentMap = await snippet.fetch.find({
-    urn: locate.pattern.urn, //
+    urn: locate.source.pattern.urn, //
     match: (ent: any) => ent.name === 'document.html',
   });
 
@@ -21,7 +21,7 @@ fragment.request = async ({ locate, orderd }: any) => {
 
   // ? fallback document patterns
   const fallbackMap = await snippet.fetch.find({
-    urn: locate.pattern.urn, //
+    urn: locate.source.pattern.urn, //
     match: (ent: any) => ent.name === 'fallback.html',
   });
 

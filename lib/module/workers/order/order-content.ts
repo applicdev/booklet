@@ -7,7 +7,7 @@ fragment.request = async ({ locate, orderd }: any) => {
   const result: any = {};
 
   const filesMap = await snippet.fetch.find({
-    urn: locate.content.urn, //
+    urn: locate.source.content.urn, //
     match: (ent: any) => ent.name.endsWith('.md'),
   });
 
