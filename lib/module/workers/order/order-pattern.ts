@@ -37,7 +37,7 @@ fragment.request = async ({ locate, orderd }: any) => {
 
 internal.resolve = async ({ node }: any) => {
   const path = await snippet.local.path({ urn: node.locate.urn });
-  const hash = await snippet.write.hash({ val: path });
+  const hash = await snippet.write.hash({ plain: path });
 
   return {
     path,
