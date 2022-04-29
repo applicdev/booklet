@@ -51,8 +51,10 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
   // 🏷️ index and order relevant files from the work directories
   const orderd: any = {};
 
-  await workers.order.pattern({ locate, orderd });
-  await workers.order.content({ locate, orderd });
+  await Promise.all([
+    workers.order.pattern({ locate, orderd }), //
+    workers.order.content({ locate, orderd }),
+  ]);
   // ...
 
   // 🗂️ run all interlinked bundle tasks
@@ -62,15 +64,14 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
   await workers.tasks.parse({ locate, orderd, tasked });
   // ...
 
-  // // ✔️ ensure, and clear out contents of, output directory
-  // await file.emptyDir(path.resolve(output.urn));
-  // // ...
+  // ✔️ ensure, and clear out contents of, output directory
+  await workers.write.clean({ locate, orderd, tasked });
+  // ...
 
   // ✏️ write to output directory
   const writes: any = {};
 
   await workers.write.order({ locate, orderd, tasked, writes });
-  await workers.write.clean({ locate, orderd, tasked, writes });
   await workers.write.apply({ locate, orderd, tasked, writes });
   // ...
 
