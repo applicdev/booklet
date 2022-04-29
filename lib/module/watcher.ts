@@ -51,7 +51,7 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
   // 🏷️ index and order relevant files from the work directories
   const orderd: any = {};
 
-  await workers.order.pattern({ locate, orderd }); //
+  await workers.order.pattern({ locate, orderd });
   await workers.order.content({ locate, orderd });
   // ...
 
@@ -59,6 +59,7 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
   const tasked: any = {};
 
   await workers.tasks.fetch({ locate, orderd, tasked });
+  await workers.tasks.parse({ locate, orderd, tasked });
   // ...
 
   // // ✔️ ensure, and clear out contents of, output directory

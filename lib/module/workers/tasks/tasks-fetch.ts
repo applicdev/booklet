@@ -20,10 +20,12 @@ fragment.request = async ({ locate, orderd, tasked }: any) => {
     res.hash = await snippet.write.hash({ plain: plain });
     res.read = await snippet.parse.md({ plain: plain });
 
-    result[res.hash] = {
-      orderd: { hash: ord.hash },
+    result[res.hash] = result[res.hash] || {
+      orderd: [],
       result: { hash: res.hash, read: res.read },
     };
+
+    result[res.hash].orderd.push({ hash: ord.hash });
   }
 
   tasked.fetch = { ...result };

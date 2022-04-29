@@ -2,6 +2,7 @@ import { default as orderContent } from './order/order-content.ts';
 import { default as orderPattern } from './order/order-pattern.ts';
 
 import { default as tasksFetch } from './tasks/tasks-fetch.ts';
+import { default as tasksParse } from './tasks/tasks-parse.ts';
 
 import { default as writeOrder } from './write/write-order.ts';
 import { default as writeClean } from './write/write-clean.ts';
@@ -15,6 +16,7 @@ export default {
 
   tasks: {
     fetch: tasksFetch.request,
+    parse: tasksParse.request,
   },
 
   write: {
