@@ -40,24 +40,27 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
   locate.pattern = { urn: path.resolve('./lib/pattern') };
   locate.content = { urn: path.resolve('./content') };
 
-  // 🏷️ order relevant files from the work directories
+  // 🏷️ index and order relevant files from the work directories
   const orderd: any = {};
 
-  orderd.pattern = await workers.order.pattern({ locate });
-  orderd.content = await workers.order.content({ locate });
+  workers.order.pattern({ locate, orderd }); //
+  workers.order.content({ locate, orderd });
+  // ...
 
   // 🗂️ run all interlinked bundle tasks
   const tasked: any = {};
 
-  tasked.fetched = await workers.tasks.fetch({ locate, orderd, tasked });
-  // tasked.fetched = await workers.tasks.fetch({ locate, orderd, tasked });
+  await workers.tasks.fetch({ locate, orderd, tasked });
+  // ...
 
   // ✔️ ensure, and clear out contents of, output directory
   await file.emptyDir(path.resolve(output.urn));
+  // ...
 
   // ✏️ write to output directory
-  // const writes: any = {};
+  const writes: any = {};
   // writes.content = await workers.tasks.write({ locate, orderd, tasked });
+  // ...
 
   snippet.out.info(`Bundle completed!`);
 };

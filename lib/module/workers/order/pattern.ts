@@ -3,7 +3,7 @@ import { default as snippet } from '../../snippet/index.ts';
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
-fragment.request = async ({ locate }: any) => {
+fragment.request = async ({ locate, orderd }: any) => {
   const result: any = {};
 
   // ? document patterns
@@ -32,7 +32,7 @@ fragment.request = async ({ locate }: any) => {
     result[node.hash].role = 'pattern:fallback';
   }
 
-  return { ...result };
+  orderd.pattern = { ...result };
 };
 
 internal.resolve = async ({ node }: any) => {

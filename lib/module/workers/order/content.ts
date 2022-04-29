@@ -3,7 +3,7 @@ import { default as snippet } from '../../snippet/index.ts';
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
-fragment.request = async ({ locate }: any) => {
+fragment.request = async ({ locate, orderd }: any) => {
   const result: any = {};
 
   const filesMap = await snippet.fetch.find({
@@ -18,7 +18,7 @@ fragment.request = async ({ locate }: any) => {
     result[node.hash].role = 'content:document';
   }
 
-  return { ...result };
+  orderd.content = { ...result };
 };
 
 internal.resolve = async ({ node }: any) => {
