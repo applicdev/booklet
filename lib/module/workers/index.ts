@@ -1,10 +1,11 @@
-import { default as orderContent } from './order/content.ts';
-import { default as orderPattern } from './order/pattern.ts';
+import { default as orderContent } from './order/order-content.ts';
+import { default as orderPattern } from './order/order-pattern.ts';
 
-import { default as tasksFetch } from './tasks/fetch.ts';
+import { default as tasksFetch } from './tasks/tasks-fetch.ts';
 
-// import { default as publics } from './watcher-publics.ts';
-// import { default as statics } from './watcher-statics.ts';
+import { default as writeOrder } from './write/write-order.ts';
+import { default as writeClean } from './write/write-clean.ts';
+import { default as writeApply } from './write/write-apply.ts';
 
 export default {
   order: {
@@ -16,6 +17,9 @@ export default {
     fetch: tasksFetch.request,
   },
 
-  // publics,
-  // statics,
+  write: {
+    order: writeOrder,
+    clean: writeClean,
+    apply: writeApply,
+  },
 };
