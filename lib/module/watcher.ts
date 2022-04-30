@@ -34,9 +34,12 @@ fragment.disconnectedCallback = async () => {
 };
 
 internal.whenChanged = async ({ source, output, listen }: any): Promise<void> => {
-  // 🔍 locate the work directories
   const locate: any = {};
+  const orderd: any = {};
+  const tasked: any = {};
+  const writes: any = {};
 
+  // 🔍 locate the work directories
   locate.source = {
     urn: path.resolve(source.urn),
 
@@ -49,8 +52,6 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
   };
 
   // 🏷️ index and order relevant files from the work directories
-  const orderd: any = {};
-
   await Promise.all([
     workers.order.pattern({ locate, orderd }), //
     workers.order.content({ locate, orderd }),
@@ -58,8 +59,6 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
   // ...
 
   // 🗂️ run all interlinked bundle tasks
-  const tasked: any = {};
-
   await workers.tasks.fetch({ locate, orderd, tasked });
   await workers.tasks.parse({ locate, orderd, tasked });
   // ...
@@ -69,8 +68,6 @@ internal.whenChanged = async ({ source, output, listen }: any): Promise<void> =>
   // ...
 
   // ✏️ write to output directory
-  const writes: any = {};
-
   await workers.write.order({ locate, orderd, tasked, writes });
   await workers.write.apply({ locate, orderd, tasked, writes });
   // ...
