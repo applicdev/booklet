@@ -11,7 +11,7 @@ internal.connect = new Promise((res) => (internal.resolveConnected = res));
 fragment.whenConnected = (): Promise<void> => internal.connect;
 
 fragment.connectedCallback = async ({ source, output, listen }: any): Promise<void> => {
-  const option: any = { source, output, listen };
+  const option: any = { source, output };
 
   // ? bundle once
   await internal.whenChanged({ ...option });
@@ -33,7 +33,7 @@ fragment.disconnectedCallback = async () => {
   if (internal.fileObserver) internal.fileObserver.close();
 };
 
-internal.whenChanged = async ({ source, output, listen }: any): Promise<void> => {
+internal.whenChanged = async ({ source, output }: any): Promise<void> => {
   const locate: any = {};
   const orderd: any = {};
   const tasked: any = {};
