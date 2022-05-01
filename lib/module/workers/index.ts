@@ -5,7 +5,7 @@ import { default as tasksFetch } from './tasks/tasks-fetch.ts';
 import { default as tasksParse } from './tasks/tasks-parse.ts';
 
 import { default as writeOrder } from './write/write-order.ts';
-import { default as writeClean } from './write/write-clean.ts';
+import { default as writeClear } from './write/write-clear.ts';
 import { default as writeApply } from './write/write-apply.ts';
 
 export default {
@@ -21,7 +21,7 @@ export default {
 
   write: {
     order: writeOrder.request,
-    clean: writeClean.request,
+    clear: writeClear.request,
     apply: writeApply.request,
   },
 };

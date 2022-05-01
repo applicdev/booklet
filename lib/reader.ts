@@ -1,8 +1,11 @@
 import './module/typeset/index.ts';
 
+import { default as watcher } from './module/watcher.ts';
+import { default as streams } from './module/streams.ts';
+
 import Input from 'https://deno.land/x/input@2.0.3/index.ts';
 
-import * as file from 'https://deno.land/std@0.132.0/fs/mod.ts';
+// import * as file from 'https://deno.land/std@0.132.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 import * as flag from 'https://deno.land/std@0.132.0/flags/mod.ts';
 
@@ -53,7 +56,22 @@ if (!('f' in optionInterface || 'force' in optionInterface)) {
 }
 
 // ? initialize bundle or bundle and stream
-const workerUrn = 'stream' in optionInterface ? './reader-stream.ts' : './reader-bundle.ts';
-const worker = await import(workerUrn);
+const { source, output, hosted } = option;
 
-worker.initialize({ ...option });
+source.listen = 'stream' in optionInterface;
+
+watcher.connectedCallback({ source, output, hosted });
+watcher.whenConnected().then(async () => {
+  if (!source.listen) {
+    await watcher.disconnectedCallback();
+    Deno.exit();
+  }
+
+  streams.connectedCallback({ output, hosted });
+
+  // ---
+  // FIXME: find a better implementationl; disconnected has to run on deno close
+  // streams.disconnectedCallback();
+  // watcher.disconnectedCallback();
+  // ---
+});

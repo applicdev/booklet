@@ -15,8 +15,8 @@ type InterfaceMarkdownOption = {
   field?: { [prop: string]: any };
 
   public?: { urn: string; role?: 'forward' }[];
-  figure?: { urn: string; role?: 'masked' | 'window' }[];
-  module?: { urn: string; role?: 'inline' }[];
+  figure?: { urn: string; role?: 'loaded' | 'masked' | 'window' }[];
+  module?: { urn: string; role?: 'loaded' | 'inline' }[];
 };
 
 // === outputs
@@ -41,9 +41,9 @@ type OutputContentOption = {
 
   field: { [prop: string]: any };
 
-  content: string;
-
   public: { urn: string; role?: 'forward' }[];
   figure: { urn: string; role?: 'masked' | 'window' }[];
   module: { urn: string; role?: 'inline' }[];
+
+  content: string;
 };

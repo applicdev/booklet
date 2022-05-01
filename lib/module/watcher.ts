@@ -34,10 +34,8 @@ fragment.disconnectedCallback = async () => {
 };
 
 internal.whenChanged = async ({ source, output }: any): Promise<void> => {
-  const locate: any = {};
-  const orderd: any = {};
-  const tasked: any = {};
-  const writes: any = {};
+  const change: any = { locate: {}, orderd: {}, tasked: {}, writes: {} };
+  const { locate, orderd, tasked, writes } = change;
 
   // 🔍 locate the work directories
   locate.source = {
@@ -55,16 +53,22 @@ internal.whenChanged = async ({ source, output }: any): Promise<void> => {
   await Promise.all([
     workers.order.pattern({ locate, orderd }), //
     workers.order.content({ locate, orderd }),
+    // ...
   ]);
-  // ...
 
-  // 🗂️ run all interlinked bundle tasks
+  // 🗃️ run all interlinked tasks
   await workers.tasks.fetch({ locate, orderd, tasked });
   await workers.tasks.parse({ locate, orderd, tasked });
   // ...
 
+  // 🗂️ run remaining tasks in parallel
+  await Promise.all([
+    // workers.tasks.___({ locate, orderd, tasked }),
+    // ...
+  ]);
+
   // ✔️ ensure, and clear out contents of, output directory
-  await workers.write.clean({ locate, orderd, tasked });
+  await workers.write.clear({ locate, orderd, tasked, writes });
   // ...
 
   // ✏️ write to output directory
