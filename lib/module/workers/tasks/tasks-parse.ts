@@ -14,42 +14,40 @@ fragment.request = async ({ locate, orderd, tasked }: any) => {
   };
 
   for (const i in tasked.fetch) {
+    const ord = tasked.fetch[i].orderd;
     const res = tasked.fetch[i].result;
 
-    console.log(res);
+    const pub = internal.parse({ ord, res, typ: 'public', cal: internal.parsePublic });
+    const fig = internal.parse({ ord, res, typ: 'figure', cal: internal.parseFigure });
+    const mod = internal.parse({ ord, res, typ: 'module', cal: internal.parseModule });
 
-    // ? create public-facing documents
-    if ('public' in res.read) {
-      result.public[res.hash] = {
-        orderd: tasked.fetch[i].orderd,
-        result: {
-          hash: res.hash,
-        },
-      };
-    }
-
-    // ? resize images to usable sizes
-    if ('public' in res.read) {
-      result.figure[res.hash] = {
-        orderd: tasked.fetch[i].orderd,
-        result: {
-          hash: res.hash,
-        },
-      };
-    }
-
-    // ? bundle and insert typescript modules
-    if ('public' in res.read) {
-      result.module[res.hash] = {
-        orderd: tasked.fetch[i].orderd,
-        result: {
-          hash: res.hash,
-        },
-      };
-    }
+    for (const i in pub) result.public[i] = pub[i];
+    for (const i in fig) result.figure[i] = fig[i];
+    for (const i in mod) result.module[i] = mod[i];
   }
 
   tasked.parse = { ...result };
+};
+
+internal.parse = async ({ ord, res, typ, cal }: any) => {
+  if (!(typ in res.read)) return;
+
+  console.log({ typ, res });
+};
+
+internal.parsePublic = async ({ ord, res }: any) => {
+  //...
+  return {};
+};
+
+internal.parseFigure = async ({ ord, res }: any) => {
+  //...
+  return {};
+};
+
+internal.parseModule = async ({ ord, res }: any) => {
+  //...
+  return {};
 };
 
 export default { ...fragment };

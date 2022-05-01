@@ -19,31 +19,31 @@ type InterfaceMarkdownOption = {
   module?: { urn: string; role?: 'loaded' | 'inline' }[];
 };
 
-// === outputs
+// // === outputs
 
-type OutputContentIndex = {
-  [prop: string]: {
-    changed: Date;
-    created: Date;
-    title: string;
-    label: string;
+// type OutputContentIndex = {
+//   [prop: string]: {
+//     changed: Date;
+//     created: Date;
+//     title: string;
+//     label: string;
 
-    public: { urn: string };
-    source: { urn: string };
-  };
-};
+//     public: { urn: string };
+//     source: { urn: string };
+//   };
+// };
 
-type OutputContentOption = {
-  changed: Date;
-  created: Date;
-  title: string;
-  label: string;
+// type OutputContentOption = {
+//   changed: Date;
+//   created: Date;
+//   title: string;
+//   label: string;
 
-  field: { [prop: string]: any };
+//   field: { [prop: string]: any };
 
-  public: { urn: string; role?: 'forward' }[];
-  figure: { urn: string; role?: 'masked' | 'window' }[];
-  module: { urn: string; role?: 'inline' }[];
+//   public: { urn: string; role?: 'forward' }[];
+//   figure: { urn: string; role?: 'loaded' | 'masked' | 'window' }[];
+//   module: { urn: string; role?: 'loaded' | 'inline' }[];
 
-  content: string;
-};
+//   content: string;
+// };
