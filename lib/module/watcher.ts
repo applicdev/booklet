@@ -34,7 +34,17 @@ fragment.disconnectedCallback = async () => {
 };
 
 internal.whenChanged = async ({ source, output }: any): Promise<void> => {
-  const change: any = { locate: {}, orderd: {}, tasked: {}, writes: {} };
+  internal.watchActive = {
+    hash: await snippet.write.hash({ plain: new Date().toISOString() }),
+    done: false,
+  };
+
+  await internal.requestBundle({ source, output });
+};
+
+internal.requestBundle = async ({ source, output }: any): Promise<void> => {
+  const change: any = { locate: {}, orderd: {}, tasked: {}, writes: {}, hash: internal.watchActive };
+
   const { locate, orderd, tasked, writes } = change;
 
   // 🔍 locate the work directories
@@ -67,6 +77,9 @@ internal.whenChanged = async ({ source, output }: any): Promise<void> => {
     // ...
   ]);
 
+  // ❌ stop write; when a new bundle request was instantiated
+  if (change.hash != internal.watchActive.hash) return;
+
   // ✔️ ensure, and clear out contents of, output directory
   await workers.write.clear({ locate, orderd, tasked, writes });
   // ...
@@ -77,6 +90,7 @@ internal.whenChanged = async ({ source, output }: any): Promise<void> => {
   // ...
 
   snippet.out.info(`Bundle completed!`);
+  internal.watchActive.done = true;
 };
 
 internal.watchDirectories = async ({ urn, whenChanged }: any): Promise<void> => {
