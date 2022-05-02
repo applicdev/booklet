@@ -17,37 +17,48 @@ fragment.request = async ({ locate, orderd, tasked }: any) => {
     const ord = tasked.fetch[i].orderd;
     const res = tasked.fetch[i].result;
 
-    const pub = internal.parse({ ord, res, typ: 'public', cal: internal.parsePublic });
-    const fig = internal.parse({ ord, res, typ: 'figure', cal: internal.parseFigure });
-    const mod = internal.parse({ ord, res, typ: 'module', cal: internal.parseModule });
+    const pub = await internal.parse({ ord, res, typ: 'public' });
+    const fig = await internal.parse({ ord, res, typ: 'figure' });
+    const mod = await internal.parse({ ord, res, typ: 'module' });
 
-    for (const i in pub) result.public[i] = pub[i];
-    for (const i in fig) result.figure[i] = fig[i];
-    for (const i in mod) result.module[i] = mod[i];
+    internal.apply({ obj: result.public, tas: pub, ord, res: [{ hash: res.hash }] });
+    internal.apply({ obj: result.figure, tas: fig, ord, res: [{ hash: res.hash }] });
+    internal.apply({ obj: result.module, tas: mod, ord, res: [{ hash: res.hash }] });
   }
 
   tasked.parse = { ...result };
 };
 
-internal.parse = async ({ ord, res, typ, cal }: any) => {
+internal.parse = async ({ ord, res, typ }: any) => {
   if (!(typ in res.read)) return;
 
-  console.log({ typ, res });
+  const val = res.read[typ];
+  const tas: any = {};
+
+  for (const i in val) {
+    if (!val[i].urn) continue;
+
+    const valRes: any = {};
+
+    valRes.urn = val[i].urn || null;
+    valRes.role = val[i].role || null;
+
+    valRes.hash = await snippet.write.hash({ plain: JSON.stringify(valRes) });
+    tas[valRes.hash] = valRes;
+  }
+
+  return tas;
 };
 
-internal.parsePublic = async ({ ord, res }: any) => {
-  //...
-  return {};
-};
+internal.apply = async ({ obj, tas, ord, res }: any) => {
+  for (const i in tas) {
+    if (!(i in obj)) obj[i] = tas[i];
 
-internal.parseFigure = async ({ ord, res }: any) => {
-  //...
-  return {};
-};
+    console.log({ ord, res });
 
-internal.parseModule = async ({ ord, res }: any) => {
-  //...
-  return {};
+    obj[i].orderd = [...(obj[i].orderd || []), ...ord];
+    obj[i].result = [...(obj[i].result || []), ...res];
+  }
 };
 
 export default { ...fragment };
