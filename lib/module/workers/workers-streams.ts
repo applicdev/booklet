@@ -1,7 +1,7 @@
-import './typeset/index.ts';
+import '../typeset/index.ts';
 
-import { default as snippet } from './snippet/index.ts';
-import { default as bundles } from './snippet/index.ts';
+import { default as snippet } from '../snippet/index.ts';
+import { default as bundles } from '../snippet/index.ts';
 
 import { readableStreamFromReader } from 'https://deno.land/std@0.134.0/streams/mod.ts';
 import { mime } from 'https://deno.land/x/mimetypes@v1.0.0/mod.ts';
@@ -11,8 +11,6 @@ import * as path from 'https://deno.land/std@0.134.0/path/mod.ts';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
-
-// === instantiation
 
 internal.connect = new Promise((res) => (internal.resolveConnected = res));
 fragment.whenConnected = (): Promise<void> => internal.connect;
@@ -27,8 +25,6 @@ fragment.connectedCallback = async ({ output, hosted }: InterfaceOption): Promis
 fragment.disconnectedCallback = async () => {
   internal.server.close();
 };
-
-// === behaviour
 
 internal.create = async () => {
   const { output, hosted } = internal.option;

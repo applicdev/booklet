@@ -8,7 +8,7 @@ const internal: { [prop: string]: any } = {};
 
 fragment.request = async ({ locate, orderd, tasked }: any) => {
   const result: any = {
-    public: {},
+    locate: {},
     figure: {},
     module: {},
   };
@@ -17,22 +17,22 @@ fragment.request = async ({ locate, orderd, tasked }: any) => {
     const ord = tasked.fetch[i].orderd;
     const res = tasked.fetch[i].result;
 
-    const pub = await internal.parse({ ord, res, typ: 'public' });
+    const loc = await internal.parse({ ord, res, typ: 'locate' });
     const fig = await internal.parse({ ord, res, typ: 'figure' });
     const mod = await internal.parse({ ord, res, typ: 'module' });
 
-    internal.apply({ obj: result.public, tas: pub, ord, res: [{ hash: res.hash }] });
-    internal.apply({ obj: result.figure, tas: fig, ord, res: [{ hash: res.hash }] });
-    internal.apply({ obj: result.module, tas: mod, ord, res: [{ hash: res.hash }] });
+    internal.resolve({ obj: result.locate, tas: loc, ord, res: [{ hash: res.hash }] });
+    internal.resolve({ obj: result.figure, tas: fig, ord, res: [{ hash: res.hash }] });
+    internal.resolve({ obj: result.module, tas: mod, ord, res: [{ hash: res.hash }] });
   }
 
   tasked.parse = { ...result };
 };
 
 internal.parse = async ({ ord, res, typ }: any) => {
-  if (!(typ in res.read)) return;
+  if (!(typ in res[0].read)) return;
 
-  const val = res.read[typ];
+  const val = res[0].read[typ];
   const tas: any = {};
 
   for (const i in val) {
@@ -50,11 +50,9 @@ internal.parse = async ({ ord, res, typ }: any) => {
   return tas;
 };
 
-internal.apply = async ({ obj, tas, ord, res }: any) => {
+internal.resolve = async ({ obj, tas, ord, res }: any) => {
   for (const i in tas) {
     if (!(i in obj)) obj[i] = tas[i];
-
-    console.log({ ord, res });
 
     obj[i].orderd = [...(obj[i].orderd || []), ...ord];
     obj[i].result = [...(obj[i].result || []), ...res];

@@ -1,7 +1,7 @@
 import './module/typeset/index.ts';
 
-import { default as watcher } from './module/watcher.ts';
-import { default as streams } from './module/streams.ts';
+import { default as watcher } from './module/workers/workers-watcher.ts';
+import { default as streams } from './module/workers/workers-streams.ts';
 
 import Input from 'https://deno.land/x/input@2.0.3/index.ts';
 

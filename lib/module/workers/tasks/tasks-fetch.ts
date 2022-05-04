@@ -22,7 +22,7 @@ fragment.request = async ({ locate, orderd, tasked }: any) => {
 
     result[res.hash] = result[res.hash] || {
       orderd: [],
-      result: { hash: res.hash, read: res.read },
+      result: [{ hash: res.hash, read: res.read }],
     };
 
     result[res.hash].orderd.push({ hash: ord.hash });

@@ -1,5 +1,5 @@
-import { default as snippet } from './snippet/index.ts';
-import { default as workers } from './workers/index.ts';
+import { default as snippet } from '../snippet/index.ts';
+import { default as workers } from '../workers/index.ts';
 
 import * as file from 'https://deno.land/std@0.134.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.134.0/path/mod.ts';
@@ -43,7 +43,7 @@ internal.whenChanged = async ({ source, output }: any): Promise<void> => {
 };
 
 internal.requestBundle = async ({ source, output }: any): Promise<void> => {
-  const change: any = { locate: {}, orderd: {}, tasked: {}, writes: {}, hash: internal.watchActive };
+  const change: any = { locate: {}, orderd: {}, tasked: {}, writes: {}, hash: internal.watchActive.hash };
 
   const { locate, orderd, tasked, writes } = change;
 
@@ -77,7 +77,7 @@ internal.requestBundle = async ({ source, output }: any): Promise<void> => {
     // ...
   ]);
 
-  // ❌ stop write; when a new bundle request was instantiated
+  // ❌ stop write; when another change event was instantiated
   if (change.hash != internal.watchActive.hash) return;
 
   // ✔️ ensure, and clear out contents of, output directory
