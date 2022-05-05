@@ -11,7 +11,7 @@ fragment.request = async ({ locate, orderd, tasked }: any) => {
   const result: any = {};
   const parsed = tasked.parse.module;
 
-  console.log(locate.output.urn);
+  // console.log(locate.output.urn);
   const output = {
     urn: locate.output.urn,
   };
@@ -31,7 +31,7 @@ fragment.request = async ({ locate, orderd, tasked }: any) => {
     const bundle = await rollup(options);
     const detail = await bundle.write(options.output);
 
-    console.log(detail.output);
+    // console.log(detail.output);
     // console.log(bundle);
     await bundle.close();
   }
