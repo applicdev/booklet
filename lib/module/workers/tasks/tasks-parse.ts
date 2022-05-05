@@ -41,7 +41,7 @@ internal.parse = async ({ ord, res, typ }: any) => {
     const valRes: any = {};
 
     valRes.urn = val[i].urn || null;
-    valRes.role = val[i].role || null;
+    valRes.field = val[i].field ? { ...val[i].field } : null;
 
     valRes.hash = await snippet.write.hash({ plain: JSON.stringify(valRes) });
     tas[valRes.hash] = valRes;

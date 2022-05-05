@@ -8,17 +8,17 @@ field:
 
 locate:
   - { urn: ./outline/ }
-  - { urn: ./, role: forward, field: { urn: ./outline/ } }
+  - { urn: ./, field: { role: forward, urn: ./outline/ } }
 
 module:
   - { urn: ./lib/module/reader.ts }
-  - { urn: ./lib/module/reader-inline.ts, role: inline }
-  - { urn: ./lib/module/reader-worker.ts, role: worker }
+  - { urn: ./lib/module/reader-inline.ts, field: { role: inline } }
+  - { urn: ./lib/module/reader-worker.ts, field: { role: worker } }
 
 figure:
   - { urn: ./lib/pattern/assets/figure/document.png }
-  - { urn: ./lib/pattern/assets/figure/document-masked.png, role: masked }
-  - { urn: ./lib/pattern/assets/figure/document-window.png, role: window }
+  - { urn: ./lib/pattern/assets/figure/document-masked.png, field: { role: masked } }
+  - { urn: ./lib/pattern/assets/figure/document-window.png, field: { role: window } }
 ---
 
 # Markdown Reader

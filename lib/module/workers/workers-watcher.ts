@@ -10,8 +10,8 @@ const internal: { [prop: string]: any } = {};
 internal.connect = new Promise((res) => (internal.resolveConnected = res));
 fragment.whenConnected = (): Promise<void> => internal.connect;
 
-fragment.connectedCallback = async ({ source, output, listen }: any): Promise<void> => {
-  const option: any = { source, output };
+fragment.connectedCallback = async ({ source, output, hosted, listen }: any): Promise<void> => {
+  const option: any = { source, output, hosted };
 
   // ? bundle once
   await internal.whenChanged({ ...option });
@@ -33,16 +33,16 @@ fragment.disconnectedCallback = async () => {
   if (internal.fileObserver) internal.fileObserver.close();
 };
 
-internal.whenChanged = async ({ source, output }: any): Promise<void> => {
+internal.whenChanged = async ({ source, output, hosted }: any): Promise<void> => {
   internal.watchActive = {
     hash: await snippet.write.hash({ plain: new Date().toISOString() }),
     done: false,
   };
 
-  await internal.requestBundle({ source, output });
+  await internal.requestBundle({ source, output, hosted });
 };
 
-internal.requestBundle = async ({ source, output }: any): Promise<void> => {
+internal.requestBundle = async ({ source, output, hosted }: any): Promise<void> => {
   const change: any = { locate: {}, orderd: {}, tasked: {}, writes: {}, hash: internal.watchActive.hash };
 
   const { locate, orderd, tasked, writes } = change;
@@ -55,9 +55,12 @@ internal.requestBundle = async ({ source, output }: any): Promise<void> => {
     content: { urn: path.resolve(source.urn, './content') },
   };
 
-  locate.output = {
-    urn: path.resolve(output.urn),
-  };
+  locate.output = { urn: path.resolve(output.urn) };
+  locate.hosted = { urn: path.resolve(hosted.urn) };
+
+  // ✔️ ensure, and clear out contents of, output directory
+  await workers.write.clear({ locate, orderd, tasked, writes });
+  // ...
 
   // 🏷️ index and order relevant files from the work directories
   await Promise.all([
@@ -73,16 +76,14 @@ internal.requestBundle = async ({ source, output }: any): Promise<void> => {
 
   // 🗂️ run remaining tasks in parallel
   await Promise.all([
-    // workers.tasks.___({ locate, orderd, tasked }),
+    workers.tasks.resolve.figure({ locate, orderd, tasked }),
+    workers.tasks.resolve.locate({ locate, orderd, tasked }),
+    workers.tasks.resolve.module({ locate, orderd, tasked }),
     // ...
   ]);
 
   // ❌ stop write; when another change event was instantiated
   if (change.hash != internal.watchActive.hash) return;
-
-  // ✔️ ensure, and clear out contents of, output directory
-  await workers.write.clear({ locate, orderd, tasked, writes });
-  // ...
 
   // ✏️ write to output directory
   await workers.write.order({ locate, orderd, tasked, writes });

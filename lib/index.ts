@@ -12,8 +12,10 @@ import * as flag from 'https://deno.land/std@0.132.0/flags/mod.ts';
 const optionInterface = flag.parse(Deno.args);
 const option: InterfaceOption = {
   source: { urn: path.resolve('./') },
-  output: { urn: path.resolve('./.github/workflows-out') },
+  output: { urn: path.resolve('./.github/workflows-output') },
   hosted: {
+    urn: path.resolve('./.github/workflows-hosted'),
+
     // ? create public path
     path: await (async () => {
       let path =
