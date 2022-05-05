@@ -1,0 +1,35 @@
+name: pages-build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        deno-version: [1.21.1]
+
+    steps:
+      - name: Git Checkout Deno Module
+        uses: actions/checkout@v2
+
+      - name: Use Deno Version ${{ matrix.deno-version }}
+        uses: denolib/setup-deno@v2
+        with:
+          deno-version: ${{ matrix.deno-version }}
+
+      - name: Build
+        run: deno run -A --reload --unstable https://raw.githubusercontent.com/milotheirself/reader/main/lib/index.ts --bundle -f -p
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.ACTIONS_ACCESS_TOKEN }}
+          publish_dir: ./.github/workflows-hosted
+          enable_jekyll: false
+          # cname: example.com
