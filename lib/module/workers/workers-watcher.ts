@@ -79,7 +79,6 @@ internal.requestBundle = async ({ source, output, hosted }: any): Promise<void> 
     workers.tasks.resolve.figure({ locate, orderd, tasked }),
     workers.tasks.resolve.locate({ locate, orderd, tasked }),
     workers.tasks.resolve.module({ locate, orderd, tasked }),
-    workers.tasks.resolve.hosted({ locate, orderd, tasked }),
     // ...
   ]);
 
