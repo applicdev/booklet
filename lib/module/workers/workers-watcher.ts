@@ -79,6 +79,7 @@ internal.requestBundle = async ({ source, output, hosted }: any): Promise<void> 
     workers.tasks.resolve.figure({ locate, orderd, tasked }),
     workers.tasks.resolve.locate({ locate, orderd, tasked }),
     workers.tasks.resolve.module({ locate, orderd, tasked }),
+    workers.tasks.resolve.hosted({ locate, orderd, tasked }),
     // ...
   ]);
 
@@ -86,8 +87,8 @@ internal.requestBundle = async ({ source, output, hosted }: any): Promise<void> 
   if (change.hash != internal.watchActive.hash) return;
 
   // ✏️ write to output directory
-  await workers.write.order({ locate, orderd, tasked, writes });
-  await workers.write.apply({ locate, orderd, tasked, writes });
+  await workers.write.order({ locate, orderd, tasked });
+  await workers.write.apply({ locate, orderd, tasked });
   // ...
 
   snippet.out.info(`Bundle completed!`);

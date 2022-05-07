@@ -1,4 +1,4 @@
-import { default as snippet } from '../../snippet/index.ts';
+import { default as snippet } from '../../../snippet/index.ts';
 
 import { rollup } from 'https://deno.land/x/drollup@2.58.0+0.20.0/mod.ts';
 
@@ -15,7 +15,7 @@ fragment.request = async ({ locate, orderd, tasked }: any) => {
     const options = {
       input: parsed[i].urn,
       output: {
-        file: path.resolve(locate.output.urn, `./module/${i}.js`),
+        file: path.resolve(locate.output.urn, `./${i}.js`),
         format: 'es' as const,
       },
     };

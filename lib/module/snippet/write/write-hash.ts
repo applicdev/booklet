@@ -4,7 +4,7 @@ const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
 fragment.create = async ({ plain }: { plain: string }): Promise<string> => {
-  const hash = createHash('md5');
+  const hash = createHash('sha1');
   hash.update(plain);
   return hash.toString();
 };
