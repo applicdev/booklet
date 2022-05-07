@@ -11,28 +11,17 @@ fragment.request = async ({ locate, orderd, tasked }: any) => {
   const result: any = {};
   const parsed = tasked.parse.module;
 
-  // console.log(locate.output.urn);
-  const output = {
-    urn: locate.output.urn,
-  };
-
   for (const i in parsed) {
-    // console.log(parsed[i].urn);
-
     const options = {
       input: parsed[i].urn,
       output: {
-        dir: output.urn,
+        file: path.resolve(locate.output.urn, `./module/${i}.js`),
         format: 'es' as const,
-        sourcemap: true,
       },
     };
 
     const bundle = await rollup(options);
-    const detail = await bundle.write(options.output);
-
-    // console.log(detail.output);
-    // console.log(bundle);
+    await bundle.write(options.output);
     await bundle.close();
   }
 
