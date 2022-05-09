@@ -7,8 +7,6 @@ const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
 fragment.request = async ({ locate, orderd, tasked }: any) => {
-  const result: any = {};
-
   const dir = path.resolve(locate.output.urn, `./content/`);
   await file.ensureDir(dir);
 
@@ -34,27 +32,41 @@ fragment.request = async ({ locate, orderd, tasked }: any) => {
     await Deno.writeTextFile(urn, JSON.stringify(write, null, 2));
 
     // ? document
-    // for (const i in res.read.locate) {
-    //   const loc = res.read.locate[i];
+    for (const i in res.read.locate) {
+      const loc = res.read.locate[i];
+      const out: any = {
+        typ: 'field' in loc && loc.field.role == 'forward' ? 'forward' : null,
+      };
 
-    //   const plain =
-    //     'field' in loc && loc.field.role == 'forward' //
-    //       ? internal.resolveForward({ loc })
-    //       : internal.resolve({ loc });
+      out.trail = out.typ == 'forward' ? './404.html' : './index.html';
+      out.plain =
+        out.typ == 'forward' //
+          ? await internal.resolveForward({ loc })
+          : await internal.resolve({ loc });
 
-    //   await Deno.writeTextFile(path.resolve(locate.hosted.urn, `./index.html`), plain);
-    // }
+      out.urn = path.resolve(locate.hosted.urn, loc.urn, out.trail);
+
+      console.log({ out });
+
+      // ? write to hosted output
+      await file.ensureFile(out.urn);
+      await Deno.writeTextFile(out.urn, out.plain);
+    }
 
     // console.log({ ord, res });
   }
 };
 
-internal.resolve = ({ loc }: any) => {
-  return ``;
+internal.resolve = async ({ loc }: any) => {
+  return `
+index contents
+  `;
 };
 
-internal.resolveForward = ({ loc }: any) => {
-  return ``;
+internal.resolveForward = async ({ loc }: any) => {
+  return `
+404 contents
+  `;
 };
 
 export default { ...fragment };

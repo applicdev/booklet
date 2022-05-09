@@ -9,8 +9,6 @@ const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
 fragment.request = async ({ locate, orderd, tasked }: any) => {
-  const result: any = {};
-
   const dir = path.resolve(locate.output.urn, `./content/`);
   await file.ensureDir(dir);
 
