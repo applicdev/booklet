@@ -1,4 +1,4 @@
-import { default as snippet } from '../../../snippet/index.ts';
+import { default as snippet } from '../../../../snippet/index.ts';
 
 import * as file from 'https://deno.land/std@0.134.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.134.0/path/mod.ts';
@@ -46,7 +46,7 @@ fragment.request = async ({ locate, orderd, tasked }: any) => {
 
       out.urn = path.resolve(locate.hosted.urn, loc.urn, out.trail);
 
-      console.log({ out });
+      // console.log({ out });
 
       // ? write to hosted output
       await file.ensureFile(out.urn);

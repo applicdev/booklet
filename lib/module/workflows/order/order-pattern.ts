@@ -1,4 +1,4 @@
-import { default as snippet } from '../../snippet/index.ts';
+import { default as snippet } from '../../../snippet/index.ts';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
@@ -7,32 +7,36 @@ fragment.request = async ({ locate, orderd }: any) => {
   const result: any = {};
 
   // ? document patterns
-  const documentMap = await snippet.fetch.find({
-    urn: locate.source.pattern.urn, //
-    match: (ent: any) => ent.name === 'document.html',
+  await internal.match({
+    role: 'pattern:document',
+    find: (ent: any) => ent.name === 'document.html',
+    locate,
+    result,
   });
 
-  for (const i in documentMap) {
-    const node = await internal.resolve({ node: documentMap[i] });
-
-    result[node.hash] = node;
-    result[node.hash].role = 'pattern:document';
-  }
-
   // ? fallback document patterns
+  await internal.match({
+    role: 'pattern:fallback',
+    find: (ent: any) => ent.name === 'fallback.html',
+    locate,
+    result,
+  });
+
+  orderd.pattern = { ...result };
+};
+
+internal.match = async ({ locate, result, find, role }: any) => {
   const fallbackMap = await snippet.fetch.find({
     urn: locate.source.pattern.urn, //
-    match: (ent: any) => ent.name === 'fallback.html',
+    match: find,
   });
 
   for (const i in fallbackMap) {
     const node = await internal.resolve({ node: fallbackMap[i] });
 
     result[node.hash] = node;
-    result[node.hash].role = 'pattern:fallback';
+    result[node.hash].role = role;
   }
-
-  orderd.pattern = { ...result };
 };
 
 internal.resolve = async ({ node }: any) => {

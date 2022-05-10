@@ -1,5 +1,5 @@
-import { default as snippet } from '../snippet/index.ts';
-import { default as workers } from '../workers/index.ts';
+import { default as snippet } from '../../snippet/index.ts';
+import { default as runners } from '../workflows/index.ts';
 
 import * as file from 'https://deno.land/std@0.134.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.134.0/path/mod.ts';
@@ -43,9 +43,8 @@ internal.whenChanged = async ({ source, output, hosted }: any): Promise<void> =>
 };
 
 internal.requestBundle = async ({ source, output, hosted }: any): Promise<void> => {
-  const change: any = { locate: {}, orderd: {}, tasked: {}, writes: {}, hash: internal.watchActive.hash };
-
-  const { locate, orderd, tasked, writes } = change;
+  const change: any = { locate: {}, orderd: {}, tasked: {}, hash: internal.watchActive.hash };
+  const { locate, orderd, tasked } = change;
 
   // 🔍 locate the work directories
   locate.source = {
@@ -58,27 +57,31 @@ internal.requestBundle = async ({ source, output, hosted }: any): Promise<void> 
   locate.output = { urn: path.resolve(output.urn) };
   locate.hosted = { urn: path.resolve(hosted.urn) };
 
+  // 📦 ensure correct property values and apply standard; when required
+  await runners.preps.ensureProperties({ locate, orderd, tasked });
+  // ...
+
   // ✔️ ensure, and clear out contents of, output directory
-  await workers.write.clear({ locate, orderd, tasked, writes });
+  await runners.preps.ensureWorkspaces({ locate, orderd, tasked });
   // ...
 
   // 🏷️ index and order relevant files from the work directories
   await Promise.all([
-    workers.order.pattern({ locate, orderd }), //
-    workers.order.content({ locate, orderd }),
+    runners.order.pattern({ locate, orderd, tasked }), //
+    runners.order.content({ locate, orderd, tasked }),
     // ...
   ]);
 
   // 🗃️ run all interlinked tasks
-  await workers.tasks.fetch({ locate, orderd, tasked });
-  await workers.tasks.parse({ locate, orderd, tasked });
+  await runners.tasks.fetch({ locate, orderd, tasked });
+  await runners.tasks.parse({ locate, orderd, tasked });
   // ...
 
   // 🗂️ run remaining tasks in parallel
   await Promise.all([
-    workers.tasks.resolve.figure({ locate, orderd, tasked }),
-    workers.tasks.resolve.locate({ locate, orderd, tasked }),
-    workers.tasks.resolve.module({ locate, orderd, tasked }),
+    runners.tasks.resolve.figure({ locate, orderd, tasked }),
+    runners.tasks.resolve.locate({ locate, orderd, tasked }),
+    runners.tasks.resolve.module({ locate, orderd, tasked }),
     // ...
   ]);
 
@@ -86,8 +89,8 @@ internal.requestBundle = async ({ source, output, hosted }: any): Promise<void> 
   if (change.hash != internal.watchActive.hash) return;
 
   // ✏️ write to output directory
-  await workers.write.order({ locate, orderd, tasked });
-  await workers.write.apply({ locate, orderd, tasked });
+  await runners.write.order({ locate, orderd, tasked });
+  await runners.write.apply({ locate, orderd, tasked });
   // ...
 
   snippet.out.info(`Bundle completed!`);

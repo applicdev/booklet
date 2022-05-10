@@ -1,4 +1,4 @@
-import { default as snippet } from '../../snippet/index.ts';
+import { default as snippet } from '../../../snippet/index.ts';
 
 import { Marked } from 'https://deno.land/x/markdown@v2.0.0/mod.ts';
 
