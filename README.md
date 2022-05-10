@@ -8,6 +8,7 @@ A lightweight bundler for transforming Markdown repositories into readable docum
 [...]
 -->
 
+<!--
 ## Install and use
 
 To work locally, get the most recent version of [Deno][deon:install] and execute the following install command –
@@ -23,3 +24,4 @@ markdown-reader --stream
 ```
 
 [deon:install]: https://deno.land/manual/getting_started/installation
+-->
