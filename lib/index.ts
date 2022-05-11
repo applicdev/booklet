@@ -5,9 +5,6 @@ import { default as snippet } from './snippet/index.ts';
 import { default as watcher } from './module/interface/interface-watcher.ts';
 import { default as streams } from './module/interface/interface-streams.ts';
 
-import Input from 'https://deno.land/x/input@2.0.3/index.ts';
-
-// import * as file from 'https://deno.land/std@0.132.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
 import * as flag from 'https://deno.land/std@0.132.0/flags/mod.ts';
 
@@ -20,13 +17,13 @@ const option: InterfaceOption = {
 
     // ? create public path
     path: await (async () => {
-      let path =
+      let paths =
         'p' in optionInterface
           ? (optionInterface['p'] as any) //
           : (optionInterface['public-path'] as any);
 
       // ? when not path; try to use the repo name
-      if (!!path && path === true) {
+      if (!!paths && paths === true) {
         try {
           const cmd = Deno.run({
             cmd: ['git', 'config', '--get', 'remote.origin.url'],
@@ -38,25 +35,31 @@ const option: InterfaceOption = {
           const outStr = new TextDecoder().decode(output);
 
           if (!outStr.endsWith('github.io.git')) {
-            path = outStr.split('/').pop()?.replace('.git', '');
+            paths = outStr.split('/').pop()?.replace('.git', '');
           }
         } catch (err) {}
       }
 
       // ---
       // FIXME: better validate the path interface option
-      if (!path || path instanceof String) path = '';
-      return `/${path.replace(/[^a-zA-Z0-9-_]/g, '')}/`.replace(/\/\//g, '/');
+      if (!paths || paths instanceof String) paths = '';
+      return `/${paths.replace(/[^a-zA-Z0-9-_]/g, '')}/`.replace(/\/\//g, '/');
       // ---
     })(),
   },
 };
 
-// ? check work directory
 if (!('f' in optionInterface || 'force' in optionInterface)) {
-  console.log(`You're about to initialize a reader project in this directory:\n\n${path.resolve()}\n\n`);
+  // ? check work directory
+  const paths = snippet.print.bold(path.resolve());
+  const plain = `You're about to initialize a reader project in this directory:\n\n  ${paths}\n`;
+  snippet.print.info(plain);
 
-  await new Input().wait();
+  // ? abort; when in the wrong working directory
+  if (!(await snippet.input.confirm(`Are you ready to proceed?`))) {
+    snippet.print.fail('Aborted by user.');
+    Deno.exit();
+  }
 }
 
 // ? initialize bundle or bundle and stream
@@ -71,9 +74,8 @@ watcher.whenConnected().then(async () => {
     Deno.exit();
   }
 
-  streams.connectedCallback({ output, hosted });
-
   // ---
+  streams.connectedCallback({ output, hosted });
   // FIXME: find a better implementationl; disconnected has to run on deno close
   // streams.disconnectedCallback();
   // watcher.disconnectedCallback();
