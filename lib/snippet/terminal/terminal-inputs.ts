@@ -5,23 +5,24 @@ const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
 fragment.confirm = async (plain: string = ''): Promise<boolean> => {
-  Deno.stdout.write(new TextEncoder().encode(`${Colors.green('?')} ${Colors.bold(plain)} (Y/n) `));
-
+  internal.writeLine({ plain: `${Colors.green('?')} ${Colors.bold(plain)} (Y/n) ` });
   let value = await internal.promptString();
 
-  console.log('');
+  internal.writeLine({ plain: `\n` });
   return ['y', 'yes', ''].includes(value.toLowerCase());
 };
 
 internal.promptString = async () => {
-  for await (const line of readLines(Deno.stdin)) {
-    return line;
-  }
+  for await (const line of readLines(Deno.stdin)) return line;
+};
+
+internal.writeLine = ({ plain }: { plain: string }) => {
+  Deno.stdout.write(new TextEncoder().encode(plain));
 };
 
 internal.clearLine = () => {
-  Deno.stdout.write(new TextEncoder().encode('\x1b' + '[A'));
-  Deno.stdout.write(new TextEncoder().encode('\x1b' + '[K'));
+  internal.writeLine({ plain: '\x1b' + '[A' });
+  internal.writeLine({ plain: '\x1b' + '[K' });
 };
 
 export default { ...fragment };
