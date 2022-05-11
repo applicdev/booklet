@@ -1,4 +1,5 @@
-import { default as out } from './console-output.ts';
+import { default as terminalInputs } from './terminal/terminal-inputs.ts';
+import { default as terminalOutput } from './terminal/terminal-output.ts';
 
 import { default as fetchFind } from './fetch/fetch-find.ts';
 
@@ -11,7 +12,19 @@ import { default as writeJson } from './write/write-json.ts';
 import { default as writeText } from './write/write-text.ts';
 
 export default {
-  out,
+  // ? terminal interactions
+  input: {
+    confirm: terminalInputs.confirm,
+  },
+
+  // ? terminal outputs
+  print: {
+    bold: terminalOutput.bold,
+    info: terminalOutput.info,
+    done: terminalOutput.done,
+    warn: terminalOutput.warn,
+    fail: terminalOutput.fail,
+  },
 
   local: {
     date: localDate.create,

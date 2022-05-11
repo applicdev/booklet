@@ -31,7 +31,7 @@ internal.create = async () => {
 
   internal.server = Deno.listen({ port: 8080 });
 
-  snippet.out.info(`Server active on http://localhost:8080${hosted.path}`);
+  snippet.print.info(`Server active on http://localhost:8080${hosted.path}`);
 
   for await (const conn of internal.server) {
     internal.handleHttp(conn).catch((err: Error) => console.log(err));

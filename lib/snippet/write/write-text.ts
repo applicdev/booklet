@@ -8,13 +8,13 @@ fragment.create = async ({ urn, val, zip }: { urn: string; val: string; zip?: bo
   const plain = val;
 
   await Deno.writeTextFile(paths[0], plain);
-  snippet.out.done('Wrote', `${snippet.local.path({ urn: paths[0] })}`);
+  snippet.print.done('Wrote', `${snippet.local.path({ urn: paths[0] })}`);
 
   if (zip) {
     const gzipd = await snippet.write.gzip({ plain });
 
     await Deno.writeFile(paths[1], gzipd);
-    snippet.out.done('Wrote', `${snippet.local.path({ urn: paths[1] })}`);
+    snippet.print.done('Wrote', `${snippet.local.path({ urn: paths[1] })}`);
   }
 };
 
