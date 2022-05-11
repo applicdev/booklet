@@ -15,14 +15,14 @@ const option: InterfaceOption = {
   hosted: {
     urn: path.resolve('./.github/workflows-hosted'),
 
-    // ? create public path
+    // ? public path
     path: await (async () => {
       let paths =
         'p' in optionInterface
           ? (optionInterface['p'] as any) //
           : (optionInterface['public-path'] as any);
 
-      // ? when not path; try to use the repo name
+      // ? try to use the repo name; when not path defind
       if (!!paths && paths === true) {
         try {
           const cmd = Deno.run({
@@ -50,12 +50,12 @@ const option: InterfaceOption = {
 };
 
 if (!('f' in optionInterface || 'force' in optionInterface)) {
-  // ? check work directory
+  // ? confirm working directory
   const paths = snippet.print.bold(path.resolve());
-  const plain = `You're about to initialize a reader project in this directory:\n\n  ${paths}\n`;
+  const plain = `You're about to initialize in this directory:\n\n  ${paths}\n`;
   snippet.print.info(plain);
 
-  // ? abort; when in the wrong working directory
+  // ? abort; when wrong working directory path
   if (!(await snippet.input.confirm(`Are you ready to proceed?`))) {
     snippet.print.fail('Aborted by user.');
     Deno.exit();
@@ -63,19 +63,15 @@ if (!('f' in optionInterface || 'force' in optionInterface)) {
 }
 
 // ? initialize bundle or bundle and stream
-const { source, output, hosted } = option;
-
-source.listen = 'stream' in optionInterface;
-
-watcher.connectedCallback({ source, output, hosted });
+watcher.connectedCallback({ ...option });
 watcher.whenConnected().then(async () => {
-  if (!source.listen) {
+  if (!('stream' in optionInterface)) {
     await watcher.disconnectedCallback();
     Deno.exit();
   }
 
   // ---
-  streams.connectedCallback({ output, hosted });
+  streams.connectedCallback({ ...option });
   // FIXME: find a better implementationl; disconnected has to run on deno close
   // streams.disconnectedCallback();
   // watcher.disconnectedCallback();
