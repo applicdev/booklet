@@ -1,5 +1,5 @@
 import * as Colors from 'https://deno.land/std@0.132.0/fmt/colors.ts';
-import { readLines } from 'https://deno.land/std/io/buffer.ts';
+import { readLines } from 'https://deno.land/std@0.132.0/io/buffer.ts';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
