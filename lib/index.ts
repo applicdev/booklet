@@ -23,13 +23,13 @@ const option: InterfaceOption = {
         const repo = await snippet.repo.requestConfig();
 
         if (repo && !repo.name.endsWith('github.io.git')) {
-          path = repo.name.split('/').pop()!.replace('.git', '');
+          path = repo.name;
         }
       }
 
       // ---
       // FIXME: better validate the path
-      if (!path || !(path instanceof String)) path = '';
+      if (typeof path != 'string') path = '';
       return `/${path.replace(/[^a-zA-Z0-9-_]/g, '')}/`.replace(/\/\//g, '/');
       // ---
     })(),
@@ -52,11 +52,9 @@ const option: InterfaceOption = {
 }
 
 // ? initialize bundle or bundle and stream
-{
-  const { worker } = { worker: !('stream' in flag) ? bundle : stream };
-  const { source, output, hosted } = option;
+const { worker } = { worker: !('stream' in flag) ? bundle : stream };
+const { source, output, hosted } = option;
 
-  for await (const result of worker({ source, output, hosted })) {
-    console.log({ result });
-  }
+for await (const res of worker({ source, output, hosted })) {
+  // ?
 }
