@@ -1,57 +1,48 @@
 import './typeset/typeset-interface.ts';
 import './typeset/typeset-workflows.ts';
 
+import { bundle, stream } from './mod.ts';
+
 import { default as snippet } from './snippet/index.ts';
 import { default as watcher } from './module/interface/interface-watcher.ts';
 import { default as streams } from './module/interface/interface-streams.ts';
 
-import * as path from 'https://deno.land/std@0.132.0/path/mod.ts';
-import * as flag from 'https://deno.land/std@0.132.0/flags/mod.ts';
+const flag = await snippet.flag.resolve(Deno.args);
 
-const optionInterface = flag.parse(Deno.args);
 const option: InterfaceOption = {
-  source: { urn: path.resolve('./') },
-  output: { urn: path.resolve('./.github/workflows-output') },
+  source: { urn: snippet.path.resolve('./') },
+  output: { urn: snippet.path.resolve('./.github/workflows-output') },
   hosted: {
-    urn: path.resolve('./.github/workflows-hosted'),
+    urn: snippet.path.resolve('./.github/workflows-hosted'),
 
     // ? public path
     path: await (async () => {
-      let paths =
-        'p' in optionInterface
-          ? (optionInterface['p'] as any) //
-          : (optionInterface['public-path'] as any);
+      let path =
+        'p' in flag
+          ? (flag['p'] as any) //
+          : (flag['public-path'] as any);
 
       // ? try to use the repo name; when not path defind
-      if (!!paths && paths === true) {
-        try {
-          const cmd = Deno.run({
-            cmd: ['git', 'config', '--get', 'remote.origin.url'],
-            stdout: 'piped',
-            stderr: 'piped',
-          });
+      if (!(path instanceof String)) {
+        const repo = await snippet.repo.requestConfig();
 
-          const output = await cmd.output();
-          const outStr = new TextDecoder().decode(output);
-
-          if (!outStr.endsWith('github.io.git')) {
-            paths = outStr.split('/').pop()?.replace('.git', '');
-          }
-        } catch (err) {}
+        if (repo && !repo.name.endsWith('github.io.git')) {
+          path = repo.name.split('/').pop()!.replace('.git', '');
+        }
       }
 
       // ---
-      // FIXME: better validate the path interface option
-      if (!paths || paths instanceof String) paths = '';
-      return `/${paths.replace(/[^a-zA-Z0-9-_]/g, '')}/`.replace(/\/\//g, '/');
+      // FIXME: better validate the path
+      if (!path || !(path instanceof String)) path = '';
+      return `/${path.replace(/[^a-zA-Z0-9-_]/g, '')}/`.replace(/\/\//g, '/');
       // ---
     })(),
   },
 };
 
-if (!('f' in optionInterface || 'force' in optionInterface)) {
+if (!('f' in flag || 'force' in flag)) {
   // ? confirm working directory
-  const paths = snippet.print.bold(path.resolve());
+  const paths = snippet.print.bold(snippet.path.resolve());
   const plain = `You're about to initialize in this directory:\n\n  ${paths}\n`;
   snippet.print.info(plain);
 
@@ -65,7 +56,7 @@ if (!('f' in optionInterface || 'force' in optionInterface)) {
 // ? initialize bundle or bundle and stream
 watcher.connectedCallback({ ...option });
 watcher.whenConnected().then(async () => {
-  if (!('stream' in optionInterface)) {
+  if (!('stream' in flag)) {
     await watcher.disconnectedCallback();
     Deno.exit();
   }

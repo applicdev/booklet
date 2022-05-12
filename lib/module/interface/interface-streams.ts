@@ -51,7 +51,7 @@ internal.handleHttp = async (conn: Deno.Conn) => {
 
     if (uri.startsWith(hosted.path)) {
       result = await internal.requestFile({
-        urn: path.resolve(output.urn, `./${uri.slice(hosted.path.length)}`),
+        urn: path.resolve(hosted.urn, `./${uri.slice(hosted.path.length)}`),
       });
     }
 
@@ -59,7 +59,7 @@ internal.handleHttp = async (conn: Deno.Conn) => {
     if (!result) {
       status = 404;
       result = await internal.requestFile({
-        urn: path.resolve(output.urn, `./404.html`),
+        urn: path.resolve(hosted.urn, `./404.html`),
       });
     }
 

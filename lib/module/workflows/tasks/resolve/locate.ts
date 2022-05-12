@@ -65,6 +65,7 @@ index contents
 
 internal.resolveForward = async ({ loc }: any) => {
   return `
+<style> body { color-theme: dark; } </style>
 404 contents
   `;
 };
