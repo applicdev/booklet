@@ -6,13 +6,15 @@ import { default as watcher } from './module/interface/interface-watcher.ts';
 import { default as streams } from './module/interface/interface-streams.ts';
 
 export async function* bundle({ source, output, hosted }: InterfaceOption): InterfaceGenerator {
-  return {};
+  yield {};
+
+  return;
 }
 
 export async function* stream({ source, output, hosted }: InterfaceOption): InterfaceGenerator {
   yield {};
 
-  return {};
+  return;
 }
 
 // // ? initialize bundle or bundle and stream

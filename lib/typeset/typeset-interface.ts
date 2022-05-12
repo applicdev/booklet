@@ -6,7 +6,7 @@ type InterfaceOption = {
 
 type InterfaceGenerator = AsyncGenerator<
   InterfaceGeneratorResult, //
-  InterfaceGeneratorResult,
+  void,
   void
 >;
 
