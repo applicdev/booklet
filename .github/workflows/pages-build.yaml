@@ -24,7 +24,7 @@ jobs:
           deno-version: ${{ matrix.deno-version }}
 
       - name: Build
-        run: deno run -A --reload --unstable https://raw.githubusercontent.com/milotheirself/reader/main/lib/index.ts --bundle -f -p
+        run: deno run -A --unstable --reload https://deno.land/x/reader/lib/index.ts -f -p
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
