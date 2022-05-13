@@ -5,7 +5,7 @@
 <br>
  
 > **Disclaimer –**
-> This tool was essentially written for the sole purposes of our documentation pages. For this reason, and because it is still in the experimental stage, we would not recommend it to be used for other projects at this time. As we continue to work on them, interfaces, configurations, and file structures may change.
+> This tool was essentially written for solely the purposes of our documentation pages. For this reason, and because it is still in an experimental stage, we would not recommend it to be used for other projects at this point. As we continue to work on them, interfaces, configurations, and file structures may change without a major version bump.
 
 <br>
 
