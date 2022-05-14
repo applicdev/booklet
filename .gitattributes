@@ -1,10 +1,5 @@
 * text=auto eol=lf 
 
-*.css -linguist-detectable
-*.ejs -linguist-detectable
-*.html -linguist-detectable
-*.json -linguist-detectable
-
 *.md -linguist-vendored
 *.md -linguist-generated
 *.md -linguist-documentation
