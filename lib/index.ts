@@ -24,6 +24,7 @@ Options:
 
   -s, --stream        start a local server for bundled assets
   -p                  use repository name as path namespace
+  -w                  write bundled assets to the repository directory
   -f                  force file writes
 `;
 
