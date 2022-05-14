@@ -1,6 +1,6 @@
 ---
 title: Outline - Markdown Reader
-label: Markdown Reader
+label: Reader
 
 field:
   caption: A lightweight bundler for transforming Markdown repositories into readable documents and structured JSON data –
