@@ -1,10 +1,10 @@
 # Reader
 
-`⌨️ Markdown` `🦕 Deno` `🧪 Experimental`
+`🧪 Experimental` `🦕 Deno` `🧵 Markdown`
 
 <br>
  
-> **Disclaimer –**
+> **Disclaimer** –
 > This tool was written primarily for the purposes of our documentation pages. For this reason, and because it is still in the experimental stage, we would not recommend using it for other projects at this time. Interfaces, configurations, and file structures may change as we work on them without a major version bump.
 
 <br>
