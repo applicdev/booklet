@@ -13,7 +13,7 @@ locate:
 module:
   - { urn: ./lib/module/reader.ts }
   - { urn: ./lib/module/reader-inline.ts, field: { role: inline } }
-  - { urn: ./lib/module/reader-worker.ts, field: { role: worker } }
+  - { urn: ./lib/module/reader-direct.ts, field: { role: worker } }
 
 figure:
   - { urn: ./lib/pattern/assets/figure/document.png }
