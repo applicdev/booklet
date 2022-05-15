@@ -93,7 +93,7 @@ internal.requestBundle = async ({ source, output, hosted }: any): Promise<void> 
   await runners.write.apply({ locate, orderd, tasked });
   // ...
 
-  snippet.print.info(`Bundle completed!`);
+  // snippet.print.info(`Bundle completed!`);
   internal.watchActive.done = true;
 };
 

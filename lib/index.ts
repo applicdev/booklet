@@ -11,13 +11,13 @@ const { source, output, hosted } = {
   source: { urn: snippet.path.resolve('./') },
   output: {
     urn:
-      'w' in flag
+      'bundle' in flag
         ? snippet.path.resolve('./.github/workflows-output') //
         : await Deno.makeTempDir({ prefix: 'workflows-output-' }),
   },
   hosted: {
     urn:
-      'w' in flag
+      'bundle' in flag
         ? snippet.path.resolve('./.github/workflows-hosted') //
         : await Deno.makeTempDir({ prefix: 'workflows-hosted-' }),
 
@@ -40,7 +40,7 @@ const { source, output, hosted } = {
 };
 
 // // ? remove temp dir; when terminated
-// if (!('w' in flag)) {
+// if (!('bundle' in flag)) {
 //   const beforeClose = () => {
 //     Deno.removeSync(output.urn, { recursive: true });
 //     Deno.removeSync(hosted.urn, { recursive: true });
@@ -74,8 +74,8 @@ Options:
   -h, --help          output usage information
 
   -s, --stream        start a local server for bundled assets
+  -b, --bundle        write bundled assets to the repository workflows
   -p                  use repository name as path namespace
-  -w                  write bundled assets to the repository workflows
   -f                  force file writes
 `;
 
@@ -92,8 +92,8 @@ if (!('f' in flag)) {
   ];
 
   const plain = [
-    `You are about to initialize a reader for the directories –\n\n  ${paths.shift()}\n`, //
-    `and write to the directories –\n\n  ${paths.join('\n  ')}\n`,
+    `You are about to initialize a reader for the directories –\n\n  ${paths.shift()}`, //
+    'bundle' in flag ? `\nand write bundled assets to the directories –\n\n  ${paths.join('\n  ')}\n` : '',
   ];
 
   snippet.print.info(plain.join('\n'));
