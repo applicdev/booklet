@@ -5,56 +5,21 @@ import { default as workers } from './mod.ts';
 import { default as snippet } from './snippet/index.ts';
 
 const flag = await snippet.flag.resolve(Deno.args);
+const path = await (async () => {
+  let path = flag['p'] as boolean | string | undefined;
 
-// ?
-const { source, output, hosted } = {
-  source: { urn: snippet.path.resolve('./') },
-  output: {
-    urn:
-      'bundle' in flag
-        ? snippet.path.resolve('./.github/workflows-output') //
-        : await Deno.makeTempDir({ prefix: 'workflows-output-' }),
-  },
-  hosted: {
-    urn:
-      'bundle' in flag
-        ? snippet.path.resolve('./.github/workflows-hosted') //
-        : await Deno.makeTempDir({ prefix: 'workflows-hosted-' }),
+  // ? try to use the repo name; when not path defind
+  if (typeof path != 'string' && path) {
+    const repo = await snippet.repo.requestConfig();
+    if (repo && !repo.name.endsWith('github.io.git')) path = repo.name;
+  }
 
-    path: await (async () => {
-      let path = flag['p'] as boolean | string | undefined;
-
-      // ? try to use the repo name; when not path defind
-      if (typeof path != 'string' && path) {
-        const repo = await snippet.repo.requestConfig();
-        if (repo && !repo.name.endsWith('github.io.git')) path = repo.name;
-      }
-
-      // ---
-      // FIXME: better validate the hosted path
-      if (typeof path != 'string') path = '';
-      return `/${path.replace(/[^a-zA-Z0-9-_]/g, '')}/`.replace(/\/\//g, '/');
-      // ---
-    })(),
-  },
-};
-
-// // ? remove temp dir; when terminated
-// if (!('bundle' in flag)) {
-//   const beforeClose = () => {
-//     Deno.removeSync(output.urn, { recursive: true });
-//     Deno.removeSync(hosted.urn, { recursive: true });
-//   };
-
-//   globalThis.addEventListener('unload', beforeClose);
-
-//   // ---
-//   // FIXME: Handling OS signals is currently not available on Windows.
-//   // Deno.addSignalListener('SIGTERM', beforeClose);
-//   // See: https://github.com/denoland/deno/pull/12512#issue-1032072995
-//   // See: https://deno.land/manual/examples/os_signals#handle-os-signals
-//   // ---
-// }
+  // ---
+  // FIXME: better validate the hosted path
+  if (typeof path != 'string') path = '';
+  return `/${path.replace(/[^a-zA-Z0-9-_]/g, '')}/`.replace(/\/\//g, '/');
+  // ---
+})();
 
 // ? confirm working directory
 if ('v' in flag || 'version' in flag) {
@@ -83,20 +48,56 @@ Options:
   Deno.exit();
 }
 
+// ?
+const { source, output, hosted } = {
+  source: { urn: snippet.path.resolve('./') },
+  output: {
+    urn:
+      'bundle' in flag
+        ? snippet.path.resolve('./.github/workflows-output') //
+        : await Deno.makeTempDir({ prefix: 'workflows-output-' }),
+  },
+  hosted: {
+    urn:
+      'bundle' in flag
+        ? snippet.path.resolve('./.github/workflows-hosted') //
+        : await Deno.makeTempDir({ prefix: 'workflows-hosted-' }),
+
+    path: path,
+  },
+};
+
+// // ? remove temp dir; when terminated
+// if (!('bundle' in flag)) {
+//   const beforeClose = () => {
+//     Deno.removeSync(output.urn, { recursive: true });
+//     Deno.removeSync(hosted.urn, { recursive: true });
+//   };
+
+//   globalThis.addEventListener('unload', beforeClose);
+
+//   // ---
+//   // FIXME: Handling OS signals is currently not available on Windows.
+//   // Deno.addSignalListener('SIGTERM', beforeClose);
+//   // See: https://github.com/denoland/deno/pull/12512#issue-1032072995
+//   // See: https://deno.land/manual/examples/os_signals#handle-os-signals
+//   // ---
+// }
+
 // ? confirm working directory
 if (!('f' in flag)) {
-  const paths = [
-    snippet.print.bold(snippet.path.resolve()), //
-    snippet.print.bold(output.urn),
-    snippet.print.bold(hosted.urn),
-  ];
+  snippet.print.info(`
+You are about to initialize a reader for the directories –
 
-  const plain = [
-    `You are about to initialize a reader for the directories –\n\n  ${paths.shift()}`, //
-    'bundle' in flag ? `\nand write bundled assets to the directories –\n\n  ${paths.join('\n  ')}\n` : '',
-  ];
+  ${snippet.print.bold(snippet.path.resolve())}
+`);
 
-  snippet.print.info(plain.join('\n'));
+  if ('bundle' in flag)
+    snippet.print.info(`and write bundled assets to the directories –
+
+  ${snippet.print.bold(output.urn)}
+  ${snippet.print.bold(hosted.urn)}
+`);
 
   // ? abort; in case of wrong working directory
   if (!(await snippet.input.confirm(`Are you ready to proceed?`))) {
