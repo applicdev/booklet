@@ -15,7 +15,7 @@ const path = await (async () => {
   }
 
   // ---
-  // FIXME: better validate the hosted path
+  // FIXME: better validate the path namespace
   if (typeof path != 'string') path = '';
   return `/${path.replace(/[^a-zA-Z0-9-_]/g, '')}/`.replace(/\/\//g, '/');
   // ---
@@ -23,7 +23,7 @@ const path = await (async () => {
 
 // ? confirm working directory
 if ('v' in flag || 'version' in flag) {
-  const plain = `reader 0.1.3-experimental (release)`;
+  const plain = `reader 0.1.3-experimental`;
 
   snippet.print.info(plain);
   Deno.exit();
