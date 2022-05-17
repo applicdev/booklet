@@ -20,7 +20,7 @@ fragment.warn = async (plain: string = '', state: string = ''): Promise<void> =>
 };
 
 fragment.fail = async (plain: string = '', state: string = ''): Promise<void> => {
-  console.log(Colors.red('Error: '), plain);
+  console.log(Colors.red(plain), Colors.gray(state));
 };
 
 export default { ...fragment };
