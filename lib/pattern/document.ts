@@ -80,6 +80,6 @@ internal.createPattern = ({}) => {
 `;
 };
 
-fragment.create = () => ({ role: '', render: internal.createPattern({}) });
+fragment.create = ({ role }: { role: string }) => ({ role, render: internal.createPattern({}) });
 
 export default { ...fragment };

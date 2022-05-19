@@ -65,13 +65,13 @@ const { source, output, hosted } = {
   source: { urn: snippet.path.resolve('./') },
   output: {
     urn:
-      'bundle' in internal.flag
+      'b' in internal.flag
         ? snippet.path.resolve('./.github/workflows-output') //
         : await Deno.makeTempDir({ prefix: 'workflows-output-' }),
   },
   hosted: {
     urn:
-      'bundle' in internal.flag
+      'b' in internal.flag
         ? snippet.path.resolve('./.github/workflows-hosted') //
         : await Deno.makeTempDir({ prefix: 'workflows-hosted-' }),
 
@@ -80,7 +80,7 @@ const { source, output, hosted } = {
 };
 
 // // ? remove temp dir; when terminated
-// if (!('bundle' in internal.flag)) {
+// if (!('b' in internal.flag)) {
 //   const beforeClose = () => {
 //     Deno.removeSync(output.urn, { recursive: true });
 //     Deno.removeSync(hosted.urn, { recursive: true });

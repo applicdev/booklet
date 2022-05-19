@@ -64,35 +64,27 @@ fragment.request = async ({ locate, orderd, tasked }: any) => {
 };
 
 internal.renderDocument = async ({ loc }: any) => {
-  console.log(patternDocument);
+  const tem = patternDocument.create({ role: 'render-document' });
 
-  return `
-renderDocument
-  `;
+  return tem.render({ parsed: { field: {}, static: {} } });
 };
 
 internal.renderLanding = async ({ loc }: any) => {
-  console.log(patternFallback);
+  const tem = patternFallback.create({ role: 'render-landing' });
 
-  return `
-renderLanding
-  `;
+  return tem.render({ parsed: { field: {}, static: {} } });
 };
 
 internal.renderFallback = async ({ loc }: any) => {
-  console.log(patternFallback);
+  const tem = patternFallback.create({ role: 'render-fallback' });
 
-  return `
-renderFallback
-  `;
+  return tem.render({ parsed: { field: {}, static: {} } });
 };
 
 internal.renderImprints = async ({ loc }: any) => {
-  console.log(patternImprints);
+  const tem = patternImprints.create({ role: 'render-imprints' });
 
-  return `
-renderImprints
-  `;
+  return tem.render({ parsed: { field: {}, static: {} } });
 };
 
 export default { ...fragment };
