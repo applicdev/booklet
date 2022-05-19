@@ -1,5 +1,5 @@
 import { default as snippet } from '../../snippet/index.ts';
-import { default as runners } from '../workflows/index.ts';
+import { default as runners } from './workflows/index.ts';
 
 import * as file from 'https://deno.land/std@0.134.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.134.0/path/mod.ts';

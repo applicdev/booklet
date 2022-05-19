@@ -1,4 +1,4 @@
-import { default as snippet } from '../../../../snippet/index.ts';
+import { default as snippet } from '../../../../../snippet/index.ts';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};

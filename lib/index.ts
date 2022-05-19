@@ -4,7 +4,9 @@ import './typeset/typeset-workflows.ts';
 import { default as workers } from './mod.ts';
 import { default as snippet } from './snippet/index.ts';
 
-const flag = await snippet.flag
+const internal: { [prop: string]: any } = {};
+
+internal.flag = await snippet.flag
   .resolve({
     value: Deno.args,
     match: {
@@ -22,26 +24,17 @@ const flag = await snippet.flag
     Deno.exit();
   });
 
-console.log({ flag });
-
-const path = await (async () => {
-  let path = flag['p'] as boolean | string | undefined;
-
+internal.path = await (async () => {
   // ? try to use the repo name; when not path defind
-  if (typeof path != 'string' && path) {
-    const repo = await snippet.repo.requestConfig();
-    if (repo && !repo.name.endsWith('github.io.git')) path = repo.name;
-  }
+  const repo = await snippet.repo.requestConfig();
 
-  // ---
-  // FIXME: better validate the path namespace
-  if (typeof path != 'string') path = '';
-  return `/${path.replace(/[^a-zA-Z0-9-_]/g, '')}/`.replace(/\/\//g, '/');
-  // ---
+  return 'p' in internal.flag && repo && !repo.name.endsWith('github.io.git') //
+    ? `/${repo.name.replace(/[^a-zA-Z0-9-_]/g, '')}/`.replace(/\/\//g, '/')
+    : '/';
 })();
 
 // ? confirm working directory
-if ('v' in flag) {
+if ('v' in internal.flag) {
   const plain = `reader 0.1.3-experimental`;
 
   snippet.print.info(plain);
@@ -49,7 +42,7 @@ if ('v' in flag) {
 }
 
 // ? confirm working directory
-if ('h' in flag) {
+if ('h' in internal.flag) {
   const plain = `
 Usage: reader [options]
 
@@ -72,22 +65,22 @@ const { source, output, hosted } = {
   source: { urn: snippet.path.resolve('./') },
   output: {
     urn:
-      'bundle' in flag
+      'bundle' in internal.flag
         ? snippet.path.resolve('./.github/workflows-output') //
         : await Deno.makeTempDir({ prefix: 'workflows-output-' }),
   },
   hosted: {
     urn:
-      'bundle' in flag
+      'bundle' in internal.flag
         ? snippet.path.resolve('./.github/workflows-hosted') //
         : await Deno.makeTempDir({ prefix: 'workflows-hosted-' }),
 
-    path: path,
+    path: internal.path,
   },
 };
 
 // // ? remove temp dir; when terminated
-// if (!('bundle' in flag)) {
+// if (!('bundle' in internal.flag)) {
 //   const beforeClose = () => {
 //     Deno.removeSync(output.urn, { recursive: true });
 //     Deno.removeSync(hosted.urn, { recursive: true });
@@ -104,14 +97,14 @@ const { source, output, hosted } = {
 // }
 
 // ? confirm working directory
-if (!('f' in flag)) {
+if (!('f' in internal.flag)) {
   snippet.print.info(`
 You are about to initialize a reader for the directories –
 
   ${snippet.print.bold(snippet.path.resolve())}
 `);
 
-  if ('b' in flag)
+  if ('b' in internal.flag)
     snippet.print.info(`and write bundled assets to the directories –
 
   ${snippet.print.bold(output.urn)}
@@ -126,5 +119,5 @@ You are about to initialize a reader for the directories –
 }
 
 // ? initialize bundle or bundle and stream
-const { worker } = { worker: 's' in flag ? workers.stream : workers.bundle };
+const { worker } = { worker: 's' in internal.flag ? workers.stream : workers.bundle };
 for await (const res of worker({ source, output, hosted })) snippet.print.info('Bundle completed!');

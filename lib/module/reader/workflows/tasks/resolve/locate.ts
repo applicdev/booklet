@@ -1,7 +1,11 @@
-import { default as snippet } from '../../../../snippet/index.ts';
+import { default as snippet } from '../../../../../snippet/index.ts';
 
 import * as file from 'https://deno.land/std@0.134.0/fs/mod.ts';
 import * as path from 'https://deno.land/std@0.134.0/path/mod.ts';
+
+import { default as patternDocument } from '../../../../../pattern/document.ts';
+import { default as patternFallback } from '../../../../../pattern/fallback.ts';
+import { default as patternImprints } from '../../../../../pattern/imprints.ts';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
@@ -41,8 +45,10 @@ fragment.request = async ({ locate, orderd, tasked }: any) => {
       out.trail = out.typ == 'forward' ? './404.html' : './index.html';
       out.plain =
         out.typ == 'forward' //
-          ? await internal.resolveForward({ loc })
-          : await internal.resolve({ loc });
+          ? await internal.renderFallback({ loc })
+          : out.typ == 'landing' //
+          ? await internal.renderLanding({ loc })
+          : await internal.renderDocument({ loc });
 
       out.urn = path.resolve(locate.hosted.urn, loc.urn, out.trail);
 
@@ -57,16 +63,35 @@ fragment.request = async ({ locate, orderd, tasked }: any) => {
   }
 };
 
-internal.resolve = async ({ loc }: any) => {
+internal.renderDocument = async ({ loc }: any) => {
+  console.log(patternDocument);
+
   return `
-index contents
+renderDocument
   `;
 };
 
-internal.resolveForward = async ({ loc }: any) => {
+internal.renderLanding = async ({ loc }: any) => {
+  console.log(patternFallback);
+
   return `
-<style> body { color-theme: dark; } </style>
-404 contents
+renderLanding
+  `;
+};
+
+internal.renderFallback = async ({ loc }: any) => {
+  console.log(patternFallback);
+
+  return `
+renderFallback
+  `;
+};
+
+internal.renderImprints = async ({ loc }: any) => {
+  console.log(patternImprints);
+
+  return `
+renderImprints
   `;
 };
 
