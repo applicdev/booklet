@@ -8,7 +8,8 @@ field:
 
 locate:
   - { urn: ./outline/ }
-  - { urn: ./, field: { role: forward, urn: ./outline/ } }
+  - { urn: ./, field: { role: landing } }
+  - { urn: ./, field: { role: forward, urn: ./outline } }
 
 module:
   - { urn: ./lib/module/reader.ts }
