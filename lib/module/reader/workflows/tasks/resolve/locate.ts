@@ -39,17 +39,28 @@ fragment.request = async ({ locate, orderd, tasked }: any) => {
     for (const i in res.read.locate) {
       const loc = res.read.locate[i];
       const out: any = {
-        typ: 'field' in loc && loc.field.role == 'forward' ? 'forward' : null,
+        typ: 'field' in loc && loc.field ? loc.field.role : 'default',
       };
 
-      out.trail = out.typ == 'forward' ? './404.html' : './index.html';
-      out.plain =
-        out.typ == 'forward' //
-          ? await internal.renderFallback({ loc })
-          : out.typ == 'landing' //
-          ? await internal.renderLanding({ loc })
-          : await internal.renderDocument({ loc });
+      // ? pathname
+      out.trail = (
+        {
+          forward: './404.html',
+          landing: './index.html',
+          default: './index.html',
+        } as any
+      )[out.typ];
 
+      // ? plain content
+      out.plain = (
+        {
+          forward: await internal.renderFallback({ loc }),
+          landing: await internal.renderLanding({ loc }),
+          default: await internal.renderDocument({ loc }),
+        } as any
+      )[out.typ].render({ parsed: { field: {}, static: {} } });
+
+      // ? local pathname
       out.urn = path.resolve(locate.hosted.urn, loc.urn, out.trail);
 
       // console.log({ out });
@@ -64,27 +75,19 @@ fragment.request = async ({ locate, orderd, tasked }: any) => {
 };
 
 internal.renderDocument = async ({ loc }: any) => {
-  const tem = patternDocument.create({ role: 'render-document' });
-
-  return tem.render({ parsed: { field: {}, static: {} } });
+  return patternDocument.create({ role: 'render-document' });
 };
 
 internal.renderLanding = async ({ loc }: any) => {
-  const tem = patternFallback.create({ role: 'render-landing' });
-
-  return tem.render({ parsed: { field: {}, static: {} } });
+  return patternFallback.create({ role: 'render-landing' });
 };
 
 internal.renderFallback = async ({ loc }: any) => {
-  const tem = patternFallback.create({ role: 'render-fallback' });
-
-  return tem.render({ parsed: { field: {}, static: {} } });
+  return patternFallback.create({ role: 'render-fallback' });
 };
 
 internal.renderImprints = async ({ loc }: any) => {
-  const tem = patternImprints.create({ role: 'render-imprints' });
-
-  return tem.render({ parsed: { field: {}, static: {} } });
+  return patternImprints.create({ role: 'render-imprints' });
 };
 
 export default { ...fragment };
