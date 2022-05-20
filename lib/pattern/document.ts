@@ -54,7 +54,7 @@ internal.createPattern = ({}) => {
 
     <!---->
     ${parsed.module_inline}
-    <!---->
+    <!----> 
   </head>
 
   <body>
