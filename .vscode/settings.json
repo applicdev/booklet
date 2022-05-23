@@ -1,6 +1,6 @@
 {
-  // ? "./lib" and "./lib/worker" deno .ts files, other
-  //   files are expected to be DOM and WebWorker
+  // ? "./lib/*.ts" and "./lib/worker/**/*.ts " are considered Deno files, any
+  //   other typescript files are considered for use as Deno, DOM and WebWorker
   "deno.lint": true,
   "deno.enable": true,
   "deno.enablePaths": ["./lib/worker/**/*.ts", "./lib/*.ts"]
