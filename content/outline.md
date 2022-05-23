@@ -3,25 +3,29 @@ title: Outline - Markdown Reader
 label: Reader
 
 field:
-  caption: A lightweight bundler for transforming Markdown repositories into readable documents and structured JSON data –
-  keyword: Reader, Markdown, MD, JSON, HTML
+  caption: A simple tool for transforming Markdown repositories into readable documents –
+  keyword: Deno, Markdown, MD, JSON, HTML
 
 locate:
   - { urn: ./outline/ }
-  - { urn: ./, field: { role: landing } }
-  - { urn: ./, field: { role: forward, urn: ./outline } }
+  - { urn: ./, field: { role: landing, urn: ./outline } }
+# - { urn: ./, field: { role: forward, urn: ./outline } }
 
 module:
-  - { urn: ./lib/module/reader.ts }
-  - { urn: ./lib/module/reader-inline.ts, field: { role: inline } }
-  - { urn: ./lib/module/reader-direct.ts, field: { role: worker } }
+  # ? web-interface modules
+  - { alias: reader-inline, urn: ./lib/module/reader-inline.ts, field: { role: inline } }
+  - { alias: reader-loaded, urn: ./lib/module/reader.ts }
+
+  # ? pwa-interface modules
+  - { alias: access, urn: ./lib/module/common-access.ts, field: { role: worker } }
+  - { alias: direct, urn: ./lib/module/common-direct.ts, field: { role: worker } }
 
 figure:
-  - { urn: ./lib/pattern/assets/figure/document.png }
-  - { urn: ./lib/pattern/assets/figure/document-masked.png, field: { role: masked } }
-  - { urn: ./lib/pattern/assets/figure/document-window.png, field: { role: window } }
+  - { alias: 'common', urn: ./lib/pattern/assets/figure/document.png }
+  - { alias: 'masked', urn: ./lib/pattern/assets/figure/document-masked.png }
+  - { alias: 'window', urn: ./lib/pattern/assets/figure/document-window.png }
 ---
 
 # Markdown Reader
 
-A lightweight bundler for transforming Markdown repositories into readable documents and structured JSON data –
+A simple tool for transforming Markdown repositories into readable documents –
