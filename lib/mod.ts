@@ -2,9 +2,13 @@ import './typeset/typeset-interface.ts';
 import './typeset/typeset-workflows.ts';
 
 // import { default as snippet } from './snippet/index.ts';
-import { default as watcher } from './module/reader/reader-watcher.ts';
-import { default as streams } from './module/reader/reader-streams.ts';
+import { default as watcher } from './workflows/reader-watcher.ts';
+import { default as streams } from './workflows/reader-streams.ts';
 
+/**
+ *
+ * @param param0
+ */
 export async function* bundle({ source, output, hosted }: InterfaceOption): InterfaceGenerator {
   watcher.connectedCallback({ source, output, hosted });
   watcher.whenConnected().then(async () => {

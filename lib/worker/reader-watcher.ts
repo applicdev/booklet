@@ -1,4 +1,4 @@
-import { default as snippet } from '../../snippet/index.ts';
+import { default as snippet } from '../snippet/index.ts';
 import { default as runners } from './workflows/index.ts';
 
 import * as file from 'https://deno.land/std@0.134.0/fs/mod.ts';

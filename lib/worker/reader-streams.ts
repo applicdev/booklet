@@ -1,7 +1,7 @@
-import '../../typeset/typeset-interface.ts';
-import '../../typeset/typeset-workflows.ts';
+import '../typeset/typeset-interface.ts';
+import '../typeset/typeset-workflows.ts';
 
-import { default as snippet } from '../../snippet/index.ts';
+import { default as snippet } from '../snippet/index.ts';
 
 import { readableStreamFromReader } from 'https://deno.land/std@0.134.0/streams/mod.ts';
 import { mime } from 'https://deno.land/x/mimetypes@v1.0.0/mod.ts';
