@@ -2,7 +2,7 @@ import './typeset/typeset-interface.ts';
 import './typeset/typeset-workflows.ts';
 
 import { default as workers } from './mod.ts';
-import { default as snippet } from './snippet/index.ts';
+import { default as snippet } from './worker/snippet/index.ts';
 
 const internal: { [prop: string]: any } = {};
 
