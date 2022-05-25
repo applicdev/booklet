@@ -20,11 +20,12 @@ export async function* bundle({ source, output, hosted }: InterfaceOption): Inte
 }
 
 export async function* stream({ source, output, hosted }: InterfaceOption): InterfaceGenerator {
-  (async () => {
-    for await (const res of streams({ output, hosted })) {
-      console.log({ type: 'streams', res });
-    }
-  })();
+  const mod = modules({ source, output, hosted });
+  const str = streams({ output, hosted });
+
+  for await (const res of mod) {
+    console.log({ type: 'modules', res });
+  }
 
   for await (const res of watcher({ source })) {
     console.log({ type: 'watcher', res });

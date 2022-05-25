@@ -79,22 +79,22 @@ const { source, output, hosted } = {
   },
 };
 
-// // ? remove temp dir; when terminated
-// if (!('b' in internal.flag)) {
-//   const beforeClose = () => {
-//     Deno.removeSync(output.urn, { recursive: true });
-//     Deno.removeSync(hosted.urn, { recursive: true });
-//   };
+// ? remove any temp directories from previous runs
+const tempRef = await Deno.makeTempDir();
+const tempDir = snippet.path.resolve(tempRef, '../');
 
-//   globalThis.addEventListener('unload', beforeClose);
-
-//   // ---
-//   // FIXME: Handling OS signals is currently not available on Windows.
-//   // Deno.addSignalListener('SIGTERM', beforeClose);
-//   // See: https://github.com/denoland/deno/pull/12512#issue-1032072995
-//   // See: https://deno.land/manual/examples/os_signals#handle-os-signals
-//   // ---
-// }
+Deno.remove(tempRef, { recursive: true });
+for await (const dirEntry of Deno.readDir(tempDir)) {
+  if (
+    dirEntry.name.includes('workflows-output') || //
+    dirEntry.name.includes('workflows-hosted')
+  ) {
+    const urn = snippet.path.resolve(tempDir, `./${dirEntry.name}`);
+    if (urn != output.urn && urn != hosted.urn) {
+      Deno.remove(urn, { recursive: true });
+    }
+  }
+}
 
 // ? confirm working directory
 if (!('f' in internal.flag)) {

@@ -7,7 +7,11 @@ import * as path from 'https://deno.land/std@0.134.0/path/mod.ts';
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
-export async function* watcher({ source }: InterfaceOption) {
+export async function* watcher({ source }: InterfaceOption): AsyncGenerator<
+  { [prop: string]: any }, //
+  void,
+  void
+> {
   // // ? bundle once
   // await internal.whenChanged({ source, output, hosted });
   // internal.resolveConnected();
