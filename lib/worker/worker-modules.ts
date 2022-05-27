@@ -6,22 +6,26 @@ export async function* modules({ source, output, hosted }: InterfaceOption): Asy
   void,
   void
 > {
-  const [locate, orderd, tasked, option]: any = [{}, {}, {}, { source, output, hosted }];
+  const [bundle, option]: any = [
+    { locate: {}, orderd: {}, tasked: {} },
+    { source, output, hosted },
+  ];
 
   // ?
-  await fragment.preps({ locate, orderd, tasked, option });
-  yield { locate, orderd, tasked, option };
+  await fragment.preps({ bundle, option });
+  yield { bundle, option };
 
   // ?
-  await fragment.order({ locate, orderd, tasked, option });
-  yield { locate, orderd, tasked, option };
+  await fragment.order({ bundle, option });
+  yield { bundle, option };
 
   // ?
-  await fragment.tasks({ locate, orderd, tasked, option });
-  yield { locate, orderd, tasked, option };
+  await fragment.tasks({ bundle, option });
+  yield { bundle, option };
 
   // ?
-  await fragment.write({ locate, orderd, tasked, option });
+  await fragment.finalize({ bundle, option });
+  yield { bundle, option };
 }
 
 fragment.preps = async ({ locate, orderd, tasked, option }: any): Promise<any> => {
@@ -36,6 +40,7 @@ fragment.tasks = async ({ locate, orderd, tasked, option }: any): Promise<any> =
   // ...
 };
 
-fragment.write = async ({ locate, orderd, tasked, option }: any): Promise<any> => {
-  // ...
+fragment.finalize = async ({ locate, orderd, tasked, option }: any): Promise<any> => {
+  await fragment.createPreview({ locate, orderd, tasked, option });
+  await fragment.createPrinted({ locate, orderd, tasked, option });
 };

@@ -79,7 +79,7 @@ const { source, output, hosted } = {
   },
 };
 
-// ? remove any temp directories from previous runs
+// ? remove any temp directories; when previous run faild to remove them
 const tempRef = await Deno.makeTempDir();
 const tempDir = snippet.path.resolve(tempRef, '../');
 
@@ -119,5 +119,7 @@ You are about to initialize a reader for the directories –
 }
 
 // ? initialize bundle or bundle and stream
-const { worker } = { worker: 's' in internal.flag ? workers.stream : workers.bundle };
-for await (const res of worker({ source, output, hosted })) snippet.print.info('Bundle completed!');
+const worker = 's' in internal.flag ? workers.stream : workers.bundle;
+for await (const res of worker({ source, output, hosted })) {
+  // [...]
+}
