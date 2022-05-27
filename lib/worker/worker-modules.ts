@@ -41,6 +41,6 @@ fragment.tasks = async ({ locate, orderd, tasked, option }: any): Promise<any> =
 };
 
 fragment.finalize = async ({ locate, orderd, tasked, option }: any): Promise<any> => {
-  await fragment.createPreview({ locate, orderd, tasked, option });
-  await fragment.createPrinted({ locate, orderd, tasked, option });
+  // await fragment.createPreview({ locate, orderd, tasked, option });
+  // await fragment.createPrinted({ locate, orderd, tasked, option });
 };

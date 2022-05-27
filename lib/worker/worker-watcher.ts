@@ -7,24 +7,35 @@ import * as path from 'https://deno.land/std@0.134.0/path/mod.ts';
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
-export async function* watcher({ source }: InterfaceOption): AsyncGenerator<
-  { [prop: string]: any }, //
-  void,
-  void
-> {
-  // // ? bundle once
-  // await internal.whenChanged({ source, output, hosted });
-  // internal.resolveConnected();
-  // // ? sync bundle for changes in the source directory; when requested
-  // if (!listen) return;
-  // internal.watchDirectories({
-  //   urn: [
-  //     path.resolve(source.urn, './content'), //
-  //     path.resolve(source.urn, './lib'),
-  //   ],
-  //   whenChanged: internal.whenChanged.bind(null, { source, output, hosted }),
-  // });
+export async function* watcher({ source }: InterfaceOption): AsyncGenerator<{ [prop: string]: any }, void, void> {
+  while (true) {
+    let wat: any = Deno.watchFs(source!.urn);
+    let clo: any = null;
+
+    for await (const res of wat) {
+      clearTimeout(clo);
+      clo = setTimeout(() => wat.close(), 1000);
+    }
+
+    yield {
+      //...
+    };
+  }
 }
+
+//   // ? bundle once
+//   await internal.whenChanged({ source, output, hosted });
+//   internal.resolveConnected();
+//   // ? sync bundle for changes in the source directory; when requested
+//   if (!listen) return;
+//   internal.watchDirectories({
+//     urn: [
+//       path.resolve(source.urn, './content'), //
+//       path.resolve(source.urn, './lib'),
+//     ],
+//     whenChanged: internal.whenChanged.bind(null, { source, output, hosted }),
+//   });
+// }
 
 // internal.connect = new Promise((res) => (internal.resolveConnected = res));
 // fragment.whenConnected = (): Promise<void> => internal.connect;
@@ -115,10 +126,10 @@ export async function* watcher({ source }: InterfaceOption): AsyncGenerator<
 // };
 
 // internal.watchDirectories = async ({ urn, whenChanged }: any): Promise<void> => {
-//   internal.fileObserver = Deno.watchFs(urn);
+//   const fileObserver = Deno.watchFs(urn);
 //   let willUpdate = null;
 
-//   for await (const event of internal.fileObserver) {
+//   for await (const event of fileObserver) {
 //     if (willUpdate != null) clearTimeout(willUpdate);
 
 //     willUpdate = setTimeout(() => {

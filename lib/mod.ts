@@ -17,14 +17,17 @@ export async function* stream({ source, output, hosted }: InterfaceOption): Inte
   yield await requestBundle({ source, output, hosted });
 
   // ? steam bundled asset directory
-  for await (const res of streams({ output, hosted })) {
-    ouputStreamsResults({ res });
-  }
+  (async () => {
+    for await (const res of streams({ output, hosted })) //
+      await ouputStreamsResults({ res });
+  })();
 
   // ? re-bundle on file changes
-  let [yie, nex] = [null, null];
+  let [yie, nex]: (null | Promise<{}>)[] = [null, null];
   for await (const res of watcher({ source })) {
-    ouputWatcherResults({ res });
+    console.log({ yie, nex });
+
+    await ouputWatcherResults({ res });
 
     // ? skip; when another request is waiting
     if (nex != null) continue;
@@ -36,35 +39,37 @@ export async function* stream({ source, output, hosted }: InterfaceOption): Inte
       nex = null;
     }
 
-    // ? request bundle
     yie = requestBundle({ source, output, hosted });
     yield await yie;
     yie = null;
   }
 }
 
-// === Interface
+// === Bundle
 
 async function requestBundle({ source, output, hosted }: InterfaceOption): Promise<{}> {
+  let bun: any = null;
+
   for await (const res of modules({ source, output, hosted })) {
-    ouputModulesResults({ res });
+    bun = res;
   }
 
-  return {
-    // [...]
-  };
+  await ouputModulesResults({ res: bun });
+  return bun;
 }
 
+// === Audit
+
 async function ouputModulesResults({ res }: any): Promise<void> {
-  console.log({ type: 'modules', res });
+  // console.log({ type: 'modules', res });
 }
 
 async function ouputStreamsResults({ res }: any): Promise<void> {
-  console.log({ type: 'streams', res });
+  // console.log({ type: 'streams', res });
 }
 
 async function ouputWatcherResults({ res }: any): Promise<void> {
-  console.log({ type: 'watcher', res });
+  // console.log({ type: 'watcher', res });
 }
 
 export default { bundle, stream };
