@@ -1,14 +1,7 @@
-[![Page preview of the "Getting Started" section][reader:preview]][reader:landing]
+[![Page preview of the "Getting Started" section][banner:preview]][banner:landing]
 
-[reader:preview]: https://applic.dev/reader/~/preview/reader-manual-getting-started.png
-[reader:landing]: https://applic.dev/reader/manual/getting-started
-
-<!--
-> **Disclaimer** –
-> This tool was written primarily for the purposes of our documentation pages. For this reason, and because it is still in the experimental stage, we would not recommend using it for other projects at this time. Interfaces, configurations, and file structures may change as we work on them without a major version bump.
-
-<br>
--->
+[banner:preview]: https://applic.dev/reader/~/preview/reader-manual-getting-started.png
+[banner:landing]: https://applic.dev/reader/manual/getting-started
 
 ## Getting Started
 
@@ -50,4 +43,4 @@ deno install -A --unstable --reload -f --name reader https://deno.land/x/reader/
 ```
 
 [deno:install-latest]: https://github.com/denoland/deno_install#install-latest-version
-[puppeteer:install-latest]: https://deno.land/x/puppeteer@14.1.1#installation
+[puppeteer:install-latest]: https://github.com/lucacasonato/deno-puppeteer#installation
