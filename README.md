@@ -14,7 +14,7 @@
 
 ## Getting Started
 
-A full documentation will be available at a later date. Currently, the interface is:
+A full documentation will be available at a later date. The experimental interface consists of:
 
 <!--
 See our [documentation](https://applic.dev/reader/manual/getting-started) for more details –
