@@ -119,7 +119,7 @@ You are about to initialize a reader for the directories –
 }
 
 // ? initialize bundle or bundle and stream
-const worker = 's' in internal.flag ? workers.stream : workers.bundle;
+const worker = 'b' in internal.flag ? workers.bundle : workers.stream;
 for await (const res of worker({ source, output, hosted })) {
   // [...]
 }

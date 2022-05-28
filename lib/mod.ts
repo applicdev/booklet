@@ -9,12 +9,12 @@ import { watcher } from './worker/worker-watcher.ts';
 
 export async function* bundle({ source, output, hosted }: InterfaceOption): InterfaceGenerator {
   // ? bundle once
-  yield await requestBundle({ source, output, hosted });
+  yield requestBundle({ source, output, hosted });
 }
 
 export async function* stream({ source, output, hosted }: InterfaceOption): InterfaceGenerator {
   // ? bundle once before initializing streams and file watcher
-  yield await requestBundle({ source, output, hosted });
+  yield requestBundle({ source, output, hosted });
 
   // ? steam bundled asset directory
   (async () => {
@@ -23,45 +23,31 @@ export async function* stream({ source, output, hosted }: InterfaceOption): Inte
   })();
 
   // ? re-bundle on file changes
-  let [yie, nex]: (null | Promise<{}>)[] = [null, null];
   for await (const res of watcher({ source })) {
-    console.log({ yie, nex });
-
-    await ouputWatcherResults({ res });
-
-    // ? skip; when another request is waiting
-    if (nex != null) continue;
-
-    // ? re-bundle; when changed during bundle
-    if (yie != null) {
-      nex = yie;
-      await yie;
-      nex = null;
-    }
-
-    yie = requestBundle({ source, output, hosted });
-    yield await yie;
-    yie = null;
+    ouputWatcherResults({ res });
+    yield requestBundle({ source, output, hosted });
   }
 }
 
 // === Bundle
 
-async function requestBundle({ source, output, hosted }: InterfaceOption): Promise<{}> {
-  let bun: any = null;
+let [yie, nex]: any = [null, null];
 
-  for await (const res of modules({ source, output, hosted })) {
-    bun = res;
+async function requestBundle({ source, output, hosted }: InterfaceOption): Promise<{ [prop: string]: any }> {
+  let res: any;
+
+  for await (const ste of modules({ source })) {
+    res = ste;
   }
 
-  await ouputModulesResults({ res: bun });
-  return bun;
+  ouputModulesResults({ res });
+  return res;
 }
 
 // === Audit
 
 async function ouputModulesResults({ res }: any): Promise<void> {
-  // console.log({ type: 'modules', res });
+  console.log({ type: 'modules', res });
 }
 
 async function ouputStreamsResults({ res }: any): Promise<void> {

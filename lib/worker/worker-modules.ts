@@ -23,6 +23,8 @@ export async function* modules({ source, output, hosted }: InterfaceOption): Asy
   await fragment.tasks({ bundle, option });
   yield { bundle, option };
 
+  await new Promise((res) => setTimeout(res, 3000));
+
   // ?
   await fragment.finalize({ bundle, option });
   yield { bundle, option };
