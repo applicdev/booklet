@@ -12,7 +12,7 @@ fragment.request = async ({ bundle, option }: any): Promise<void> => {
 
   // ?
   const browser = await puppeteer.launch({
-    // product: 'firefox',
+    product: 'firefox',
     headless: true,
     defaultViewport: { width: 1538, height: 923, deviceScaleFactor: 2 },
   });

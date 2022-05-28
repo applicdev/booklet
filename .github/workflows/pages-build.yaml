@@ -19,7 +19,7 @@ jobs:
         with:
           deno-version: vx.x.x
 
-      - name: Use Deno Latest Stable
+      - name: Use Puppeteer Latest Stable
         run: PUPPETEER_PRODUCT=firefox deno run -A --unstable https://deno.land/x/puppeteer@14.1.1/install.ts
 
       - name: Build
