@@ -47,7 +47,7 @@ if ('h' in internal.flag) {
 Usage: reader [options]
 
 Options:
-  -v, --version       output the version number
+  -v, --version       output version number
   -h, --help          output usage information
 
   -s, --stream        start a local server for bundled assets
