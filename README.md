@@ -1,5 +1,3 @@
-# Reader
-
 [![Page preview of the "Getting Started" section][reader:preview]][reader:landing]
 
 [reader:preview]: https://applic.dev/reader/~/preview/reader-manual-getting-started.png
@@ -14,10 +12,10 @@
 
 ## Getting Started
 
-A full documentation will be available at a later date. The experimental interface consists of:
+A complete documentation will be available at a later time. For now, the experimental interface consists of:
 
 <!--
-See our [documentation](https://applic.dev/reader/manual/getting-started) for more details –
+See our [documentation](https://applic.dev/reader/manual/getting-started) for complete guide –
 -->
 
 ```plain
@@ -35,14 +33,14 @@ Options:
 
 ### Download and install
 
-Install the [latest version of Deno][deno:install-latest] and run the following two commands to also install [Puppeteer][puppeteer:install-latest] and use this tool on your system:
-
-```sh
-$Env:PUPPETEER_PRODUCT = "firefox"; deno run -A --unstable https://deno.land/x/puppeteer@14.1.1/install.ts
-```
+Install the [latest version of Deno][deno:install-latest], then run the following two commands to install this tool and, if required, [Puppeteer][puppeteer:install-latest]:
 
 ```sh
 deno install -A --unstable --name reader https://deno.land/x/reader/lib/index.ts
+```
+
+```sh
+$Env:PUPPETEER_PRODUCT="firefox"; deno run -A --unstable https://deno.land/x/puppeteer/install.ts
 ```
 
 To update a previously installed version run:
