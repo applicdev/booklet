@@ -12,8 +12,9 @@ fragment.request = async ({ bundle, option }: any): Promise<void> => {
 
   // ?
   const browser = await puppeteer.launch({
+    product: 'firefox',
     headless: true,
-    defaultViewport: { width: 1538, height: 923, deviceScaleFactor: 2 },
+    defaultViewport: { width: 1538, height: 923, deviceScaleFactor: 1 },
   });
   const page = await browser.newPage();
 
@@ -52,7 +53,7 @@ internal.render = async (): Promise<string> => {
         gap: 1.25rem;
         padding: 1.25rem;
         
-        background: #f2f2f2;
+        background: #f6f8fa;
         margin: 0rem 0rem;
       }
 
