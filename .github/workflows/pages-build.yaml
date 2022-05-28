@@ -16,19 +16,18 @@ jobs:
 
       - name: Use Deno Latest Stable
         uses: denolib/setup-deno@v2
-        with:
-          deno-version: vx.x.x
+        with: { deno-version: vx.x.x }
 
       - name: Use Puppeteer Latest Stable
-        run: PUPPETEER_PRODUCT=firefox deno run -A --unstable https://deno.land/x/puppeteer/install.ts
+        run: deno run -A --unstable https://deno.land/x/puppeteer/install.ts
 
       - name: Build
-        run: PUPPETEER_PRODUCT=firefox deno run -A --unstable https://cdn.jsdelivr.net/gh/applicdev/reader/lib/index.ts --bundle -p -f
+        # run: PUPPETEER_PRODUCT=firefox deno run -A --unstable https://deno.land/x/reader/lib/index.ts --bundle -p -f
+        run: deno run -A --unstable https://cdn.jsdelivr.net/gh/applicdev/reader/lib/index.ts --bundle -p -f
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.ACTIONS_ACCESS_TOKEN }}
           publish_dir: ./.github/workflows-hosted
-          enable_jekyll: false
           # cname: example.com
