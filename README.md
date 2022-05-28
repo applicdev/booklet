@@ -1,6 +1,6 @@
 # Reader
 
-[![preview of reader-outline][reader:preview]][reader:landing]
+[![Page preview of the "Getting Started" section][reader:preview]][reader:landing]
 
 [reader:preview]: https://applic.dev/reader/~/preview/reader-manual-getting-started.png
 [reader:landing]: https://applic.dev/reader/manual/getting-started
