@@ -32,6 +32,7 @@ fragment.request = async ({ bundle, option }: any): Promise<void> => {
       width: 1200,
       height: 628,
     },
+    omitBackground: true,
   });
 
   await browser.close();
@@ -55,6 +56,8 @@ internal.render = async (): Promise<string> => {
         
         background: #f6f8fa;
         margin: 0rem 0rem;
+
+        border-radius: 0.5rem;
       }
 
       section {
