@@ -4,10 +4,6 @@ import '../typeset/typeset-workflows.ts';
 import { default as snippet } from './snippet/index.ts';
 
 import { readableStreamFromReader } from 'https://deno.land/std@0.134.0/streams/mod.ts';
-import { mime } from 'https://deno.land/x/mimetypes@v1.0.0/mod.ts';
-
-// import * as file from 'https://deno.land/std@0.132.0/fs/mod.ts';
-import * as path from 'https://deno.land/std@0.134.0/path/mod.ts';
 
 export async function* streams({ output, hosted }: InterfaceOption): AsyncGenerator<
   { [prop: string]: any }, //
@@ -33,7 +29,7 @@ async function handleHttp({ output, hosted }: InterfaceOption, con: Deno.Conn) {
 
       if (uri.startsWith(hosted!.path)) {
         result = await requestFile({
-          urn: path.resolve(hosted!.urn, `./${uri.slice(hosted!.path.length)}`),
+          urn: snippet.path.resolve(hosted!.urn, `./${uri.slice(hosted!.path.length)}`),
         });
       }
 
@@ -41,7 +37,7 @@ async function handleHttp({ output, hosted }: InterfaceOption, con: Deno.Conn) {
       if (!result) {
         status = 404;
         result = await requestFile({
-          urn: path.resolve(hosted!.urn, `./404.html`),
+          urn: snippet.path.resolve(hosted!.urn, `./404.html`),
         });
       }
 
@@ -74,12 +70,12 @@ async function requestFile({ urn }: { urn: string }): Promise<null | any> {
   try {
     if ((await Deno.stat(urn)).isDirectory) {
       return await requestFile({
-        urn: path.resolve(urn, './index.html'),
+        urn: snippet.path.resolve(urn, './index.html'),
       });
     }
 
     result.file = await Deno.open(urn, { read: true });
-    result.type = mime.getType(urn);
+    result.type = snippet.mime.getType(urn);
 
     return result;
   } catch (err) {

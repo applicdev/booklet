@@ -17,9 +17,7 @@ export async function* watcher({ source }: InterfaceOption): AsyncGenerator<{ [p
       clo = setTimeout(() => wat.close(), 1000);
     }
 
-    yield {
-      //...
-    };
+    yield {};
   }
 }
 
