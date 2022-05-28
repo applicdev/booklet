@@ -20,9 +20,7 @@ jobs:
           deno-version: vx.x.x
 
       - name: Use Deno Latest Stable
-        run: deno run -A --unstable https://deno.land/x/puppeteer@14.1.1/install.ts
-        with:
-          PUPPETEER_PRODUCT: firefox
+        run: PUPPETEER_PRODUCT=firefox deno run -A --unstable https://deno.land/x/puppeteer@14.1.1/install.ts
 
       - name: Build
         run: deno run -A --unstable https://cdn.jsdelivr.net/gh/applicdev/reader/lib/index.ts --bundle -p -f
