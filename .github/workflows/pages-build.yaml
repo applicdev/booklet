@@ -10,21 +10,17 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        deno-version: [1.21.3]
-
     steps:
       - name: Git Checkout Deno Module
         uses: actions/checkout@v2
 
-      - name: Use Deno Version ${{ matrix.deno-version }}
+      - name: Use Deno Latest Stable
         uses: denolib/setup-deno@v2
         with:
-          deno-version: ${{ matrix.deno-version }}
+          deno-version: vx.x.x
 
       - name: Build
-        run: deno run -A --unstable https://deno.land/x/reader/lib/index.ts --bundle -p -f
+        run: deno run -A --unstable https://cdn.jsdelivr.net/gh/applicdev/reader/lib/index.ts --bundle -p -f
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
