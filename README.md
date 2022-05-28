@@ -33,22 +33,9 @@ Options:
   -f                  force file writes
 ```
 
-To test locally:
-
-```
-reader --stream -p
-```
-
-For use with GitHub's workflows:
-
-```
-- name: Build
-  run: deno run -A --unstable https://deno.land/x/reader/lib/index.ts --bundle -p -f
-```
-
 ### Download and install
 
-Install the [latest version][deno:install-latest] of Deno and run the following two commands to also [install puppeteer][puppeteer:install-latest] and use this tool on your system:
+Install the [latest version of Deno][deno:install-latest] and run the following two commands to also install [Puppeteer][puppeteer:install-latest] and use this tool on your system:
 
 ```sh
 $Env:PUPPETEER_PRODUCT = "firefox"; deno run -A --unstable https://deno.land/x/puppeteer@14.1.1/install.ts
