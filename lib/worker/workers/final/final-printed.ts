@@ -4,7 +4,9 @@ const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
 fragment.request = async ({ page, urn }: any): Promise<void> => {
-  if (Deno.env.toObject().OS != 'Windows_NT') {
+  const env = Deno.env.toObject();
+
+  if (!('OS' in env) && env.OS != 'Windows_NT') {
     await page.emulateMediaType('print');
     await page.pdf({
       path: urn,
