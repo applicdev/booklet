@@ -8,26 +8,37 @@ import { watcher } from './worker/worker-watcher.ts';
 // === Interface
 
 export async function* bundle({ source, output, hosted }: InterfaceOption): InterfaceGenerator {
+  // ? stream bundled asset directory
+  await requestStream({ source, output, hosted });
+
   // ? bundle once
   yield requestBundle({ source, output, hosted });
 }
 
 export async function* stream({ source, output, hosted }: InterfaceOption): InterfaceGenerator {
-  // ? bundle once before initializing streams and file watcher
-  yield requestBundle({ source, output, hosted });
+  // ? stream bundled asset directory
+  await requestStream({ source, output, hosted });
 
-  // ? steam bundled asset directory
-  (async () => {
-    for await (const res of streams({ output, hosted })) {
-      await ouputStreamsResults({ res });
-    }
-  })();
+  // ? bundle once before initializing watcher
+  yield requestBundle({ source, output, hosted });
 
   // ? re-bundle on file changes
   for await (const res of watcher({ source })) {
     await ouputWatcherResults({ res });
     yield requestBundle({ source, output, hosted });
   }
+}
+
+// === Stream
+
+async function requestStream({ source, output, hosted }: InterfaceOption): Promise<void> {
+  (async () => {
+    for await (const res of streams({ output, hosted })) {
+      await ouputStreamsResults({ res });
+    }
+  })();
+
+  return new Promise((res) => setTimeout(res, 500));
 }
 
 // === Bundle

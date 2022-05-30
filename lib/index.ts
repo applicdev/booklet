@@ -123,3 +123,5 @@ const worker = 'b' in internal.flag ? workers.bundle : workers.stream;
 for await (const res of worker({ source, output, hosted })) {
   // [...]
 }
+
+Deno.exit();

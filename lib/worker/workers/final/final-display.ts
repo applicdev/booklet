@@ -1,6 +1,7 @@
 import { default as snippet } from '../../snippet/index.ts';
 
-import puppeteer from 'https://deno.land/x/puppeteer@14.1.1/mod.ts';
+// import puppeteer from 'https://deno.land/x/puppeteer@14.1.1/mod.ts';
+import puppeteer from 'https://deno.land/x/puppeteer@9.0.2/mod.ts';
 import { encodeUrl } from 'https://deno.land/x/encodeurl/mod.ts';
 
 const fragment: { [prop: string]: any } = {};
@@ -16,7 +17,7 @@ fragment.request = async function* ({ bundle, option }: any): AsyncGenerator<any
 
   try {
     const hash = '/reader/manual/getting-started'.replace(/^\/|\/$/g, '').replace(/\//g, '-');
-    // const url = 'https://google.com'; //'data:text/html;charset=UTF-8,' + escape(await internal.render());
+    const url = 'http://localhost:8080/reader/manual/getting-started';
 
     // await page.goto(url, { waitUntil: ['domcontentloaded'] });
     await page.setContent(await internal.render(), { waitUntil: ['domcontentloaded'] });
@@ -25,8 +26,6 @@ fragment.request = async function* ({ bundle, option }: any): AsyncGenerator<any
   } catch (err) {
     console.log(err);
   }
-
-  console.log('done');
 
   await browser.close();
 };
@@ -38,9 +37,9 @@ internal.render = async (): Promise<string> => {
         font-size: 16px;
       }
 
-      body, body * { 
-        all: unset; 
-        box-sizing: border-box; 
+      body, body * {
+        all: unset;
+        box-sizing: border-box;
       }
 
       body {
@@ -57,16 +56,16 @@ internal.render = async (): Promise<string> => {
 
         display: grid;
         justify-content: center;
-        
+
         grid-auto-flow: row;
         gap: 1.25rem;
         padding: 1.25rem;
-        
+
         width: 100%;
         margin: 0rem 0rem;
-        
+
         background: #f6f8fa;
-        
+
         overflow: hidden scroll;
         overflow: hidden overlay;
       }
