@@ -48,10 +48,16 @@ fragment.finalize = async ({ bundle, option }: any): Promise<any> => {
   const { hosted, output } = option;
 
   // ? ensure preview and printed directories and capture contents
-  await Promise.all([
-    workers.finalPreview({ bundle, option }), //
-    workers.finalPrinted({ bundle, option }),
-  ]);
+  const pri = { urn: snippet.path.resolve(option.hosted.urn, './~/printed/') };
+  const pre = { urn: snippet.path.resolve(option.hosted.urn, './~/preview/') };
+
+  snippet.file.emptyDir(pri.urn);
+  snippet.file.emptyDir(pre.urn);
+
+  for await (const dis of workers.finalDisplay({ bundle, option })) {
+    await workers.finalPreview({ page: dis.page, urn: snippet.path.resolve(pre.urn, `./${dis.hash}.png`) });
+    await workers.finalPrinted({ page: dis.page, urn: snippet.path.resolve(pri.urn, `./${dis.hash}.pdf`) });
+  }
 
   // ? ensure github details
   const noj = { urn: './.nojekyll', plain: '' };
