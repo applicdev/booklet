@@ -26,7 +26,7 @@ jobs:
 
       - name: Build
         # run: deno run -A --unstable https://deno.land/x/reader/lib/index.ts --bundle -p -f
-        run: deno run -A --unstable https://cdn.jsdelivr.net/gh/applicdev/reader/lib/index.ts --bundle -p -f
+        run: deno run -A --unstable ./lib/index.ts --bundle -p -f
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
