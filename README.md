@@ -35,7 +35,7 @@ deno install -A --unstable --name reader https://deno.land/x/reader/lib/index.ts
 ```
 
 ```sh
-$Env:PUPPETEER_PRODUCT="chrome"; deno run -A --unstable https://deno.land/x/puppeteer/install.ts
+$Env:PUPPETEER_PRODUCT="chrome"; deno run -A --unstable https://deno.land/x/puppeteer@9.0.2/install.ts
 ```
 
 To update a previously installed version run:
