@@ -1,3 +1,5 @@
+# Reader
+
 [![Page preview of the "Getting Started" section][banner:preview]][banner:landing]
 
 [banner:preview]: https://applic.dev/reader/~/preview/reader-manual-getting-started.png
