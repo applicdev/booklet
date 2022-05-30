@@ -8,9 +8,6 @@ const internal: { [prop: string]: any } = {};
 
 fragment.request = async function* ({ bundle, option }: any): AsyncGenerator<any> {
   const browser = await puppeteer.launch({
-    dumpio: true,
-    headless: true,
-    args: ['--disable-gpu', '--no-sandbox', '--disable-extensions'],
     defaultViewport: { width: 1538, height: 923, deviceScaleFactor: 1 },
   });
 
