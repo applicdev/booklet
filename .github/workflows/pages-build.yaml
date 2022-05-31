@@ -3,8 +3,10 @@ name: pages-build
 on:
   push:
     branches: [main]
+    # paths: [content/**]
   pull_request:
     branches: [main]
+    # paths: [content/**]
 
 env:
   PUPPETEER_PRODUCT: chrome
