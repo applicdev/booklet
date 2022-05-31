@@ -1,10 +1,10 @@
 import { default as snippet } from './snippet/index.ts';
-import { default as bundler } from './bundler/index.ts';
+import { default as bundles } from './bundles/index.ts';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
-export async function* modules(option: InterfaceOption): AsyncGenerator<
+export async function* bundler(option: InterfaceOption): AsyncGenerator<
   { [prop: string]: any }, //
   void,
   void
@@ -54,9 +54,9 @@ fragment.finalize = async ({ bundle, option }: any): Promise<any> => {
   snippet.file.emptyDir(pri.urn);
   snippet.file.emptyDir(pre.urn);
 
-  for await (const dis of bundler.finalize.display({ bundle, option })) {
-    await bundler.finalize.preview({ page: dis.page, urn: snippet.path.resolve(pre.urn, `./${dis.hash}.png`) });
-    await bundler.finalize.printed({ page: dis.page, urn: snippet.path.resolve(pri.urn, `./${dis.hash}.pdf`) });
+  for await (const dis of bundles.finalize.display({ bundle, option })) {
+    await bundles.finalize.preview({ page: dis.page, urn: snippet.path.resolve(pre.urn, `./${dis.hash}.png`) });
+    await bundles.finalize.printed({ page: dis.page, urn: snippet.path.resolve(pri.urn, `./${dis.hash}.pdf`) });
   }
 
   // ? ensure github details

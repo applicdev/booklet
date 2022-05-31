@@ -10,7 +10,7 @@ export async function* streams({ output, hosted }: InterfaceOption): AsyncGenera
   void,
   void
 > {
-  snippet.print.info(`Server active on http://localhost:8080${hosted!.path}`);
+  // snippet.print.info(`Server active on http://localhost:8080${hosted!.path}`);
 
   for await (const con of Deno.listen({ port: 8080 })) {
     await handleHttp({ output, hosted }, con).catch((err: Error) => console.error(err));
