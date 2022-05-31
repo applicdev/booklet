@@ -1,5 +1,5 @@
 import { default as snippet } from './snippet/index.ts';
-import { default as workers } from './workers/index.ts';
+import { default as bundler } from './bundler/index.ts';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
@@ -54,9 +54,9 @@ fragment.finalize = async ({ bundle, option }: any): Promise<any> => {
   snippet.file.emptyDir(pri.urn);
   snippet.file.emptyDir(pre.urn);
 
-  for await (const dis of workers.finalize.display({ bundle, option })) {
-    await workers.finalize.preview({ page: dis.page, urn: snippet.path.resolve(pre.urn, `./${dis.hash}.png`) });
-    await workers.finalize.printed({ page: dis.page, urn: snippet.path.resolve(pri.urn, `./${dis.hash}.pdf`) });
+  for await (const dis of bundler.finalize.display({ bundle, option })) {
+    await bundler.finalize.preview({ page: dis.page, urn: snippet.path.resolve(pre.urn, `./${dis.hash}.png`) });
+    await bundler.finalize.printed({ page: dis.page, urn: snippet.path.resolve(pri.urn, `./${dis.hash}.pdf`) });
   }
 
   // ? ensure github details

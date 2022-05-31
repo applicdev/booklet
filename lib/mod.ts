@@ -1,7 +1,7 @@
 import './typeset/typeset-interface.ts';
 import './typeset/typeset-workflows.ts';
 
-import { modules } from './worker/worker-modules.ts';
+import { bundler } from './worker/worker-bundler.ts';
 import { streams } from './worker/worker-streams.ts';
 import { watcher } from './worker/worker-watcher.ts';
 
@@ -46,7 +46,7 @@ async function requestStream({ source, output, hosted }: InterfaceOption): Promi
 async function requestBundle({ source, output, hosted }: InterfaceOption): Promise<{ [prop: string]: any }> {
   let res: any;
 
-  for await (const ste of modules({ source, output, hosted })) {
+  for await (const ste of bundler({ source, output, hosted })) {
     res = ste;
   }
 
