@@ -16,11 +16,7 @@ extend-define:
       # title-prefix: false
       # caption: false
       # keyword: false
-    module:
-      - alias: 'reader-manual-loaded'
-        field: { urn: './lib/module/reader.ts' }
-      - alias: 'reader-manual-inline'
-        field: { urn: './lib/module/reader-inline.ts' }
+    module: { inline: ['reader-manual-inline'], loaded: ['reader-manual-loaded'] }
 
 module-define:
   # ? interface modules
