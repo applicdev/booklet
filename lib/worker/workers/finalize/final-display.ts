@@ -25,9 +25,9 @@ fragment.request = async function* ({ bundle, option }: any): AsyncGenerator<any
     yield { page, hash };
   } catch (err) {
     console.log(err);
+  } finally {
+    await browser.close();
   }
-
-  await browser.close();
 };
 
 internal.render = async (): Promise<string> => {

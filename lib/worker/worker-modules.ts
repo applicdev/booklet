@@ -54,9 +54,9 @@ fragment.finalize = async ({ bundle, option }: any): Promise<any> => {
   snippet.file.emptyDir(pri.urn);
   snippet.file.emptyDir(pre.urn);
 
-  for await (const dis of workers.finalDisplay({ bundle, option })) {
-    await workers.finalPreview({ page: dis.page, urn: snippet.path.resolve(pre.urn, `./${dis.hash}.png`) });
-    await workers.finalPrinted({ page: dis.page, urn: snippet.path.resolve(pri.urn, `./${dis.hash}.pdf`) });
+  for await (const dis of workers.finalize.display({ bundle, option })) {
+    await workers.finalize.preview({ page: dis.page, urn: snippet.path.resolve(pre.urn, `./${dis.hash}.png`) });
+    await workers.finalize.printed({ page: dis.page, urn: snippet.path.resolve(pri.urn, `./${dis.hash}.pdf`) });
   }
 
   // ? ensure github details
