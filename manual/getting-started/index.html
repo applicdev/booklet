@@ -1,0 +1,76 @@
+
+    <link href="/booklet/assets/fonts/BreezeSans.css" rel="stylesheet">
+
+    <style>
+      html {
+        font-size: 16px;
+      }
+
+      body, body * {
+        all: unset;
+        box-sizing: border-box;
+      }
+
+      body {
+        display: grid;
+        justify-content: center;
+
+        grid-auto-flow: row;
+        gap: 1.25rem;
+        padding: 1.25rem;
+
+        width: 100%;
+        margin: 0rem 0rem;
+
+        background: #f6f8fa;
+
+        overflow: hidden scroll;
+        overflow: hidden overlay;
+      }
+
+      section {
+        display: grid;
+        grid-auto-flow: column;
+
+        background: #fcfcfc;
+        border-radius: 2px;
+        outline: 1px solid #e9e9e9;
+
+        width: 794px;
+        height: 1123px;
+      }
+
+      @media print {
+        body{
+          gap: 0rem;
+          padding: 0rem;
+          background: transparent;
+        }
+
+        section {
+          background: transparent;
+          border-radius: none;
+          outline: none;
+        }
+      }
+
+      @page {
+        size: 794px 1123px portrait;
+        margin: 0rem 0rem 0rem 0rem;
+      }
+
+      .type.watermark {
+        font-family: 'Breeze Sans';
+        font-size: 4rem;
+        
+        margin: 8rem auto;
+        color: #252525;
+      }
+    </style>
+
+    <section>
+      <h1 class="type watermark">Booklet</h1>
+    </section>
+    <section></section>
+    <section></section>
+  
