@@ -3,7 +3,7 @@ import '../typeset/typeset-workflows.ts';
 
 import { default as snippet } from './snippet/index.ts';
 
-import { readableStreamFromBooklet } from 'https://deno.land/std@0.134.0/streams/mod.ts';
+import { readableStreamFromReader } from 'https://deno.land/std@0.134.0/streams/mod.ts';
 
 export async function* streams({ output, hosted }: InterfaceOption): AsyncGenerator<
   { [prop: string]: any }, //
@@ -50,7 +50,7 @@ async function handleHttp({ output, hosted }: InterfaceOption, con: Deno.Conn) {
       }
 
       // ? 200
-      const readableStream = readableStreamFromBooklet(result.file);
+      const readableStream = readableStreamFromReader(result.file);
       const response = new Response(readableStream, {
         status,
         headers: result.type ? { 'content-type': result.type } : {},
