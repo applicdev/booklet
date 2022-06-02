@@ -60,6 +60,12 @@ fragment.finalize = async ({ bundle, option }: any): Promise<any> => {
     await bundles.finalize.printed({ page: dis.page, urn: snippet.path.resolve(pri.urn, `./${dis.hash}.pdf`) });
   }
 
+  // ? ensure assets
+  const fil = { urn: snippet.path.dirname(snippet.path.fromFileUrl(import.meta.url)) };
+  const ass = { urn: snippet.path.resolve(option.hosted.urn, './assets/') };
+
+  await snippet.file.copy(snippet.path.resolve(fil.urn, '../assets/'), ass.urn);
+
   // ? ensure github details
   const noj = { urn: './.nojekyll', plain: '' };
   const rea = { urn: './README.md', plain: 'This branch is automated with [GitHub Actions](https://github.com/features/actions). Its content should not be manually edited.' };

@@ -32,6 +32,8 @@ fragment.request = async function* ({ bundle, option }: any): AsyncGenerator<any
 
 internal.render = async (): Promise<string> => {
   return `
+    <link href="./booklet/assets/fonts/BreezeSans.css" rel="stylesheet">
+    <link href="./booklet/assets/fonts/BreezeSans-Condensed.css" rel="stylesheet">
     <style>
       html {
         font-size: 16px;
