@@ -19,8 +19,7 @@ fragment.request = async function* ({ bundle, option }: any): AsyncGenerator<any
     const hash = '/booklet/manual/getting-started'.replace(/^\/|\/$/g, '').replace(/\//g, '-');
     const url = 'http://localhost:8080/booklet/manual/getting-started';
 
-    // await page.goto(url, { waitUntil: ['domcontentloaded'] });
-    await page.setContent(await internal.render(), { waitUntil: ['domcontentloaded'] });
+    await page.goto(url, { waitUntil: ['networkidle2'] });
 
     yield { page, hash };
   } catch (err) {
@@ -28,84 +27,6 @@ fragment.request = async function* ({ bundle, option }: any): AsyncGenerator<any
   } finally {
     await browser.close();
   }
-};
-
-internal.render = async (): Promise<string> => {
-  return `
-    <link href="/booklet/assets/fonts/BreezeSans.css" rel="stylesheet">
-    <style>
-      html {
-        font-size: 16px;
-      }
-
-      body, body * {
-        all: unset;
-        box-sizing: border-box;
-      }
-
-      body {
-        display: grid;
-        justify-content: center;
-
-        grid-auto-flow: row;
-        gap: 1.25rem;
-        padding: 1.25rem;
-
-        width: 100%;
-        margin: 0rem 0rem;
-
-        background: #f6f8fa;
-
-        overflow: hidden scroll;
-        overflow: hidden overlay;
-      }
-
-      section {
-        display: grid;
-        grid-auto-flow: column;
-
-        background: #fcfcfc;
-        border-radius: 2px;
-        outline: 1px solid #e9e9e9;
-
-        width: 794px;
-        height: 1123px;
-      }
-
-      @media print {
-        body{
-          gap: 0rem;
-          padding: 0rem;
-          background: transparent;
-        }
-
-        section {
-          background: transparent;
-          border-radius: none;
-          outline: none;
-        }
-      }
-
-      @page {
-        size: var(--a4-wid) var(--a4-hei) portrait;
-        margin: 0rem 0rem 0rem 0rem;
-      }
-
-      .type.watermark {
-        font-family: 'BreezeSans';
-        font-size: 4rem;
-        
-        margin: 8rem auto;
-        color: #252525;
-      }
-    </style>
-
-    <section>
-      <h1 class="type watermark">Booklet</h1>
-    </section>
-    <section></section>
-    <section></section>
-  `;
 };
 
 export default { ...fragment };
