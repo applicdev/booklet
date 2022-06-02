@@ -32,8 +32,7 @@ fragment.request = async function* ({ bundle, option }: any): AsyncGenerator<any
 
 internal.render = async (): Promise<string> => {
   return `
-    <link href="./booklet/assets/fonts/BreezeSans.css" rel="stylesheet">
-    <link href="./booklet/assets/fonts/BreezeSans-Condensed.css" rel="stylesheet">
+    <link href="/booklet/assets/fonts/BreezeSans.css" rel="stylesheet">
     <style>
       html {
         font-size: 16px;
@@ -93,9 +92,10 @@ internal.render = async (): Promise<string> => {
       }
 
       .type.watermark {
-        margin: 8rem auto;
-        font-family: BreezeSans;
+        font-family: 'BreezeSans';
         font-size: 4rem;
+        
+        margin: 8rem auto;
         color: #252525;
       }
     </style>
