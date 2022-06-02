@@ -60,6 +60,9 @@ internal.render = async (): Promise<string> => {
       }
 
       section {
+        display: grid;
+        grid-auto-flow: column;
+
         background: #fcfcfc;
         border-radius: 2px;
         outline: 1px solid #e9e9e9;
@@ -86,11 +89,20 @@ internal.render = async (): Promise<string> => {
         size: var(--a4-wid) var(--a4-hei) portrait;
         margin: 0rem 0rem 0rem 0rem;
       }
+
+      .type.watermark {
+        margin: 8rem auto;
+        font-family: BreezeSans;
+        font-size: 4rem;
+        color: #252525;
+      }
     </style>
 
-    <section>Page 01</section>
-    <section>Page 02</section>
-    <section>Page 03</section>
+    <section>
+      <h1 class="type watermark">Booklet</h1>
+    </section>
+    <section></section>
+    <section></section>
   `;
 };
 
