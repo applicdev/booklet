@@ -1,7 +1,7 @@
 ---
 title: Getting Started
 
-extend: ['reader', 'reader-manual']
+extend: ['booklet', 'booklet-manual']
 locate:
   - { urn: './manual/getting-started' }
   - { urn: './manual', field: { role: 'forward', urn: './manual/getting-started' } }

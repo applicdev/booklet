@@ -35,7 +35,7 @@ internal.path = await (async () => {
 
 // ? confirm working directory
 if ('v' in internal.flag) {
-  const plain = `reader 0.1.3-experimental`;
+  const plain = `booklet 0.1.3-experimental`;
 
   snippet.print.info(plain);
   Deno.exit();
@@ -44,7 +44,7 @@ if ('v' in internal.flag) {
 // ? confirm working directory
 if ('h' in internal.flag) {
   const plain = `
-Usage: reader [options]
+Usage: booklet [options]
 
 Options:
   -v, --version       output version number
@@ -99,7 +99,7 @@ for await (const dirEntry of Deno.readDir(tempDir)) {
 // ? confirm working directory
 if (!('f' in internal.flag)) {
   snippet.print.info(`
-You are about to initialize a reader for the directories –
+You are about to initialize a booklet for the directories –
 
   ${snippet.print.bold(snippet.path.resolve())}
 `);

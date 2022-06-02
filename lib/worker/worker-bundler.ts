@@ -47,13 +47,14 @@ fragment.initialize = async ({ bundle, option }: any): Promise<any> => {
 fragment.finalize = async ({ bundle, option }: any): Promise<any> => {
   const { hosted, output } = option;
 
-  // ? ensure preview and printed directories and capture contents
+  // ? ensure preview and printed output directories
   const pri = { urn: snippet.path.resolve(option.hosted.urn, './~/printed/') };
   const pre = { urn: snippet.path.resolve(option.hosted.urn, './~/preview/') };
 
   snippet.file.emptyDir(pri.urn);
   snippet.file.emptyDir(pre.urn);
 
+  // ? create previews and print pages
   for await (const dis of bundles.finalize.display({ bundle, option })) {
     await bundles.finalize.preview({ page: dis.page, urn: snippet.path.resolve(pre.urn, `./${dis.hash}.png`) });
     await bundles.finalize.printed({ page: dis.page, urn: snippet.path.resolve(pri.urn, `./${dis.hash}.pdf`) });

@@ -22,7 +22,7 @@ internal.createPattern = ({}) => {
     <!---->
 
     <!---->
-    <script src="${'parsed.where(source == reader-direct.ts)'}"></script>
+    <script src="${'parsed.where(source == booklet-direct.ts)'}"></script>
     <!---->
   </head>
 </html>

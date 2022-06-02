@@ -1,20 +1,20 @@
-# Reader
+# Booklet
 
 [![Page preview of the "Getting Started" section][banner:preview]][banner:landing]
 
-[banner:preview]: https://applic.dev/reader/~/preview/reader-manual-getting-started.png
-[banner:landing]: https://applic.dev/reader/manual/getting-started
+[banner:preview]: https://applic.dev/booklet/~/preview/booklet-manual-getting-started.png
+[banner:landing]: https://applic.dev/booklet/manual/getting-started
 
 ## Getting Started
 
 A complete documentation will be available at a later time. For now, the experimental interface consists of:
 
 <!--
-See our [documentation](https://applic.dev/reader/manual/getting-started) for complete guide –
+See our [documentation](https://applic.dev/booklet/manual/getting-started) for complete guide –
 -->
 
 ```plain
-Usage: reader [options]
+Usage: booklet [options]
 
 Options:
   -v, --version       output version number
@@ -31,7 +31,7 @@ Options:
 Install the [latest version of Deno][deno:install-latest], then run the following two commands to install this tool and, if required, [Puppeteer][puppeteer:install-latest]:
 
 ```sh
-deno install -A --unstable --name reader https://deno.land/x/reader/lib/index.ts
+deno install -A --unstable --name booklet https://deno.land/x/booklet/lib/index.ts
 ```
 
 ```sh
@@ -41,7 +41,7 @@ $Env:PUPPETEER_PRODUCT="chrome"; deno run -A --unstable https://deno.land/x/pupp
 To update a previously installed version run:
 
 ```sh
-deno install -A --unstable --reload -f --name reader https://deno.land/x/reader/lib/index.ts
+deno install -A --unstable --reload -f --name booklet https://deno.land/x/booklet/lib/index.ts
 ```
 
 [deno:install-latest]: https://github.com/denoland/deno_install#install-latest-version

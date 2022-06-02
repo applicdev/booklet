@@ -59,13 +59,13 @@ internal.createPattern = ({}) => {
 
   <body>
     <!---->
-    <reader-bounds>
+    <booklet-bounds>
       ${parsed.append}
 
       <!---->
       <div class="body-node unresolved-scrim"></div>
       <!---->
-    </reader-bounds>
+    </booklet-bounds>
     <!---->
 
     <!---->

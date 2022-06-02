@@ -1,35 +1,35 @@
 ---
 extend-define:
   # ? landing pages
-  - alias: 'reader-landing'
-    field: { module: { inline: ['reader-landing'] } }
+  - alias: 'booklet-landing'
+    field: { module: { inline: ['booklet-landing'] } }
 
   # ? forward pages
-  - alias: 'reader-forward'
-    field: { module: { inline: ['reader-forward'] } }
+  - alias: 'booklet-forward'
+    field: { module: { inline: ['booklet-forward'] } }
 
   # ? document pages
-  - alias: 'reader-manual'
+  - alias: 'booklet-manual'
     field:
       # title: false
-      title-suffix: ' – Reader'
+      title-suffix: ' – Booklet'
       # title-prefix: false
       # caption: false
       # keyword: false
-    module: { inline: ['reader-manual-inline'], loaded: ['reader-manual-loaded'] }
+    module: { inline: ['booklet-manual-inline'], loaded: ['booklet-manual-loaded'] }
 
 module-define:
   # ? interface modules
-  - alias: 'reader-manual-loaded'
-    field: { urn: './lib/module/reader.ts' }
-  - alias: 'reader-manual-inline'
-    field: { urn: './lib/module/reader-inline.ts' }
+  - alias: 'booklet-manual-loaded'
+    field: { urn: './lib/module/booklet.ts' }
+  - alias: 'booklet-manual-inline'
+    field: { urn: './lib/module/booklet-inline.ts' }
 
   # ? routing modules
-  - alias: 'reader-landing'
-    field: { urn: './lib/module/reader-landing.ts' }
-  - alias: 'reader-forward'
-    field: { urn: './lib/module/reader-forward.ts' }
+  - alias: 'booklet-landing'
+    field: { urn: './lib/module/booklet-landing.ts' }
+  - alias: 'booklet-forward'
+    field: { urn: './lib/module/booklet-forward.ts' }
 
 figure-define:
   # ? tray and bowser icon

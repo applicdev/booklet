@@ -29,7 +29,7 @@ switch (true) {
     {
       let rout = `${params || ''}`;
       let host = `${location.hostname}`;
-      let path = `applic.dev/manual/reader/fallback-page`;
+      let path = `applic.dev/manual/booklet/fallback-page`;
 
       target.urn = `https://${path}?redirect=${rout}&redirect-origin=${host}`;
     }

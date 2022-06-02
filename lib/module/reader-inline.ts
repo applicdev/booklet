@@ -1,1 +1,1 @@
-console.log('loaded reader-inline.ts');
+console.log('loaded booklet-inline.ts');

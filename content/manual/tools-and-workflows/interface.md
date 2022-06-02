@@ -1,7 +1,7 @@
 ---
 title: 'Interface'
 
-extend: ['reader', 'reader-manual']
+extend: ['booklet', 'booklet-manual']
 locate:
   - { urn: './manual/tools/interface' }
 ---

@@ -16,8 +16,8 @@ fragment.request = async function* ({ bundle, option }: any): AsyncGenerator<any
   const page = await browser.newPage();
 
   try {
-    const hash = '/reader/manual/getting-started'.replace(/^\/|\/$/g, '').replace(/\//g, '-');
-    const url = 'http://localhost:8080/reader/manual/getting-started';
+    const hash = '/booklet/manual/getting-started'.replace(/^\/|\/$/g, '').replace(/\//g, '-');
+    const url = 'http://localhost:8080/booklet/manual/getting-started';
 
     // await page.goto(url, { waitUntil: ['domcontentloaded'] });
     await page.setContent(await internal.render(), { waitUntil: ['domcontentloaded'] });
@@ -43,17 +43,6 @@ internal.render = async (): Promise<string> => {
       }
 
       body {
-        width: 100vw;
-        height: 100vh;
-        margin: 0rem 0rem;
-
-        overflow: hidden;
-      }
-
-      main {
-        position: fixed;
-        inset: 0rem 0rem;
-
         display: grid;
         justify-content: center;
 
@@ -78,11 +67,30 @@ internal.render = async (): Promise<string> => {
         width: 794px;
         height: 1123px;
       }
+
+      @media print {
+        body{
+          gap: 0rem;
+          padding: 0rem;
+          background: transparent;
+        }
+
+        section {
+          background: transparent;
+          border-radius: none;
+          outline: none;
+        }
+      }
+
+      @page {
+        size: var(--a4-wid) var(--a4-hei) portrait;
+        margin: 0rem 0rem 0rem 0rem;
+      }
     </style>
 
-    <main>
-      <section></section>
-    </main>
+    <section>Page 01</section>
+    <section>Page 02</section>
+    <section>Page 03</section>
   `;
 };
 
