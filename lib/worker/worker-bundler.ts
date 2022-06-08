@@ -252,7 +252,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
       }
 
       .nav.breadcrumb > ol > .breadcrumb-item:not(:last-child)::after {
-        content: '›';
+        content: 'U+203a';
 
         margin: 0rem 0.25rem 0.1rem;
         color: #9e9e9e;
@@ -276,7 +276,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         <ol>
           <li class="breadcrumb-item"><a class="item-text" href="/booklet">Booklet</a></li>
           <!-- breadcrumb-item here!! -->
-          <li class="breadcrumb-item"><a href="#" class="item-text">Getting Started</a></li>
+          <li class="breadcrumb-item"><a href="#" class="item-text">Overview</a></li>
         </ol>
       </nav>
     </header>
