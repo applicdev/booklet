@@ -9,8 +9,8 @@ const internal: { [prop: string]: any } = {};
 
 fragment.request = async function* ({ bundle, option }: any): AsyncGenerator<any> {
   const browser = await puppeteer.launch({
-    // defaultViewport: { width: 1538, height: 923, deviceScaleFactor: 1 },
-    defaultViewport: { width: 1200, height: 628, deviceScaleFactor: 1 },
+    defaultViewport: { width: 1538, height: 923, deviceScaleFactor: 1 },
+    // defaultViewport: { width: 1200, height: 628, deviceScaleFactor: 1 },
   });
 
   // ?

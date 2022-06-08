@@ -129,7 +129,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     <!---->
 
     <!---->
-    <link href="${option.hosted.path}assets/fonts/BreezeSans.css" rel="stylesheet" />
+    <link href="https://applic.dev/booklet/assets/fonts/BreezeSans.css" rel="stylesheet" />
     <!---->
 
     <style>

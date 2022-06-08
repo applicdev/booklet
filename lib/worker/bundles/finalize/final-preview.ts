@@ -6,12 +6,12 @@ const internal: { [prop: string]: any } = {};
 fragment.request = async ({ page, urn }: any): Promise<void> => {
   await page.screenshot({
     path: urn,
-    // clip: {
-    //   x: 169,
-    //   y: 0,
-    //   width: 1200,
-    //   height: 628,
-    // },
+    clip: {
+      x: 169,
+      y: 50,
+      width: 1200,
+      height: 628,
+    },
   });
 };
 
