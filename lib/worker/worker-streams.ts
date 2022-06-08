@@ -1,5 +1,5 @@
-import '../typeset/typeset-interface.ts';
-import '../typeset/typeset-workflows.ts';
+import '../worker/typeset/typeset-interface.ts';
+import '../worker/typeset/typeset-workflows.ts';
 
 import { default as snippet } from './snippet/index.ts';
 

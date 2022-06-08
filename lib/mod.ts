@@ -1,5 +1,5 @@
-import './typeset/typeset-interface.ts';
-import './typeset/typeset-workflows.ts';
+import './worker/typeset/typeset-interface.ts';
+import './worker/typeset/typeset-workflows.ts';
 
 import { bundler } from './worker/worker-bundler.ts';
 import { streams } from './worker/worker-streams.ts';

@@ -4,13 +4,20 @@ const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
 fragment.request = async ({ page, urn }: any): Promise<void> => {
-  await page.emulateMediaType('print');
+  // await page.emulateMediaType('print');
   await page.pdf({
     path: urn,
     format: 'A4',
-    printBackground: true,
+
     displayHeaderFooter: false,
-    timeout: 10000,
+    printBackground: true,
+
+    margin: {
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+    },
   });
 };
 

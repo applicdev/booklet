@@ -11,6 +11,10 @@ fragment.info = async (plain: string = '', state: string = ''): Promise<void> =>
   console.log(Colors.gray(plain), Colors.gray(state));
 };
 
+fragment.area = async (plain: string = '', state: string = ''): Promise<void> => {
+  console.log('\n===', plain);
+};
+
 fragment.done = async (plain: string = '', state: string = ''): Promise<void> => {
   console.log(Colors.green('✔ '), plain, Colors.bold(state));
 };

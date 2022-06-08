@@ -9,15 +9,16 @@ const internal: { [prop: string]: any } = {};
 
 fragment.request = async function* ({ bundle, option }: any): AsyncGenerator<any> {
   const browser = await puppeteer.launch({
-    defaultViewport: { width: 1538, height: 923, deviceScaleFactor: 1 },
+    // defaultViewport: { width: 1538, height: 923, deviceScaleFactor: 1 },
+    defaultViewport: { width: 1200, height: 628, deviceScaleFactor: 1 },
   });
 
   // ?
   const page = await browser.newPage();
 
   try {
-    const hash = '/booklet/manual/getting-started'.replace(/^\/|\/$/g, '').replace(/\//g, '-');
-    const url = 'http://localhost:8080/booklet/manual/getting-started';
+    const hash = `${option.hosted.path}manual/getting-started`.replace(/^\/|\/$/g, '').replace(/\//g, '-');
+    const url = `http://localhost:8080${option.hosted.path}manual/getting-started`;
 
     await page.goto(url, { waitUntil: ['networkidle2'] });
 

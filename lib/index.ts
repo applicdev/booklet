@@ -1,5 +1,5 @@
-import './typeset/typeset-interface.ts';
-import './typeset/typeset-workflows.ts';
+import './worker/typeset/typeset-interface.ts';
+import './worker/typeset/typeset-workflows.ts';
 
 import { default as workers } from './mod.ts';
 import { default as snippet } from './worker/snippet/index.ts';
@@ -99,13 +99,13 @@ for await (const dirEntry of Deno.readDir(tempDir)) {
 // ? confirm working directory
 if (!('f' in internal.flag)) {
   snippet.print.info(`
-You are about to initialize a booklet for the directories –
+You are about to initialize the following directories as booklets –
 
   ${snippet.print.bold(snippet.path.resolve())}
 `);
 
-  if ('b' in internal.flag)
-    snippet.print.info(`and write bundled assets to the directories –
+  // if ('b' in internal.flag)
+  snippet.print.info(`bundled assets are written to the directories –
 
   ${snippet.print.bold(output.urn)}
   ${snippet.print.bold(hosted.urn)}
