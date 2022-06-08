@@ -150,8 +150,8 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     <!---->
 
     <!---->
-    <meta content="#f6f6f6" name="theme-color" />
-    <meta content="#f6f6f6" name="theme-color" media="(prefers-color-scheme: light)" />
+    <meta content="#f0f0f2" name="theme-color" />
+    <meta content="#f0f0f2" name="theme-color" media="(prefers-color-scheme: light)" />
     <meta content="#171b22" name="theme-color" media="(prefers-color-scheme: dark)" />
     <!---->
 
@@ -167,6 +167,8 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     <!---->
 
     <style>
+      /* */
+
       html {
         font-size: 16px;
 
@@ -174,6 +176,8 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         --a4-hei: calc(52.5rem * (29.69 / 21));
         --a4-mar:  4.375rem 4.375rem;
       }
+
+      /* */
 
       body,
       body * {
@@ -186,8 +190,10 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         display: none;
       }
 
+      /* */
+
       body {
-        background: #f6f6f6;
+        background: #f0f0f2;
 
         overflow: hidden scroll;
         overflow: hidden overlay;
@@ -200,6 +206,14 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         display: none;
       }
 
+      ::selection {
+        color: #ffffff;
+        background: #191919;
+        text-decoration: none;
+      }
+
+      /* */
+
       main {
         display: grid;
         justify-content: center;
@@ -207,9 +221,23 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         grid-auto-flow: row;
         gap: 1.25rem;
         padding: 1.25rem;
-
-        width: 100vw;
+ 
         margin: 3.125rem 0rem;
+      }
+
+      /*main {
+        width: calc(100vw - 20rem);
+        margin-left: 20rem;
+      }*/
+
+      /* */
+
+      nav {
+        position: fixed;
+        inset: 0rem aut 0rem 0rem;
+
+        width: 20rem;
+        background: green;
       }
 
       header {
@@ -224,8 +252,6 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
 
         height: 3.125rem;
         padding: 0rem 2.5rem;
-
-        background: #f6f6f6;
       }
 
       header::after {
@@ -240,16 +266,17 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         app-region: drag;
       }
 
+      /* */
+
       section {
         display: grid;
-        grid-auto-flow: column;
-        align-items: flex-start;
+        grid-auto-rows: minmax(min-content, max-content);
 
         width: var(--a4-wid);
         height: var(--a4-hei);
 
         background: #fcfcfc;
-        border-radius: 2px;
+        border-radius: 0.125rem;
         outline: 1px solid #e9e9e9;
 
         padding: var(--a4-mar);
@@ -257,52 +284,81 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         box-shadow: 0 1px 0 0.5px rgb(22 29 37 / 5%);
       }
 
+      /* */
+
+      @page {
+        margin: 0rem 0rem;
+      }
+      
       @media print {
         html {
           font-size: calc(1cm / 40 * 16);
         }
 
-        body {
-          margin: 0rem;
-          padding: 0rem;
+        body, 
+        body > main {
+          padding: 0rem 0rem;
+        }
+
+        body, 
+        body > main,
+        body > main > section {
+          margin: 0rem 0rem;
+          
+          background: white;
+          border-radius: none;
+          outline: none;
+          box-shadow: none;
         }
 
         main {
           gap: 0rem;
-          padding: 0rem;
-          background: transparent;
-
-          margin: 0rem 0rem;
-        }
-        
-        section {
-          background: transparent;
-          border-radius: none;
-          outline: none;
-          box-shadow: none;
-
-          margin: 0rem 0rem;
+          width: var(--a4-wid);
         }
       }
 
-      @page {
-        margin: 0rem 0rem;
-      }
+ 
 
-      .type.watermark {
+    </style>
+    <style>
+      /* */
+
+      .type {
         font-family: 'Breeze Sans';
-        font-size: 4rem;
+        font-variant-numeric: proportional-nums;
 
-        margin: 8rem auto;
+        line-height: 1em;
+
+        margin: -0.22ex -0.15ch;
+      }
+
+      .type.anker {
+        font-size: 0.825rem;
+        color: #585b63;
+
+        height: 1.25rem;
+        margin-bottom:  1.25rem;
+
+        cursor: pointer;
+      }
+      
+      .type.watermark {
+        font-size: 1.875rem;
         color: #252525;
+
+        height: 2.5rem;
       }
     </style>
   </head>
   <body>
     <header></header>
 
+    <nav>
+    </nav>
+
     <main>
       <section>
+        <a id="000" href="#000" class="type anker">000</a>
         <h1 class="type watermark">Booklet</h1>
       </section>
       <section></section>
