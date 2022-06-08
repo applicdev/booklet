@@ -171,7 +171,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         font-size: 16px;
 
         --a4-wid: 52.5rem; /* 840px -> 40px/cm */
-        --a4-hei: calc(52.5rem * (29.7 / 21));
+        --a4-hei: calc(52.5rem * (29.69 / 21));
         --a4-mar:  4.375rem 4.375rem;
       }
 
@@ -258,6 +258,10 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
       }
 
       @media print {
+        html {
+          font-size: calc(1cm / 40 * 16);
+        }
+
         body {
           margin: 0rem;
           padding: 0rem;
@@ -267,18 +271,22 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
           gap: 0rem;
           padding: 0rem;
           background: transparent;
-        }
 
+          margin: 0rem 0rem;
+        }
+        
         section {
           background: transparent;
           border-radius: none;
           outline: none;
           box-shadow: none;
+
+          margin: 0rem 0rem;
         }
       }
 
       @page {
-        margin: 0rem 0rem 0rem 0rem;
+        margin: 0rem 0rem;
       }
 
       .type.watermark {
