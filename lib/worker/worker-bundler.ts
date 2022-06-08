@@ -105,9 +105,36 @@ fragment.finalize = async ({ bundle, option }: any): Promise<any> => {
 fragment.debug = async ({ bundle, option }: any): Promise<any> => {
   const plain = await internal.debugRender({ bundle, option });
   const out = { urn: snippet.path.resolve(option.hosted!.urn, `./overview/index.html`) };
+  const man = { urn: snippet.path.resolve(option.hosted!.urn, `./booklet.webmanifest`) };
+  const ser = { urn: snippet.path.resolve(option.hosted!.urn, `./booklet.service-worker.js`) };
 
   await snippet.file.emptyDir(snippet.path.dirname(out.urn));
   await snippet.file.writeTextFile(out.urn, plain);
+  await snippet.file.writeTextFile(ser.urn, `self.addEventListener('fetch', () => {});`);
+  await snippet.file.writeTextFile(
+    man.urn,
+    JSON.stringify({
+      name: 'Booklet',
+      short_name: 'Booklet',
+      start_url: `${option.hosted!.path}`,
+      display: 'standalone',
+      display_override: ['window-controls-overlay'],
+      background_color: '#f2f2f2',
+      theme_color: '#f2f2f2',
+      icons: [
+        {
+          src: 'https://applic.dev/booklet/assets/firgure/booklet-icon-192.png',
+          sizes: '192x192',
+          type: 'image/png',
+        },
+        {
+          src: 'https://applic.dev/booklet/assets/firgure/booklet-icon-512.png',
+          sizes: '512x512',
+          type: 'image/png',
+        },
+      ],
+    })
+  );
 };
 
 internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
@@ -123,13 +150,21 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     <!---->
 
     <!---->
-    <meta content="#f6f6f6" name="theme-color" />
-    <meta content="#f6f6f6" name="theme-color" media="(prefers-color-scheme: light)" />
+    <meta content="#f2f2f2" name="theme-color" />
+    <meta content="#f2f2f2" name="theme-color" media="(prefers-color-scheme: light)" />
     <meta content="#171b22" name="theme-color" media="(prefers-color-scheme: dark)" />
     <!---->
 
     <!---->
+    <link rel="manifest" href="${option.hosted!.path}booklet.webmanifest" crossorigin="use-credentials">
     <link href="https://applic.dev/booklet/assets/fonts/BreezeSans.css" rel="stylesheet" />
+    <!---->
+
+    <!---->
+    <script>
+      if ('serviceWorker' in navigator) 
+          navigator.serviceWorker.register('${option.hosted!.path}booklet.service-worker.js');
+    </script>
     <!---->
 
     <style>
@@ -144,7 +179,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
       }
 
       body {
-        background: #f6f6f6;
+        background: #f2f2f2;
 
         overflow: hidden scroll;
         overflow: hidden overlay;
@@ -163,12 +198,18 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
       }
 
       header {
+        position: sticky;
+        inset: 0rem 0rem auto 0rem;
+
         display: flex;
         flex-direction: row;
         align-items: center;
 
         height: 3.125rem;
         padding: 0rem 2.5rem;
+
+        background: #fcfcfc;
+        border-bottom: 1px solid rgb(22 29 37 / 8%);
       }
 
       section {
@@ -183,7 +224,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         border-radius: 2px;
         outline: 1px solid #e9e9e9;
 
-        box-shadow: 0 0 0 1px rgb(63 63 68 / 5%), 0 1px 3px 0 rgb(63 63 68 / 15%);
+        box-shadow: 0 1px 0 0.5px rgb(22 29 37 / 5%);
       }
 
       @media print {
@@ -252,7 +293,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
       }
 
       .nav.breadcrumb > ol > .breadcrumb-item:not(:last-child)::after {
-        content: 'U+203a';
+        content: '›';
 
         margin: 0rem 0.25rem 0.1rem;
         color: #9e9e9e;
