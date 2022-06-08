@@ -123,12 +123,12 @@ fragment.debug = async ({ bundle, option }: any): Promise<any> => {
       theme_color: '#f2f2f2',
       icons: [
         {
-          src: 'https://applic.dev/booklet/assets/firgure/booklet-icon-192.png',
+          src: 'https://applic.dev/booklet/assets/firgure/192w/booklet-icon.png',
           sizes: '192x192',
           type: 'image/png',
         },
         {
-          src: 'https://applic.dev/booklet/assets/firgure/booklet-icon-512.png',
+          src: 'https://applic.dev/booklet/assets/firgure/512w/booklet-icon.png',
           sizes: '512x512',
           type: 'image/png',
         },
