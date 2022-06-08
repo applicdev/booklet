@@ -2,7 +2,7 @@
   font-family: 'Breeze Sans';
   font-style: normal;
   font-weight: 600;
-  font-display: swap;
+  font-display: block;
   src: url('./BreezeSans/BreezeSans-Bold.ttf') format('truetype');
 }
 
@@ -10,7 +10,7 @@
   font-family: 'Breeze Sans';
   font-style: normal;
   font-weight: 500;
-  font-display: swap;
+  font-display: block;
   src: url('./BreezeSans/BreezeSans-Medium.ttf') format('truetype');
 }
 
@@ -18,7 +18,7 @@
   font-family: 'Breeze Sans';
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: block;
   src: url('./BreezeSans/BreezeSans-Regular.ttf') format('truetype');
 }
 
@@ -26,7 +26,7 @@
   font-family: 'Breeze Sans';
   font-style: normal;
   font-weight: 300;
-  font-display: swap;
+  font-display: block;
   src: url('./BreezeSans/BreezeSans-Light.ttf') format('truetype');
 }
 
@@ -34,6 +34,6 @@
   font-family: 'Breeze Sans';
   font-style: normal;
   font-weight: 200;
-  font-display: swap;
+  font-display: block;
   src: url('./BreezeSans/BreezeSans-Thin.ttf') format('truetype');
 }
