@@ -77,14 +77,18 @@
         padding: 0rem 2.5rem;
 
         background: #f6f6f6;
+      }
+
+      header::after {
+        content: '';
+
+        position: fixed;
+        inset: 0rem 0rem auto 0rem;
+
+        height: 0.625rem;
 
         -webkit-app-region: drag;
         app-region: drag;
-      }
-
-      header > * {
-        -webkit-app-region: no-drag;
-        app-region: no-drag;
       }
 
       section {
