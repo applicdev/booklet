@@ -6,12 +6,12 @@
     <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport" />
 
     <!---->
-    <title>&#65279;</title>
+    <title>Debugging-Document</title>
     <!---->
 
     <!---->
-    <meta content="#f2f2f2" name="theme-color" />
-    <meta content="#f2f2f2" name="theme-color" media="(prefers-color-scheme: light)" />
+    <meta content="#f5f5f5" name="theme-color" />
+    <meta content="#f5f5f5" name="theme-color" media="(prefers-color-scheme: light)" />
     <meta content="#171b22" name="theme-color" media="(prefers-color-scheme: dark)" />
     <!---->
 
@@ -23,10 +23,10 @@
     <!---->
     <script>
       if ('serviceWorker' in navigator) 
-          navigator.serviceWorker.register('/booklet/booklet.service-worker.js');
+        navigator.serviceWorker.register('/booklet/booklet.service-worker.js');
     </script>
     <!---->
-
+    
     <style>
       html {
         font-size: 16px;
@@ -43,6 +43,13 @@
 
         overflow: hidden scroll;
         overflow: hidden overlay;
+
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      ::-webkit-scrollbar {
+        display: none;
       }
 
       main {
@@ -68,8 +75,15 @@
         height: 3.125rem;
         padding: 0rem 2.5rem;
 
-        background: #fcfcfc;
-        border-bottom: 1px solid rgb(22 29 37 / 8%);
+        background: #f5f5f5;
+
+        -webkit-app-region: drag;
+        app-region: drag;
+      }
+
+      header > * {
+        -webkit-app-region: no-drag;
+        app-region: no-drag;
       }
 
       section {
@@ -119,67 +133,9 @@
         color: #252525;
       }
     </style>
-
-    <style>
-      .nav.breadcrumb > ol {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-items: center;
-
-        margin-bottom: 0;
-        padding: 0;
-        background: none;
-
-        border-radius: 0.25rem;
-        list-style: none;
-      }
-
-      .nav.breadcrumb > ol > .breadcrumb-item {
-        display: inline-block;
-      }
-
-      .nav.breadcrumb > ol > .breadcrumb-item .item-text,
-      .nav.breadcrumb > ol > .breadcrumb-item::after {
-        display: inline-block;
-        vertical-align: middle;
-
-        font-family: 'Breeze Sans';
-        font-size: 0.875rem;
-        font-weight: 500;
-        line-height: calc(0.875rem + 0.5rem);
-        color: #6e6e6e;
-        vertical-align: middle;
-      }
-
-      .nav.breadcrumb > ol > .breadcrumb-item:not(:last-child)::after {
-        content: '›';
-
-        margin: 0rem 0.25rem 0.1rem;
-        color: #9e9e9e;
-      }
-
-      .nav.breadcrumb > ol > .breadcrumb-item:first-child .item-text {
-        font-weight: 500;
-        color: #c24d63;
-      }
-
-      @media print {
-        header {
-          display: none;
-        }
-      }
-    </style>
   </head>
   <body>
     <header>
-      <nav class="nav breadcrumb">
-        <ol>
-          <li class="breadcrumb-item"><a class="item-text" href="/booklet">Booklet</a></li>
-          <!-- breadcrumb-item here!! -->
-          <li class="breadcrumb-item"><a href="#" class="item-text">Overview</a></li>
-        </ol>
-      </nav>
     </header>
 
     <main>
