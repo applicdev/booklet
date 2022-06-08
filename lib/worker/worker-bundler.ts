@@ -104,7 +104,7 @@ fragment.finalize = async ({ bundle, option }: any): Promise<any> => {
 // ---
 fragment.debug = async ({ bundle, option }: any): Promise<any> => {
   const plain = await internal.debugRender({ bundle, option });
-  const out = { urn: snippet.path.resolve(option.hosted!.urn, `./manual/getting-started/index.html`) };
+  const out = { urn: snippet.path.resolve(option.hosted!.urn, `./overview/index.html`) };
 
   await snippet.file.emptyDir(snippet.path.dirname(out.urn));
   await snippet.file.writeTextFile(out.urn, plain);

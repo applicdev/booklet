@@ -17,8 +17,8 @@ fragment.request = async function* ({ bundle, option }: any): AsyncGenerator<any
   const page = await browser.newPage();
 
   try {
-    const hash = `${option.hosted.path}manual/getting-started`.replace(/^\/|\/$/g, '').replace(/\//g, '-');
-    const url = `http://localhost:8080${option.hosted.path}manual/getting-started`;
+    const hash = `${option.hosted.path}overview`.replace(/^\/|\/$/g, '').replace(/\//g, '-');
+    const url = `http://localhost:8080${option.hosted.path}overview`;
 
     await page.goto(url, { waitUntil: ['networkidle2'] });
 

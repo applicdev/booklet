@@ -3,14 +3,14 @@
 [![Page preview of the "Getting Started" section][banner:preview]][banner:landing]
 
 [banner:preview]: https://applic.dev/booklet/~/preview/booklet-manual-getting-started.png
-[banner:landing]: https://applic.dev/booklet/manual/getting-started
+[banner:landing]: https://applic.dev/booklet/overview
 
 ## Getting Started
 
 A complete documentation will be available at a later time. For now, the experimental interface consists of:
 
 <!--
-See our [documentation](https://applic.dev/booklet/manual/getting-started) for complete guide –
+See our [documentation](https://applic.dev/booklet/overview) for complete guide –
 -->
 
 ```plain
