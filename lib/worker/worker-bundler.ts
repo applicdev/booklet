@@ -169,6 +169,10 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     <style>
       html {
         font-size: 16px;
+
+        --a4-wid: 52.5rem; /* 840px -> 40px/cm */
+        --a4-hei: calc(52.5rem * (29.7 / 21));
+        --a4-mar:  4.375rem 4.375rem;
       }
 
       body,
@@ -241,12 +245,14 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         grid-auto-flow: column;
         align-items: flex-start;
 
-        width: 794px;
-        height: 1123px;
+        width: var(--a4-wid);
+        height: var(--a4-hei);
 
         background: #fcfcfc;
         border-radius: 2px;
         outline: 1px solid #e9e9e9;
+
+        padding: var(--a4-mar);
 
         box-shadow: 0 1px 0 0.5px rgb(22 29 37 / 5%);
       }
