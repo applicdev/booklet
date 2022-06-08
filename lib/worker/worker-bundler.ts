@@ -150,8 +150,8 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     <!---->
 
     <!---->
-    <meta content="#fcfcfc" name="theme-color" />
-    <meta content="#fcfcfc" name="theme-color" media="(prefers-color-scheme: light)" />
+    <meta content="#f6f6f6" name="theme-color" />
+    <meta content="#f6f6f6" name="theme-color" media="(prefers-color-scheme: light)" />
     <meta content="#171b22" name="theme-color" media="(prefers-color-scheme: dark)" />
     <!---->
 
@@ -179,7 +179,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
       }
 
       body {
-        background: #f2f2f2;
+        background: #f6f6f6;
 
         overflow: hidden scroll;
         overflow: hidden overlay;
@@ -215,7 +215,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         height: 3.125rem;
         padding: 0rem 2.5rem;
 
-        background: #fcfcfc;
+        background: #f6f6f6;
 
         -webkit-app-region: drag;
         app-region: drag;
