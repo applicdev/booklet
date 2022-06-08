@@ -1,6 +1,7 @@
 # Booklet
 
-[![Page preview of the "Getting Started" section][banner:preview]][banner:landing]
+| [![Page preview of Booklet's "Overview" section][banner:preview]][banner:landing] |
+| :--------------------------------------------------------------------------------: |
 
 [banner:preview]: https://applic.dev/booklet/~/preview/booklet-overview.png
 [banner:landing]: https://applic.dev/booklet/overview
