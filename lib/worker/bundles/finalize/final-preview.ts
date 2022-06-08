@@ -8,7 +8,7 @@ fragment.request = async ({ page, urn }: any): Promise<void> => {
     path: urn,
     clip: {
       x: 169,
-      y: 50,
+      y: 0,
       width: 1200,
       height: 628,
     },

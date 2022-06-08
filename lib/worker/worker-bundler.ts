@@ -156,17 +156,16 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     <!---->
 
     <!---->
-    <link rel="manifest" href="${option.hosted!.path}booklet.webmanifest" crossorigin="use-credentials">
+    <link rel="manifest" href="${option.hosted!.path}booklet.webmanifest" crossorigin="use-credentials" />
     <link href="https://applic.dev/booklet/assets/fonts/BreezeSans.css" rel="stylesheet" />
     <!---->
 
     <!---->
     <script>
-      if ('serviceWorker' in navigator) 
-        navigator.serviceWorker.register('${option.hosted!.path}booklet.service-worker.js');
+      if ('serviceWorker' in navigator) navigator.serviceWorker.register('${option.hosted!.path}booklet.service-worker.js');
     </script>
     <!---->
-    
+
     <style>
       html {
         font-size: 16px;
@@ -201,11 +200,11 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         padding: 1.25rem;
 
         width: 100vw;
-        margin: 0rem 0rem;
+        margin: 3.125rem 0rem;
       }
 
       header {
-        position: sticky;
+        position: fixed;
         inset: 0rem 0rem auto 0rem;
 
         display: flex;
@@ -275,8 +274,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     </style>
   </head>
   <body>
-    <header>
-    </header>
+    <header></header>
 
     <main>
       <section>
@@ -287,6 +285,6 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     </main>
   </body>
 </html>
-  `;
+`;
 };
 // ---
