@@ -204,6 +204,8 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
       }
 
       header {
+        z-index: -1;
+
         position: fixed;
         inset: 0rem 0rem auto 0rem;
 
