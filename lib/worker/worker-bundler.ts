@@ -177,6 +177,11 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         box-sizing: border-box;
       }
 
+      body style,
+      body script {
+        display: none;
+      }
+
       body {
         background: #f6f6f6;
 
