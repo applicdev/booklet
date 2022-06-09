@@ -12,22 +12,18 @@ export async function* bundler(option: InterfaceOption): AsyncGenerator<
   const bundle: any = { locate: {}, orderd: {}, tasked: {} };
 
   // ?
-  snippet.print.area('Initialize');
   await fragment.initialize({ bundle, option });
   yield { bundle, option };
 
   // ?
-  snippet.print.area('Order');
   await fragment.order({ bundle, option });
   yield { bundle, option };
 
   // ?
-  snippet.print.area('Preps');
   await fragment.preps({ bundle, option });
   yield { bundle, option };
 
   // ?
-  snippet.print.area('Tasks');
   await fragment.tasks({ bundle, option });
   yield { bundle, option };
 
@@ -36,7 +32,6 @@ export async function* bundler(option: InterfaceOption): AsyncGenerator<
   // ---
 
   // ?
-  snippet.print.area('Finalize');
   await fragment.finalize({ bundle, option });
   yield { bundle, option };
 }
@@ -52,8 +47,8 @@ fragment.initialize = async ({ bundle, option }: any): Promise<any> => {
 fragment.order = async ({ bundle, option }: any): Promise<any> => {
   const { hosted, output } = option;
 
-  for await (const fil of bundles.order.traverse({ bundle, option })) {
-    console.log(fil);
+  for await (const node of bundles.order.traverse({ bundle, option })) {
+    bundles.order.manage({ bundle, option }, { node });
     // [...]
   }
 };
@@ -87,8 +82,8 @@ fragment.finalize = async ({ bundle, option }: any): Promise<any> => {
   snippet.file.emptyDir(pre.urn);
 
   for await (const dis of bundles.finalize.display({ bundle, option })) {
-    await bundles.finalize.preview({ page: dis.page, urn: snippet.path.resolve(pre.urn, `./${dis.hash}.png`) });
-    await bundles.finalize.printed({ page: dis.page, urn: snippet.path.resolve(pri.urn, `./${dis.hash}.pdf`) });
+    await bundles.finalize.preview({ bundle, option }, { page: dis.page, urn: snippet.path.resolve(pre.urn, `./${dis.hash}.png`) });
+    await bundles.finalize.printed({ bundle, option }, { page: dis.page, urn: snippet.path.resolve(pri.urn, `./${dis.hash}.pdf`) });
   }
 
   // ? create github configs
