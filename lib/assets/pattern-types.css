@@ -27,6 +27,7 @@
   margin-bottom: 1.25rem;
 
   cursor: pointer;
+  margin-right: auto;
 }
 
 .type.watermark {
