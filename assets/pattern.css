@@ -5,7 +5,7 @@ html {
 
   --a4-wid: 52.5rem; /* 840px -> 40px/cm */
   --a4-hei: calc(52.5rem * (29.69 / 21));
-  --a4-mar: 4.375rem 4.375rem;
+  --a4-mar: 4.375rem;
 }
 
 /* */
@@ -62,8 +62,6 @@ main {
 /* */
 
 nav {
-  z-index: -1;
-
   position: fixed;
   inset: 0rem auto 0rem 0rem;
 
@@ -73,14 +71,14 @@ nav {
   grid-template-columns: 3.125rem 1fr;
 
   width: 20rem;
-
-  margin-top: calc(3.125rem * 2);
+  margin: 5rem 0rem 0rem 0rem;
+  padding: 1.25rem 0rem 0rem 0rem;
 }
 
 nav > div {
   display: flex;
   flex-direction: column;
-  grid-gap: 1.25rem;
+  grid-gap: 0.625rem;
   align-items: center;
 }
 
@@ -101,7 +99,7 @@ header > div {
   display: grid;
   align-items: center;
   grid-auto-flow: column;
-  grid-gap: 1.25rem;
+  grid-gap: 0.625rem;
 }
 header > div:first-child {
   justify-content: start;
@@ -125,6 +123,8 @@ header::after {
 /* */
 
 section {
+  z-index: 10;
+
   display: grid;
   grid-auto-rows: minmax(min-content, max-content);
 
@@ -138,6 +138,56 @@ section {
   padding: var(--a4-mar);
 
   box-shadow: 0 1px 0 0.5px rgb(22 29 37 / 5%);
+}
+
+/* */
+
+button {
+  all: unset;
+
+  display: flex;
+  flex-direction: row;
+  grid-gap: 0.3125rem;
+  align-items: center;
+
+  height: 1.875rem;
+  padding: 0rem 0.3125rem;
+
+  border-radius: 0.125rem;
+
+  cursor: pointer;
+  user-select: none;
+}
+button[disabled] {
+  opacity: 0.53;
+  pointer-events: none;
+}
+
+button:focus-visible,
+button:hover,
+button:active {
+  background: #ededf1;
+}
+
+.button-text {
+  all: unset;
+
+  font-family: 'Breeze Sans';
+  font-variant-numeric: proportional-nums;
+  line-height: 1em;
+  margin: -0.22ex -0.15ch;
+  padding: 0rem 0.3125rem;
+
+  font-size: 0.875rem;
+  color: #585b63;
+}
+
+.button-icon {
+  color: #585b63;
+}
+.button-icon > svg {
+  height: 20px;
+  width: 20px;
 }
 
 /* */
