@@ -120,12 +120,12 @@ fragment.debug = async ({ bundle, option }: any): Promise<any> => {
       theme_color: '#f8f8fa',
       icons: [
         {
-          src: 'https://applic.dev/booklet/assets/firgure/192w/booklet-icon.png',
+          src: 'https://applic.dev/booklet/images/192w/booklet-icon.png',
           sizes: '192x192',
           type: 'image/png',
         },
         {
-          src: 'https://applic.dev/booklet/assets/firgure/512w/booklet-icon.png',
+          src: 'https://applic.dev/booklet/images/512w/booklet-icon.png',
           sizes: '512x512',
           type: 'image/png',
         },
@@ -153,6 +153,8 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     <!---->
 
     <!---->
+    <link href="${option.hosted!.path}/images/192w/booklet-icon.png" rel="icon" />
+    <link href="${option.hosted!.path}/images/192w/booklet-icon.png" rel="apple-touch-icon" />
     <link rel="manifest" href="${option.hosted!.path}booklet.webmanifest" crossorigin="use-credentials" />
     <!---->
 
