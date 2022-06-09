@@ -75,8 +75,8 @@ fragment.finalize = async ({ bundle, option }: any): Promise<any> => {
   await snippet.file.copy(snippet.path.resolve(fil.urn, '../assets/'), ass.urn);
 
   // ? create previews and print pages
-  const pri = { urn: snippet.path.resolve(option.hosted.urn, './~/printed/') };
-  const pre = { urn: snippet.path.resolve(option.hosted.urn, './~/preview/') };
+  const pri = { urn: snippet.path.resolve(option.hosted.urn, './output/') };
+  const pre = { urn: snippet.path.resolve(option.hosted.urn, './output/') };
 
   snippet.file.emptyDir(pri.urn);
   snippet.file.emptyDir(pre.urn);
@@ -172,7 +172,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     <nav>
       <!---->
       <div>
-        <button>
+        <button class="button">
           <span class="button-icon">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path>
@@ -180,7 +180,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
           </span>
         </button>
 
-        <button>
+        <button class="button">
           <span class="button-icon">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
@@ -188,7 +188,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
           </span>
         </button>
 
-        <button disabled>
+        <button class="button" disabled>
           <span class="button-icon">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -214,7 +214,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
           
         <!---->
         <div>
-          <button disabled>
+          <button class="button" disabled>
             <span class="button-text">Presentation</span>
             <span class="button-icon">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -223,14 +223,14 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
             </span>
           </button>
 
-          <button onclick="window.print();">
+          <a class="button" href="${option.hosted!.path}output/booklet-starter-md-overview.pdf" download="booklet-overview.pdf">
             <span class="button-text">Print</span>
             <span class="button-icon">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
               </svg>
             </span>
-          </button>
+          </a>
         </div>
         <!---->
       </header>
