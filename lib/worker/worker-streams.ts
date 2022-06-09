@@ -1,5 +1,6 @@
 import { serve } from 'https://deno.land/std@0.130.0/http/server.ts';
 import { urlParse } from 'https://deno.land/x/url_parse@1.1.0/mod.ts';
+import { mime } from 'https://deno.land/x/mimetypes@v1.0.0/mod.ts';
 
 import '../worker/typeset/typeset-interface.ts';
 import '../worker/typeset/typeset-workflows.ts';
@@ -39,11 +40,7 @@ async function requestStatic({ output, hosted, req, loc }: { [prop: string]: any
       const file = await Deno.readFile(fil[key]);
       // const type = await Deno.stat(fil[key]);
       loa = file;
-      typ = fil[key].endsWith('js') //
-        ? 'text/javascript; charset=utf-8'
-        : fil[key].endsWith('css')
-        ? 'text/css; charset=utf-8'
-        : 'text/html; charset=utf-8';
+      typ = mime.getType(fil[key]);
 
       break;
     } catch (err) {}
