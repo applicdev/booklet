@@ -113,7 +113,7 @@ fragment.debug = async ({ bundle, option }: any): Promise<any> => {
     JSON.stringify({
       name: 'Booklet',
       short_name: 'Booklet',
-      start_url: `${option.hosted!.path}`,
+      start_url: `${option.hosted!.path}overview`,
       display: 'fullscreen',
       display_override: ['window-controls-overlay'],
       background_color: '#f8f8fa',
