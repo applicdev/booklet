@@ -114,8 +114,8 @@ fragment.debug = async ({ bundle, option }: any): Promise<any> => {
       start_url: `${option.hosted!.path}`,
       display: 'standalone',
       display_override: ['window-controls-overlay'],
-      background_color: '#f2f2f2',
-      theme_color: '#f2f2f2',
+      background_color: '#f0f0f2',
+      theme_color: '#f0f0f2',
       icons: [
         {
           src: 'https://applic.dev/booklet/assets/firgure/192w/booklet-icon.png',

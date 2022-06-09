@@ -24,8 +24,7 @@ body script {
 
 body {
   all: unset;
-  /* background: #f0f0f2; */
-  background: #f6f8fa;
+  background: #f0f0f2;
 
   overflow: hidden scroll;
   overflow: hidden overlay;
