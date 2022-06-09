@@ -71,8 +71,10 @@ fragment.finalize = async ({ bundle, option }: any): Promise<any> => {
   // ? ensure static files
   const fil = { urn: snippet.path.dirname(snippet.path.fromFileUrl(import.meta.url)) };
   const ass = { urn: snippet.path.resolve(option.hosted.urn, './assets/') };
+  const img = { urn: snippet.path.resolve(option.hosted.urn, './images/') };
 
   await snippet.file.copy(snippet.path.resolve(fil.urn, '../assets/'), ass.urn);
+  await snippet.file.copy(snippet.path.resolve(fil.urn, '../images/'), img.urn);
 
   // ? create previews and print pages
   const pri = { urn: snippet.path.resolve(option.hosted.urn, './output/') };
@@ -112,7 +114,7 @@ fragment.debug = async ({ bundle, option }: any): Promise<any> => {
       name: 'Booklet',
       short_name: 'Booklet',
       start_url: `${option.hosted!.path}`,
-      display: 'standalone',
+      display: 'fullscreen',
       display_override: ['window-controls-overlay'],
       background_color: '#f8f8fa',
       theme_color: '#f8f8fa',
@@ -153,40 +155,56 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     <!---->
     <link rel="manifest" href="${option.hosted!.path}booklet.webmanifest" crossorigin="use-credentials" />
     <!---->
-    
+
     <!---->
     <script>
-    if ('serviceWorker' in navigator) navigator.serviceWorker.register('${option.hosted!.path}booklet.service-worker.js');
+      if ('serviceWorker' in navigator) navigator.serviceWorker.register('${option.hosted!.path}booklet.service-worker.js');
     </script>
     <!---->
-    
+
     <!---->
-    <link href="${option.hosted!.path}assets/pattern.css" rel="stylesheet" />
-    <link href="${option.hosted!.path}assets/pattern-types.css" rel="stylesheet" />
-    <link href="${option.hosted!.path}assets/fonts/BreezeSans.css" rel="stylesheet" />
+    <link href="${option.hosted!.path}assets/stylesheets/pattern.css" rel="stylesheet" />
     <!---->
   </head>
   <body>
-    
-
     <nav>
       <!---->
       <div>
         <a class="button" href="${option.hosted!.path}" target="_self">
           <span class="button-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-book-upload" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              class="icon icon-tabler icon-tabler-wallet" 
+              width="24" 
+              height="24" 
+              viewBox="0 0 24 24" 
+              stroke-width="2" 
+              stroke="currentColor" 
+              fill="none" 
+              stroke-linecap="round" 
+              stroke-linejoin="round"
+            >
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-              <path d="M14 20h-8a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12v5"></path>
-              <path d="M11 16h-5a2 2 0 0 0 -2 2"></path>
-              <path d="M15 16l3 -3l3 3"></path>
-              <path d="M18 13v9"></path>
+              <path d="M17 8v-3a1 1 0 0 0 -1 -1h-10a2 2 0 0 0 0 4h12a1 1 0 0 1 1 1v3m0 4v3a1 1 0 0 1 -1 1h-12a2 2 0 0 1 -2 -2v-12"></path>
+              <path d="M20 12v4h-4a2 2 0 0 1 0 -4h4"></path>
             </svg>
           </span>
         </a>
 
         <button class="button">
           <span class="button-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-route" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="icon icon-tabler icon-tabler-route"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <circle cx="6" cy="19" r="2"></circle>
               <circle cx="18" cy="5" r="2"></circle>
@@ -197,7 +215,18 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
 
         <button class="button" disabled>
           <span class="button-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="icon icon-tabler icon-tabler-search"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <circle cx="10" cy="10" r="7"></circle>
               <line x1="21" y1="21" x2="15" y2="15"></line>
@@ -206,7 +235,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         </button>
       </div>
       <!---->
-      
+
       <!---->
       <div>
         <span></span>
@@ -217,10 +246,9 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     <main>
       <header>
         <!---->
-        <div> 
-        </div>
+        <div></div>
         <!---->
-          
+
         <!---->
         <div>
           <button class="button" disabled>
@@ -235,7 +263,18 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
           <a class="button" href="${option.hosted!.path}output/booklet-starter-md-overview.pdf" target="_blank">
             <span class="button-text">Print</span>
             <span class="button-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-printer"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                 <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"></path>
                 <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4"></path>
@@ -246,11 +285,8 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         </div>
         <!---->
       </header>
-      
-      <section>
-        <a id="000" href="#000" class="type anker">000</a>
-        <h1 class="type watermark">Booklet</h1>
-      </section>
+
+      <section></section>
       <section></section>
       <section></section>
     </main>
