@@ -1,7 +1,12 @@
+@import url('./pattern-types.css');
+@import url('../fonts/BreezeSans.css');
+
 /* */
 
 html {
   font-size: 16px;
+
+  --cm: 2.5rem; /* 40px/cm */
 
   --a4-wid: 52.5rem; /* 840px -> 40px/cm */
   --a4-hei: calc(52.5rem * (29.69 / 21));
