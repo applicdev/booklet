@@ -1,6 +1,16 @@
 /* */
 
+.icon {
+  color: #585b63;
+}
+.icon > svg {
+  height: 20px;
+  width: 20px;
+}
+
 .type {
+  all: unset;
+
   font-family: 'Breeze Sans';
   font-variant-numeric: proportional-nums;
 

@@ -1,23 +1,25 @@
-import './worker/typeset/typeset-interface.ts';
-import './worker/typeset/typeset-workflows.ts';
+// import type {} './worker/typeset/typeset-interface.ts';
+// import type {} './worker/typeset/typeset-workflows.ts';
 
 import { default as workers } from './mod.ts';
 import { default as snippet } from './worker/snippet/index.ts';
 
 const internal: { [prop: string]: any } = {};
 
+internal.flagMatch = {
+  v: { flag: ['v', 'version'], type: Boolean, caption: 'output version number' },
+  h: { flag: ['h', 'help'], type: Boolean, caption: 'output usage information' },
+
+  s: { flag: ['s', 'stream'], type: Boolean, caption: 'start a local server for bundled assets' },
+  b: { flag: ['b', 'bundle'], type: Boolean, caption: 'write bundled assets to the repository workflows' },
+  p: { flag: ['p'], type: Boolean, caption: 'use repository name as path namespace' },
+  f: { flag: ['f'], type: Boolean, caption: 'force file writes' },
+};
+
 internal.flag = await snippet.flag
   .resolve({
     value: Deno.args,
-    match: {
-      v: { flag: ['v', 'version'], type: Boolean },
-      h: { flag: ['h', 'help'], type: Boolean },
-
-      s: { flag: ['s', 'stream'], type: Boolean },
-      b: { flag: ['b', 'bundle'], type: Boolean },
-      p: { flag: ['p'], type: Boolean },
-      f: { flag: ['f'], type: Boolean },
-    },
+    match: internal.flagMatch,
   })
   .catch((err: string) => {
     snippet.print.fail('Error:', err.toString().replace('Error: ', ''));
@@ -47,13 +49,9 @@ if ('h' in internal.flag) {
 Usage: booklet [options]
 
 Options:
-  -v, --version       output version number
-  -h, --help          output usage information
-
-  -s, --stream        start a local server for bundled assets
-  -b, --bundle        write bundled assets to the repository workflows
-  -p                  use repository name as path namespace
-  -f                  force file writes
+${Object.values(internal.flagMatch) //
+  .map((f: any) => `  ${f.flag.map((k: string) => (k.length == 1 ? `-${k}` : `--${k}`)).join(', ')}${' '.repeat(20)}`.slice(0, 20) + f.caption)
+  .join('\n')}
 `;
 
   snippet.print.info(plain);
