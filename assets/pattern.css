@@ -12,7 +12,6 @@ html {
 
 body,
 body * {
-  all: unset;
   box-sizing: border-box;
 }
 
@@ -24,6 +23,7 @@ body script {
 /* */
 
 body {
+  all: unset;
   background: #f0f0f2;
 
   overflow: hidden scroll;
@@ -51,7 +51,7 @@ main {
 
   grid-auto-flow: row;
   gap: 1.25rem;
-  padding: 1.25rem;
+  padding: 0rem 1.25rem 1.25rem;
 
   margin: 3.125rem 0rem;
 }
@@ -65,24 +65,51 @@ main {
 
 nav {
   position: fixed;
-  inset: 0rem aut 0rem 0rem;
+  inset: 0rem auto 0rem 0rem;
+
+  display: grid;
+  grid-auto-flow: row;
+  grid-gap: 1.25rem;
+  grid-template-columns: 3.125rem 1fr;
 
   width: 20rem;
-  background: green;
+
+  margin-top: calc(3.125rem * 2);
 }
 
+nav > div {
+  display: grid;
+  grid-auto-flow: row;
+  grid-gap: 1.25rem;
+  grid-template-columns: max-content;
+  grid-template-rows: max-content;
+  justify-content: center;
+}
+
+/* */
+
 header {
-  z-index: -1;
-
-  position: fixed;
-  inset: 0rem 0rem auto 0rem;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
 
   height: 3.125rem;
-  padding: 0rem 2.5rem;
+  padding: 0rem 1.25rem;
+  margin-bottom: -1.25rem;
+}
+
+header > div {
+  display: grid;
+  align-items: center;
+  grid-auto-flow: column;
+  grid-gap: 1.25rem;
+}
+header > div:first-child {
+  justify-content: start;
+}
+header > div:last-child {
+  justify-content: end;
 }
 
 header::after {
@@ -145,5 +172,10 @@ section {
   main {
     gap: 0rem;
     width: var(--a4-wid);
+  }
+
+  header,
+  nav {
+    display: none;
   }
 }
