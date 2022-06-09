@@ -120,12 +120,12 @@ fragment.debug = async ({ bundle, option }: any): Promise<any> => {
       theme_color: '#f8f8fa',
       icons: [
         {
-          src: 'https://applic.dev/booklet/images/192w/booklet-icon.png',
+          src: 'https://applic.dev/booklet/images/192w/booklet.png',
           sizes: '192x192',
           type: 'image/png',
         },
         {
-          src: 'https://applic.dev/booklet/images/512w/booklet-icon.png',
+          src: 'https://applic.dev/booklet/images/512w/booklet.png',
           sizes: '512x512',
           type: 'image/png',
         },
@@ -188,9 +188,9 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
             >
               <path class="st0" d="M20.1,16.2h-3.4c-1,0-1.8-0.8-1.8-1.8v-0.2c0-1,0.8-1.8,1.8-1.8h3.4c0.6,0,1,0.5,1,1v1.7
                 C21.1,15.8,20.7,16.2,20.1,16.2z"/>
-              <path class="st0" d="M20,7.7H6c-1.1,0-2-0.9-2-2V5.5c0-1.1,0.9-2.1,2.1-2.1h12.8C19.5,3.5,20,4,20,4.6V7.7z"/>
-              <path class="st0" d="M20,16.2v3.2c0,0.7-0.5,1.2-1.2,1.2H5.2c-0.7,0-1.2-0.5-1.2-1.2L4,5.6"/>
-              <path class="st0" d="M20,12V7.7"/>
+              <path class="st0" d="M18.8,7.7H6c-1.1,0-2-0.9-2-2V5.5c0-1.1,0.9-2.1,2.1-2.1h11.6c0.6,0,1.2,0.5,1.2,1.2V7.7z"/>
+              <path class="st0" d="M20,16.2v3.2c0,0.7-0.5,1.2-1.2,1.2H6c-1.1,0-2-0.9-2-2l0-13"/>
+              <path class="st0" d="M18.8,7.7c0.6,0,1.2,0.5,1.2,1.2v3.7"/>
             </svg>
           </span>
         </a>
