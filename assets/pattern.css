@@ -51,9 +51,7 @@ main {
 
   grid-auto-flow: row;
   gap: 1.25rem;
-  padding: 0rem 1.25rem 1.25rem;
-
-  margin: 2rem 0rem 3.125rem;
+  padding: 2rem 3rem 40vh;
 }
 
 /*main {
@@ -64,6 +62,8 @@ main {
 /* */
 
 nav {
+  z-index: -1;
+
   position: fixed;
   inset: 0rem auto 0rem 0rem;
 
@@ -78,12 +78,10 @@ nav {
 }
 
 nav > div {
-  display: grid;
-  grid-auto-flow: row;
+  display: flex;
+  flex-direction: column;
   grid-gap: 1.25rem;
-  grid-template-columns: max-content;
-  grid-template-rows: max-content;
-  justify-content: center;
+  align-items: center;
 }
 
 /* */
