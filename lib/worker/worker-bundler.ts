@@ -175,7 +175,6 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         <a class="button" href="${option.hosted!.path}" target="_self">
           <span class="button-icon">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-book-upload" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <desc>Download more icon variants from https://tabler-icons.io/i/book-upload</desc>
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <path d="M14 20h-8a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12v5"></path>
               <path d="M11 16h-5a2 2 0 0 0 -2 2"></path>
@@ -188,7 +187,6 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         <button class="button">
           <span class="button-icon">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-route" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <desc>Download more icon variants from https://tabler-icons.io/i/route</desc>
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <circle cx="6" cy="19" r="2"></circle>
               <circle cx="18" cy="5" r="2"></circle>
@@ -200,7 +198,6 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         <button class="button" disabled>
           <span class="button-icon">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <desc>Download more icon variants from https://tabler-icons.io/i/search</desc>
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <circle cx="10" cy="10" r="7"></circle>
               <line x1="21" y1="21" x2="15" y2="15"></line>
@@ -239,7 +236,6 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
             <span class="button-text">Print</span>
             <span class="button-icon">
               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <desc>Download more icon variants from https://tabler-icons.io/i/printer</desc>
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                 <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"></path>
                 <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4"></path>
