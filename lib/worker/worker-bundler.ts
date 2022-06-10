@@ -120,16 +120,44 @@ fragment.debug = async ({ bundle, option }: any): Promise<any> => {
       theme_color: '#f8f8fa',
       icons: [
         {
-          src: `${option.hosted!.path}images/192w/booklet-maskable.png`,
-          sizes: '192x192',
+          src: `${option.hosted!.path}images/72w/booklet.png`,
+          sizes: '72x72',
           type: 'image/png',
-          purpose: 'any maskable',
         },
         {
-          src: `${option.hosted!.path}images/512w/booklet-maskable.png`,
+          src: `${option.hosted!.path}images/96w/booklet.png`,
+          sizes: '96x96',
+          type: 'image/png',
+        },
+        {
+          src: `${option.hosted!.path}images/128w/booklet.png`,
+          sizes: '128x128',
+          type: 'image/png',
+        },
+        {
+          src: `${option.hosted!.path}images/144w/booklet.png`,
+          sizes: '144x144',
+          type: 'image/png',
+        },
+        {
+          src: `${option.hosted!.path}images/152w/booklet.png`,
+          sizes: '152x152',
+          type: 'image/png',
+        },
+        {
+          src: `${option.hosted!.path}images/192w/booklet.png`,
+          sizes: '192x192',
+          type: 'image/png',
+        },
+        {
+          src: `${option.hosted!.path}images/384w/booklet.png`,
+          sizes: '384x384',
+          type: 'image/png',
+        },
+        {
+          src: `${option.hosted!.path}images/512w/booklet.png`,
           sizes: '512x512',
           type: 'image/png',
-          purpose: 'any maskable',
         },
       ],
     })
