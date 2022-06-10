@@ -123,25 +123,13 @@ fragment.debug = async ({ bundle, option }: any): Promise<any> => {
           src: `${option.hosted!.path}images/192w/booklet-maskable.png`,
           sizes: '192x192',
           type: 'image/png',
-          purpose: 'maskable',
+          purpose: 'any maskable',
         },
         {
           src: `${option.hosted!.path}images/512w/booklet-maskable.png`,
           sizes: '512x512',
           type: 'image/png',
-          purpose: 'maskable',
-        },
-        {
-          src: `${option.hosted!.path}images/192w/booklet.png`,
-          sizes: '192x192',
-          type: 'image/png',
-          purpose: 'any monochrome',
-        },
-        {
-          src: `${option.hosted!.path}images/512w/booklet.png`,
-          sizes: '512x512',
-          type: 'image/png',
-          purpose: 'any monochrome',
+          purpose: 'any maskable',
         },
       ],
     })
