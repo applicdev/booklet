@@ -120,28 +120,28 @@ fragment.debug = async ({ bundle, option }: any): Promise<any> => {
       theme_color: '#f8f8fa',
       icons: [
         {
-          src: 'https://applic.dev/booklet/images/192w/booklet.png',
+          src: `${option.hosted!.path}images/192w/booklet-maskable.png`,
           sizes: '192x192',
           type: 'image/png',
           purpose: 'maskable',
         },
         {
-          src: 'https://applic.dev/booklet/images/512w/booklet.png',
+          src: `${option.hosted!.path}images/512w/booklet-maskable.png`,
           sizes: '512x512',
           type: 'image/png',
           purpose: 'maskable',
         },
         {
-          src: 'https://applic.dev/booklet/images/192w/booklet.png',
+          src: `${option.hosted!.path}images/192w/booklet.png`,
           sizes: '192x192',
           type: 'image/png',
-          purpose: 'any',
+          purpose: 'any monochrome',
         },
         {
-          src: 'https://applic.dev/booklet/images/512w/booklet.png',
+          src: `${option.hosted!.path}images/512w/booklet.png`,
           sizes: '512x512',
           type: 'image/png',
-          purpose: 'any',
+          purpose: 'any monochrome',
         },
       ],
     })
@@ -167,8 +167,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     <!---->
 
     <!---->
-    <link href="${option.hosted!.path}/images/192w/booklet.png" rel="icon" />
-    <link href="${option.hosted!.path}/images/192w/booklet.png" rel="apple-touch-icon" />
+    <link href="${option.hosted!.path}/images/192w/booklet.png" rel="icon" /> 
     <link rel="manifest" href="${option.hosted!.path}booklet.webmanifest" crossorigin="use-credentials" />
     <!---->
 
