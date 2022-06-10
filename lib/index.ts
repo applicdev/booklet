@@ -6,7 +6,7 @@ import { default as snippet } from './worker/snippet/index.ts';
 
 const internal: { [prop: string]: any } = {};
 
-internal.flagMatch = {
+internal.flagConfig = {
   v: { flag: ['v', 'version'], type: Boolean, caption: 'output version number' },
   h: { flag: ['h', 'help'], type: Boolean, caption: 'output usage information' },
 
@@ -19,14 +19,17 @@ internal.flagMatch = {
 internal.flag = await snippet.flag
   .resolve({
     value: Deno.args,
-    match: internal.flagMatch,
+    match: internal.flagConfig,
   })
   .catch((err: string) => {
     snippet.print.fail('Error:', err.toString().replace('Error: ', ''));
     Deno.exit();
   });
 
-internal.path = await (async () => {
+internal.path = await (async () => {^
+  // FIXME: do not run when not in a repo folder
+  // FIXME: max search debth ~10 dirs
+
   // ? try to use the repo name; when not path defind
   const repo = await snippet.repo.requestConfig();
 
@@ -49,7 +52,7 @@ if ('h' in internal.flag) {
 Usage: booklet [options]
 
 Options:
-${Object.values(internal.flagMatch) //
+${Object.values(internal.flagConfig) //
   .map((f: any) => `  ${f.flag.map((k: string) => (k.length == 1 ? `-${k}` : `--${k}`)).join(', ')}${' '.repeat(20)}`.slice(0, 20) + f.caption)
   .join('\n')}
 `;
