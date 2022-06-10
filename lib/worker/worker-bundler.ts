@@ -115,7 +115,7 @@ fragment.debug = async ({ bundle, option }: any): Promise<any> => {
       short_name: 'Booklet',
       start_url: `${option.hosted!.path}overview`,
       display: 'fullscreen',
-      display_override: ['window-controls-overlay'],
+      display_override: ['fullscreen', 'window-controls-overlay'],
       background_color: '#f8f8fa',
       theme_color: '#f8f8fa',
       icons: [
@@ -180,21 +180,18 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     <meta content="#f8f8fa" name="theme-color" />
     <meta content="#f8f8fa" name="theme-color" media="(prefers-color-scheme: light)" />
     <meta content="#171b22" name="theme-color" media="(prefers-color-scheme: dark)" />
+    <link rel="manifest" href="${option.hosted!.path}booklet.webmanifest" />
     <!---->
 
     <!---->
     <link href="${option.hosted!.path}/images/192w/booklet.png" rel="icon" /> 
-    <link rel="manifest" href="${option.hosted!.path}booklet.webmanifest" crossorigin="use-credentials" />
+    <link href="${option.hosted!.path}assets/stylesheets/pattern.css" rel="stylesheet" />
     <!---->
 
     <!---->
     <script>
       if ('serviceWorker' in navigator) navigator.serviceWorker.register('${option.hosted!.path}booklet.service-worker.js');
     </script>
-    <!---->
-
-    <!---->
-    <link href="${option.hosted!.path}assets/stylesheets/pattern.css" rel="stylesheet" />
     <!---->
   </head>
   <body>
