@@ -200,67 +200,19 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
       <div>
         <a class="button" href="${option.hosted!.path}" target="_self">
           <span class="button-icon">
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              class="icon icon-tabler icon-tabler-wallet" 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
-              stroke-width="2" 
-              stroke="currentColor" 
-              fill="none" 
-              stroke-linecap="round" 
-              stroke-linejoin="round"
-            >
-              <path class="st0" d="M20.1,16.2h-3.4c-1,0-1.8-0.8-1.8-1.8v-0.2c0-1,0.8-1.8,1.8-1.8h3.4c0.6,0,1,0.5,1,1v1.7
-                C21.1,15.8,20.7,16.2,20.1,16.2z"/>
-              <path class="st0" d="M18.8,7.7H6c-1.1,0-2-0.9-2-2V5.5c0-1.1,0.9-2.1,2.1-2.1h11.6c0.6,0,1.2,0.5,1.2,1.2V7.7z"/>
-              <path class="st0" d="M20,16.2v3.2c0,0.7-0.5,1.2-1.2,1.2H6c-1.1,0-2-0.9-2-2l0-13"/>
-              <path class="st0" d="M18.8,7.7c0.6,0,1.2,0.5,1.2,1.2v3.7"/>
-            </svg>
+            ${internal.debugRenderIcon({ name: 'booklet' })}
           </span>
         </a>
 
         <button class="button">
           <span class="button-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="icon icon-tabler icon-tabler-route"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-              <circle cx="6" cy="19" r="2"></circle>
-              <circle cx="18" cy="5" r="2"></circle>
-              <path d="M12 19h4.5a3.5 3.5 0 0 0 0 -7h-8a3.5 3.5 0 0 1 0 -7h3.5"></path>
-            </svg>
+            ${internal.debugRenderIcon({ name: 'booklet:ankers' })}
           </span>
         </button>
 
         <button class="button" disabled>
           <span class="button-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="icon icon-tabler icon-tabler-search"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-              <circle cx="10" cy="10" r="7"></circle>
-              <line x1="21" y1="21" x2="15" y2="15"></line>
-            </svg>
+            ${internal.debugRenderIcon({ name: 'booklet:search' })}
           </span>
         </button>
       </div>
@@ -284,32 +236,14 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
           <button class="button" disabled>
             <span class="button-text">Slideshow</span>
             <span class="button-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M8 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
-              </svg>
+              ${internal.debugRenderIcon({ name: 'mardown:slides' })}
             </span>
           </button>
 
           <a class="button" href="${option.hosted!.path}output/booklet-starter-md-overview.pdf" target="_blank">
             <span class="button-text">Print</span>
             <span class="button-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="icon icon-tabler icon-tabler-printer"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"></path>
-                <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4"></path>
-                <rect x="7" y="13" width="10" height="8" rx="2"></rect>
-              </svg>
+              ${internal.debugRenderIcon({ name: 'mardown:prints' })}
             </span>
           </a>
         </div>
@@ -323,5 +257,53 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
   </body>
 </html>
 `;
+};
+
+internal.debugRenderIcon = ({ name }: { name: string }): string => {
+  return `
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      width="24" 
+      height="24" 
+      viewBox="0 0 24 24" 
+      stroke-width="2" 
+      stroke="currentColor" 
+      fill="none" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+    >
+      ${
+        {
+          booklet: `
+            <path class="st0" d="M20.1,16.2h-3.4c-1,0-1.8-0.8-1.8-1.8v-0.2c0-1,0.8-1.8,1.8-1.8h3.4c0.6,0,1,0.5,1,1v1.7
+              C21.1,15.8,20.7,16.2,20.1,16.2z"/>
+            <path class="st0" d="M18.8,7.7H6c-1.1,0-2-0.9-2-2V5.5c0-1.1,0.9-2.1,2.1-2.1h11.6c0.6,0,1.2,0.5,1.2,1.2V7.7z"/>
+            <path class="st0" d="M20,16.2v3.2c0,0.7-0.5,1.2-1.2,1.2H6c-1.1,0-2-0.9-2-2l0-13"/>
+            <path class="st0" d="M18.8,7.7c0.6,0,1.2,0.5,1.2,1.2v3.7"/>
+          `,
+          'booklet:ankers': `
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <circle cx="6" cy="19" r="2"></circle>
+            <circle cx="18" cy="5" r="2"></circle>
+            <path d="M12 19h4.5a3.5 3.5 0 0 0 0 -7h-8a3.5 3.5 0 0 1 0 -7h3.5"></path>
+          `,
+          'booklet:search': `
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <circle cx="10" cy="10" r="7"></circle>
+            <line x1="21" y1="21" x2="15" y2="15"></line>
+          `,
+          'mardown:slides': `
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
+          `,
+          'mardown:prints': `
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"></path>
+            <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4"></path>
+            <rect x="7" y="13" width="10" height="8" rx="2"></rect>
+          `,
+        }[name]
+      }
+    </svg>
+  `;
 };
 // ---
