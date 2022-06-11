@@ -104,7 +104,8 @@ main {
 @media (max-width: 980px) {
   nav {
     position: fixed;
-    inset: 0rem 0rem auto 0rem;
+    inset: auto auto 0rem auto;
+    justify-self: center;
 
     flex: none;
     display: flex;
@@ -113,14 +114,15 @@ main {
     align-items: center;
     justify-content: center;
 
-    height: 5.5rem;
-    margin: 0rem 0rem;
-    padding: 1.5rem 0rem 0.5rem 0rem;
+    height: 3.5rem;
+    margin: 0rem 1.25rem 1rem;
+    padding: 0rem 0.625rem;
 
     overflow: auto hidden;
     overflow: overlay hidden;
 
-    background: #f8f8fa;
+    background: rgb(0 0 0 / 14%);
+    border-radius: 0.5rem;
   }
 }
 
