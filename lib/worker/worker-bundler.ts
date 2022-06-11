@@ -32,7 +32,7 @@ export async function* bundler(option: InterfaceOption): AsyncGenerator<
   // ---
 
   // ?
-  await fragment.finalize({ bundle, option });
+  // await fragment.finalize({ bundle, option });
   yield { bundle, option };
 }
 
@@ -42,6 +42,14 @@ fragment.initialize = async ({ bundle, option }: any): Promise<any> => {
   // ? empty and ensure output directory
   await snippet.file.emptyDir(hosted.urn);
   await snippet.file.emptyDir(output.urn);
+
+  // ? ensure static files
+  const fil = { urn: snippet.path.dirname(snippet.path.fromFileUrl(import.meta.url)) };
+  const ass = { urn: snippet.path.resolve(option.hosted.urn, './assets/') };
+  const img = { urn: snippet.path.resolve(option.hosted.urn, './images/') };
+
+  await snippet.file.copy(snippet.path.resolve(fil.urn, '../assets/'), ass.urn);
+  await snippet.file.copy(snippet.path.resolve(fil.urn, '../images/'), img.urn);
 };
 
 fragment.order = async ({ bundle, option }: any): Promise<any> => {
@@ -67,14 +75,6 @@ fragment.tasks = async ({ bundle, option }: any): Promise<any> => {
 
 fragment.finalize = async ({ bundle, option }: any): Promise<any> => {
   const { hosted, output } = option;
-
-  // ? ensure static files
-  const fil = { urn: snippet.path.dirname(snippet.path.fromFileUrl(import.meta.url)) };
-  const ass = { urn: snippet.path.resolve(option.hosted.urn, './assets/') };
-  const img = { urn: snippet.path.resolve(option.hosted.urn, './images/') };
-
-  await snippet.file.copy(snippet.path.resolve(fil.urn, '../assets/'), ass.urn);
-  await snippet.file.copy(snippet.path.resolve(fil.urn, '../images/'), img.urn);
 
   // ? create previews and print pages
   const pri = { urn: snippet.path.resolve(option.hosted.urn, './output/') };
@@ -231,11 +231,10 @@ internal.debugRenderIcon = ({ name }: { name: string }): string => {
       ${
         {
           booklet: `
-            <path class="st0" d="M20.1,16.2h-3.4c-1,0-1.8-0.8-1.8-1.8v-0.2c0-1,0.8-1.8,1.8-1.8h3.4c0.6,0,1,0.5,1,1v1.7
-              C21.1,15.8,20.7,16.2,20.1,16.2z"/>
-            <path class="st0" d="M18.8,7.7H6c-1.1,0-2-0.9-2-2V5.5c0-1.1,0.9-2.1,2.1-2.1h11.6c0.6,0,1.2,0.5,1.2,1.2V7.7z"/>
-            <path class="st0" d="M20,16.2v3.2c0,0.7-0.5,1.2-1.2,1.2H6c-1.1,0-2-0.9-2-2l0-13"/>
-            <path class="st0" d="M18.8,7.7c0.6,0,1.2,0.5,1.2,1.2v3.7"/>
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M4 12v-6a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v8" />
+            <path d="M20 18h-17" />
+            <path d="M6 15l-3 3l3 3" />
           `,
           'booklet:ankers': `
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
