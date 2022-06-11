@@ -19,10 +19,8 @@ Usage: booklet [options]
 Options:
   -v, --version       output version number
   -h, --help          output usage information
-
   -s, --stream        start a local server for bundled assets
   -b, --bundle        write bundled assets to the repository workflows
-  -p                  use repository name as path namespace
   -f                  force file writes
 ```
 
