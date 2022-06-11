@@ -82,55 +82,18 @@ nav {
   width: 4rem;
 
   margin: 1rem 0rem 0rem 0rem;
-  padding: 4rem 0rem 0rem 0rem;
+  padding: 4rem 0rem;
+
+  overflow: hidden auto;
+  overflow: hidden overlay;
 }
-nav hr {
+nav > div {
   flex: none;
 
-  width: 1rem;
-  padding: 0rem;
-  margin: calc(0.3125rem - 0.5px) 0rem;
-
-  border: none;
-  border-top: 1px solid #b3b3b4;
-}
-
-/* */
-
-header {
   display: flex;
-  justify-content: space-between;
-
-  height: 3.125rem;
-  width: var(--a4-wid);
-
-  padding: 0rem 1.25rem;
-  margin-bottom: -1.875rem;
-}
-
-header > div {
-  display: grid;
-  align-items: center;
-  grid-auto-flow: column;
+  flex-direction: column;
   grid-gap: 0.625rem;
-}
-header > div:first-child {
-  justify-content: start;
-}
-header > div:last-child {
-  justify-content: end;
-}
-
-header::after {
-  content: '';
-
-  position: fixed;
-  inset: 0rem 0rem auto 0rem;
-
-  height: 0.625rem;
-
-  -webkit-app-region: drag;
-  app-region: drag;
+  align-items: center;
 }
 
 /* */
