@@ -195,30 +195,11 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     </nav>
 
     <main>
-      <!--- ->
-      <header>
-        <div></div>
-        <div>
-          <!--- ->
-          <button class="button" disabled>
-            <span class="button-text">Slideshow</span>
-            <span class="button-icon"> ${internal.debugRenderIcon({ name: 'mardown:slides' })} </span>
-          </button>
-
-          <a class="button" href="${option.hosted!.path}output/booklet-starter-md-overview.pdf" target="_blank">
-            <span class="button-text">Print</span>
-            <span class="button-icon"> ${internal.debugRenderIcon({ name: 'mardown:prints' })} </span>
-          </a>
-          <!--- ->
-        </div>
-      </header>
-      <!- --->
-
-      <!--- ->
+      <!---->
       <section></section>
       <section></section>
       <section></section>
-      <!- --->
+      <!---->
     </main>
   </body>
 </html>
