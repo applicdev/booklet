@@ -167,11 +167,11 @@ section {
 }
 
 .button-nav {
-  height: 2.75rem;
-  width: 2.75rem;
+  height: 2.5rem;
+  width: 2.5rem;
 
-  padding: 0.3125rem 0.3125rem;
-  margin: -0.3125rem -0.3125rem;
+  padding: 0.3125rem;
+  margin: calc(0.3125rem - 0.25rem);
 
   border-radius: 0.5rem;
 }
