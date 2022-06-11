@@ -89,7 +89,7 @@ nav hr {
 
   width: 1rem;
   padding: 0rem;
-  margin: -0.5px 0rem;
+  margin: calc(0.3125rem - 0.5px) 0rem;
 
   border: none;
   border-top: 1px solid #b3b3b4;
@@ -177,11 +177,11 @@ section {
 }
 
 .button-nav {
-  height: 2.5rem;
-  width: 2.5rem;
+  height: 3rem;
+  width: 3rem;
 
-  padding: 0.3125rem;
-  margin: calc(0.3125rem - 0.25rem);
+  padding: 0rem;
+  margin: 0rem;
 
   border-radius: 0.5rem;
 }
