@@ -1,0 +1,30 @@
+/* */
+
+.type {
+  all: unset;
+
+  font-family: 'Breeze Sans';
+  font-variant-numeric: proportional-nums;
+
+  line-height: 1em;
+
+  margin: -0.22ex -0.15ch;
+}
+
+.type.anker {
+  font-size: 0.875rem;
+  color: #858585;
+
+  height: 1.25rem;
+  margin-bottom: 1.25rem;
+
+  cursor: pointer;
+  margin-right: auto;
+}
+
+.type.watermark {
+  font-size: 1.875rem;
+  color: #252525;
+
+  height: 2.5rem;
+}

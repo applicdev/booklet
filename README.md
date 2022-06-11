@@ -1,0 +1,1 @@
+This branch is automated with [GitHub Actions](https://github.com/features/actions). Its content should not be manually edited.
