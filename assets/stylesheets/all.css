@@ -1,6 +1,6 @@
-@import url('./pattern-scheme-color.css');
-@import url('./pattern-scheme-types.css');
-@import url('./pattern-scheme.css');
+@import url('./scheme-color.css');
+@import url('./scheme-types.css');
+@import url('./scheme.css');
 
 /* */
 
@@ -208,6 +208,13 @@ section {
 
   font-size: 0.875rem;
   color: #404041;
+}
+
+.button-nav .button-text {
+  padding: 0.3125rem 0.3125rem 0rem 0.3125rem;
+
+  font-size: 0.75rem;
+  color: #636364;
 }
 
 .button-icon {
