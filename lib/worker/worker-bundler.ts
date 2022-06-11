@@ -119,7 +119,7 @@ fragment.debug = async ({ bundle, option }: any): Promise<any> => {
       background_color: '#f8f8fa',
       theme_color: '#f8f8fa',
       icons: [
-        ...[144].map((size) => ({
+        ...[72, 96, 128, 144, 152, 192, 384, 512].map((size) => ({
           src: `${option.hosted!.path}images/${size}w/booklet.png`,
           sizes: `${size}x${size}`,
           type: 'image/png',
