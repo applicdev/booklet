@@ -171,16 +171,26 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
       <a class="button-nav" href="${option.hosted!.path}" target="_self">
         <span class="button-icon"> ${internal.debugRenderIcon({ name: 'booklet' })} </span>
       </a>
-        
-      <button class="button-nav" disabled>
-        <span class="button-icon"> ${internal.debugRenderIcon({ name: 'booklet:search' })} </span>
-      </button>
 
-      <hr/>
-
-      <button class="button-nav">
+      
+      <div>
+        <button class="button-nav" disabled>
+          <span class="button-icon"> ${internal.debugRenderIcon({ name: 'booklet:search' })} </span>
+        </button>
+        <button class="button-nav">
         <span class="button-icon"> ${internal.debugRenderIcon({ name: 'booklet:ankers' })} </span>
-      </button>
+        </button>
+      </div>
+
+
+      <div>
+        <button class="button-nav">
+          <span class="button-icon"> ${internal.debugRenderIcon({ name: 'mardown:slides' })} </span>
+        </button>
+        <button class="button-nav">
+          <span class="button-icon"> ${internal.debugRenderIcon({ name: 'mardown:prints' })} </span>
+        </button>
+      </div>
       <!---->
     </nav>
 
