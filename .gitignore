@@ -1,7 +1,6 @@
 .DS_Store
 
-*.draft.*
-*.notes.*
+*.draft*
+*.notes*
 
-.github/*-hosted
-.github/*-output
+.booklet
