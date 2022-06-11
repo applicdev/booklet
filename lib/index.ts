@@ -12,10 +12,11 @@ internal.flagConfig = {
 
   s: { flag: ['s', 'stream'], type: Boolean, caption: 'start a local server for bundled assets' },
   b: { flag: ['b', 'bundle'], type: Boolean, caption: 'write bundled assets to the repository workflows' },
-  p: { flag: ['p'], type: Boolean, caption: 'use repository name as path namespace' },
+  // p: { flag: ['p'], type: Boolean, caption: 'use repository name as path namespace' },
   f: { flag: ['f'], type: Boolean, caption: 'force file writes' },
 };
 
+// ? determine flags
 internal.flag = await snippet.flag
   .resolve({
     value: Deno.args,
@@ -26,14 +27,16 @@ internal.flag = await snippet.flag
     Deno.exit();
   });
 
-internal.path = await (async () => {^
-  // FIXME: do not run when not in a repo folder
-  // FIXME: max search debth ~10 dirs
+// ? determine path offset for gh-pages
+internal.path = await (async () => {
+  const repo = await snippet.repo
+    .requestConfig() //
+    .catch((err: string) => {
+      snippet.print.fail('Error:', err.toString().replace('Error: ', ''));
+      Deno.exit();
+    });
 
-  // ? try to use the repo name; when not path defind
-  const repo = await snippet.repo.requestConfig();
-
-  return 'p' in internal.flag && repo && !repo.name.endsWith('github.io.git') //
+  return repo && !repo.name.endsWith('github.io.git') //
     ? `/${repo.name.replace(/[^a-zA-Z0-9-_]/g, '')}/`.replace(/\/\//g, '/')
     : '/';
 })();
@@ -65,16 +68,13 @@ ${Object.values(internal.flagConfig) //
 const { source, output, hosted } = {
   source: { urn: snippet.path.resolve('./') },
   output: {
-    urn:
-      'b' in internal.flag
-        ? snippet.path.resolve('./.github/workflows-output') //
-        : await Deno.makeTempDir({ prefix: 'workflows-output-' }),
+    urn: await Deno.makeTempDir({ prefix: 'booklet-output-' }),
   },
   hosted: {
-    urn:
-      'b' in internal.flag
-        ? snippet.path.resolve('./.github/workflows-hosted') //
-        : await Deno.makeTempDir({ prefix: 'workflows-hosted-' }),
+    urn: snippet.path.resolve('./docs/.booklet'),
+    // 'b' in internal.flag
+    //   ? snippet.path.resolve('./docs/.booklet') //
+    //   : await Deno.makeTempDir({ prefix: 'booklet-hosted-' }),
 
     path: internal.path,
   },
@@ -106,9 +106,8 @@ You are about to initialize the following directories as booklets –
 `);
 
   // if ('b' in internal.flag)
-  snippet.print.info(`bundled assets are written to the directories –
+  snippet.print.info(`Bundled assets are written to the directories –
 
-  ${snippet.print.bold(output.urn)}
   ${snippet.print.bold(hosted.urn)}
 `);
 

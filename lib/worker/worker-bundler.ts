@@ -119,46 +119,17 @@ fragment.debug = async ({ bundle, option }: any): Promise<any> => {
       background_color: '#f8f8fa',
       theme_color: '#f8f8fa',
       icons: [
-        {
-          src: `${option.hosted!.path}images/72w/booklet.png`,
-          sizes: '72x72',
+        ...[144].map((size) => ({
+          src: `${option.hosted!.path}images/${size}w/booklet.png`,
+          sizes: `${size}x${size}`,
           type: 'image/png',
-        },
-        {
-          src: `${option.hosted!.path}images/96w/booklet.png`,
-          sizes: '96x96',
+        })),
+        ...[72, 96, 128, 144, 152, 192, 384, 512].map((size) => ({
+          src: `${option.hosted!.path}images/${size}w/booklet-maskable.png`,
+          sizes: `${size}x${size}`,
           type: 'image/png',
-        },
-        {
-          src: `${option.hosted!.path}images/128w/booklet.png`,
-          sizes: '128x128',
-          type: 'image/png',
-        },
-        {
-          src: `${option.hosted!.path}images/144w/booklet.png`,
-          sizes: '144x144',
-          type: 'image/png',
-        },
-        {
-          src: `${option.hosted!.path}images/152w/booklet.png`,
-          sizes: '152x152',
-          type: 'image/png',
-        },
-        {
-          src: `${option.hosted!.path}images/192w/booklet.png`,
-          sizes: '192x192',
-          type: 'image/png',
-        },
-        {
-          src: `${option.hosted!.path}images/384w/booklet.png`,
-          sizes: '384x384',
-          type: 'image/png',
-        },
-        {
-          src: `${option.hosted!.path}images/512w/booklet.png`,
-          sizes: '512x512',
-          type: 'image/png',
-        },
+          purpose: 'maskable',
+        })),
       ],
     })
   );
@@ -185,7 +156,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
 
     <!---->
     <link href="${option.hosted!.path}/images/192w/booklet.png" rel="icon" />
-    <link href="${option.hosted!.path}assets/stylesheets/pattern.css" rel="stylesheet" />
+    <link href="${option.hosted!.path}assets/stylesheets/all.css" rel="stylesheet" />
     <!---->
 
     <!---->

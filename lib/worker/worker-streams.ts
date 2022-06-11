@@ -19,7 +19,12 @@ export async function* streams({ output, hosted }: InterfaceOption): AsyncGenera
     return requestStatic({ output, hosted, req, loc });
   };
 
-  console.log(`HTTP webserver running. Access it at: http://localhost:8080${hosted!.path}`);
+  snippet.print.info(`
+HTTP webserver running. Access it at –
+
+  ${snippet.print.bold(`http://localhost:8080${hosted!.path}`)}
+`);
+
   serve(handler, { port: 8080 });
 }
 

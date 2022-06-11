@@ -15,6 +15,10 @@ fragment.area = async (plain: string = '', state: string = ''): Promise<void> =>
   console.log('\n===', plain);
 };
 
+fragment.note = async (plain: string = '', state: string = ''): Promise<void> => {
+  console.log(Colors.green('i '), plain, Colors.bold(state));
+};
+
 fragment.done = async (plain: string = '', state: string = ''): Promise<void> => {
   console.log(Colors.green('✔ '), plain, Colors.bold(state));
 };
@@ -24,7 +28,7 @@ fragment.warn = async (plain: string = '', state: string = ''): Promise<void> =>
 };
 
 fragment.fail = async (plain: string = '', state: string = ''): Promise<void> => {
-  console.log(Colors.red(plain), Colors.gray(state));
+  console.log(Colors.red(`\n${plain}`), Colors.gray(`${state}\n`));
 };
 
 export default { ...fragment };
