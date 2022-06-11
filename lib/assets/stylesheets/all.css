@@ -45,6 +45,13 @@ body {
   scrollbar-width: none;
 }
 
+@media (max-width: 980px) {
+  body {
+    grid-template-columns: calc(100vw - 1rem);
+    padding: 0rem 0.5rem;
+  }
+}
+
 ::-webkit-scrollbar {
   display: none;
 }
@@ -63,53 +70,63 @@ main {
   flex-direction: column;
 
   gap: 1.875rem;
-  padding: 2rem 0rem 40vh;
+  margin: 2rem 0rem 0rem;
+  padding: 1rem 0rem 40vh;
 
   overflow: visible;
 }
 
-/*main {
-        width: calc(100vw - 20rem);
-        margin-left: 20rem;
-      }*/
-
 /* */
 
-nav {
-  position: sticky;
-  top: -3.5rem;
-  align-self: start;
+@media (min-width: 981px) {
+  nav {
+    position: sticky;
+    top: -3.5rem;
+    align-self: start;
 
-  flex: none;
-  display: flex;
-  flex-direction: column;
-  grid-gap: 0.625rem;
-  align-items: center;
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    grid-gap: 0.625rem;
+    align-items: center;
 
-  width: 4rem;
-  height: calc(100vh + 3.5rem);
+    width: 4rem;
+    height: calc(100vh + 3.5rem);
 
-  margin: 1rem 0rem 0rem 0rem;
-  padding: 4rem 0rem 0.5rem;
+    margin: 1rem 0rem 0rem 0rem;
+    padding: 4rem 0rem 0.5rem;
 
-  overflow: hidden auto;
-  overflow: hidden overlay;
+    overflow: hidden auto;
+    overflow: hidden overlay;
+  }
 }
-nav > div {
-  flex: none;
 
-  display: flex;
-  flex-direction: column;
-  grid-gap: 0.625rem;
-  align-items: center;
+@media (max-width: 980px) {
+  nav {
+    position: fixed;
+    inset: auto 0rem 0rem;
+
+    flex: none;
+    display: flex;
+    flex-direction: row;
+    grid-gap: 0.625rem;
+    align-items: center;
+    justify-content: center;
+
+    height: 4rem;
+    margin: 0rem 0rem;
+
+    overflow: hidden auto;
+    overflow: hidden overlay;
+
+    background: #f8f8fa;
+  }
 }
 
 /* */
 
 section {
   max-width: 100% !important;
-
-  z-index: 10;
 
   flex: none;
   display: flex;
