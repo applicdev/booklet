@@ -14,6 +14,7 @@ html {
   --a4-mar: 4.375rem;
 
   --c: #363636;
+  --srim: rgb(0 0 0 / 23%);
 }
 
 /* */
@@ -33,6 +34,9 @@ body script {
 body {
   all: unset;
   background: #f8f8fa;
+
+  display: grid;
+  grid-template-columns: 4rem calc(100vw - 8rem) 4rem;
 
   overflow: hidden scroll;
   overflow: hidden overlay;
@@ -58,9 +62,10 @@ main {
   align-items: center;
   flex-direction: column;
 
-  grid-auto-flow: row;
   gap: 1.875rem;
-  padding: 2rem 3rem 40vh;
+  padding: 2rem 0rem 40vh;
+
+  overflow: visible;
 }
 
 /*main {
@@ -71,18 +76,21 @@ main {
 /* */
 
 nav {
-  position: fixed;
-  inset: 0rem auto 0rem 0rem;
+  position: sticky;
+  top: -3.5rem;
+  align-self: start;
 
+  flex: none;
   display: flex;
   flex-direction: column;
   grid-gap: 0.625rem;
   align-items: center;
 
   width: 4rem;
+  height: calc(100vh + 3.5rem);
 
   margin: 1rem 0rem 0rem 0rem;
-  padding: 4rem 0rem;
+  padding: 4rem 0rem 0.5rem;
 
   overflow: hidden auto;
   overflow: hidden overlay;
@@ -99,8 +107,11 @@ nav > div {
 /* */
 
 section {
+  max-width: 100% !important;
+
   z-index: 10;
 
+  flex: none;
   display: flex;
   flex-direction: column;
 
