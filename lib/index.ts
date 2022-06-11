@@ -56,7 +56,7 @@ Usage: booklet [options]
 
 Options:
 ${Object.values(internal.flagConfig) //
-  .map((f: any) => `  ${f.flag.map((k: string) => (k.length == 1 ? `-${k}` : `--${k}`)).join(', ')}${' '.repeat(20)}`.slice(0, 20) + f.caption)
+  .map((f: any) => `  ${f.flag.map((k: string) => (k.length == 1 ? `-${k}` : `--${k}`)).join(', ')}${' '.repeat(20)}`.slice(0, 22) + f.caption)
   .join('\n')}
 `;
 
