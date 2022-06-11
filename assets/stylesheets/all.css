@@ -84,6 +84,14 @@ nav {
   margin: 1rem 0rem 0rem 0rem;
   padding: 4rem 0rem 0rem 0rem;
 }
+nav hr {
+  width: 1.5rem;
+  padding: 0rem;
+  margin: 0rem;
+
+  border: none;
+  border-top: 1px solid #b3b3b4;
+}
 
 /* */
 
@@ -176,12 +184,6 @@ section {
   border-radius: 0.5rem;
 }
 
-.button[disabled],
-.button-nav[disabled] {
-  opacity: 0.5;
-  pointer-events: none;
-}
-
 .button:focus-visible,
 .button:hover,
 .button-nav:focus-visible,
@@ -213,6 +215,14 @@ section {
   height: 1.375rem;
   width: 1.375rem;
   margin: -0.0625rem;
+}
+
+.button[disabled],
+.button[disabled] *,
+.button-nav[disabled],
+.button-nav[disabled] * {
+  color: #b3b3b4 !important;
+  pointer-events: none;
 }
 
 /* */
