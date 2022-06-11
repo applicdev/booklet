@@ -1,4 +1,6 @@
-@import url('./pattern-types.css');
+@import url('./pattern-scheme.css');
+@import url('./pattern-scheme-color.css');
+
 @import url('../fonts/BreezeSans.css');
 
 /* */
@@ -11,6 +13,8 @@ html {
   --a4-wid: 52.5rem; /* 840px -> 40px/cm */
   --a4-hei: calc(52.5rem * (29.69 / 21));
   --a4-mar: 4.375rem;
+
+  --c: #363636;
 }
 
 /* */
