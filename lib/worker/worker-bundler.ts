@@ -167,30 +167,27 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
   </head>
   <body>
     <nav>
-      <div>
-        <!---->
-        <a class="button" href="${option.hosted!.path}" target="_self">
-          <span class="button-icon"> ${internal.debugRenderIcon({ name: 'booklet' })} </span>
-        </a>
+      <!---->
+      <a class="button-nav" href="${option.hosted!.path}" target="_self">
+        <span class="button-icon"> ${internal.debugRenderIcon({ name: 'booklet' })} </span>
+      </a>
 
-        <button class="button">
-          <span class="button-icon"> ${internal.debugRenderIcon({ name: 'booklet:ankers' })} </span>
-        </button>
+      <button class="button-nav">
+        <span class="button-icon"> ${internal.debugRenderIcon({ name: 'booklet:ankers' })} </span>
+      </button>
 
-        <button class="button" disabled>
-          <span class="button-icon"> ${internal.debugRenderIcon({ name: 'booklet:search' })} </span>
-        </button>
-        <!---->
-      </div>
-      <div></div>
+      <button class="button-nav" disabled>
+        <span class="button-icon"> ${internal.debugRenderIcon({ name: 'booklet:search' })} </span>
+      </button>
+      <!---->
     </nav>
 
     <main>
-      <!---->
+      <!--- ->
       <header>
         <div></div>
         <div>
-          <!---->
+          <!--- ->
           <button class="button" disabled>
             <span class="button-text">Slideshow</span>
             <span class="button-icon"> ${internal.debugRenderIcon({ name: 'mardown:slides' })} </span>
@@ -200,16 +197,16 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
             <span class="button-text">Print</span>
             <span class="button-icon"> ${internal.debugRenderIcon({ name: 'mardown:prints' })} </span>
           </a>
-          <!---->
+          <!--- ->
         </div>
       </header>
-      <!---->
+      <!- --->
 
-      <!---->
+      <!--- ->
       <section></section>
       <section></section>
       <section></section>
-      <!---->
+      <!- --->
     </main>
   </body>
 </html>

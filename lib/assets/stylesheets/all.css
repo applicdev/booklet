@@ -1,7 +1,6 @@
-@import url('./pattern-scheme.css');
 @import url('./pattern-scheme-color.css');
-
-@import url('../fonts/BreezeSans.css');
+@import url('./pattern-scheme-types.css');
+@import url('./pattern-scheme.css');
 
 /* */
 
@@ -75,21 +74,15 @@ nav {
   position: fixed;
   inset: 0rem auto 0rem 0rem;
 
-  display: grid;
-  grid-auto-flow: row;
-  grid-gap: 1.25rem;
-  grid-template-columns: 3.125rem 1fr;
-
-  width: 20rem;
-  margin: 5rem 0rem 0rem 0rem;
-  padding: 1.25rem 0rem 0rem 0rem;
-}
-
-nav > div {
   display: flex;
   flex-direction: column;
   grid-gap: 0.625rem;
   align-items: center;
+
+  width: 4rem;
+
+  margin: 1rem 0rem 0rem 0rem;
+  padding: 4rem 0rem 0rem 0rem;
 }
 
 /* */
@@ -152,13 +145,16 @@ section {
 
 /* */
 
-.button {
+.button,
+.button-nav {
   all: unset;
 
+  flex: none;
   display: flex;
   flex-direction: row;
   grid-gap: 0.3125rem;
   align-items: center;
+  justify-content: center;
 
   height: 1.875rem;
   padding: 0rem 0.3125rem;
@@ -169,16 +165,31 @@ section {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
-.button[disabled] {
+
+.button-nav {
+  height: 2.75rem;
+  width: 2.75rem;
+
+  padding: 0.3125rem 0.3125rem;
+  margin: -0.3125rem -0.3125rem;
+
+  border-radius: 0.5rem;
+}
+
+.button[disabled],
+.button-nav[disabled] {
   opacity: 0.5;
   pointer-events: none;
 }
 
 .button:focus-visible,
-.button:hover {
-  background: #ededf1;
+.button:hover,
+.button-nav:focus-visible,
+.button-nav:hover {
+  background: #f1f1f4;
 }
-.button:active {
+.button:active,
+.button-nav:active {
   background: #ebebef;
 }
 
@@ -199,8 +210,9 @@ section {
   color: #404041;
 }
 .button-icon > svg {
-  height: 1.25rem;
-  width: 1.25rem;
+  height: 1.375rem;
+  width: 1.375rem;
+  margin: -0.0625rem;
 }
 
 /* */
