@@ -3,10 +3,10 @@ name: pages-build
 on:
   push:
     branches: [main]
-    paths: [docs/**]
+    # paths: [docs/**]
   pull_request:
     branches: [main]
-    paths: [docs/**]
+    # paths: [docs/**]
 
 env:
   PUPPETEER_PRODUCT: chrome
