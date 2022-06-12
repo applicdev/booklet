@@ -45,12 +45,12 @@ body {
   scrollbar-width: none;
 }
 
-@media (max-width: 980px) {
-  body {
-    grid-template-columns: calc(100vw - 1rem);
-    padding: 0rem 0.5rem;
-  }
+/* @media (max-width: 980px) { */
+body {
+  grid-template-columns: 100vw;
+  padding: 0rem 0rem;
 }
+/* } */
 
 ::-webkit-scrollbar {
   display: none;
@@ -78,7 +78,7 @@ main {
 
 /* */
 
-@media (min-width: 981px) {
+/* @media (min-width: 981px) {
   nav {
     position: sticky;
     top: -3.5rem;
@@ -99,32 +99,32 @@ main {
     overflow: hidden auto;
     overflow: hidden overlay;
   }
+} */
+
+/* @media (max-width: 980px) { */
+nav {
+  position: fixed;
+  inset: auto auto 0rem auto;
+  justify-self: center;
+
+  flex: none;
+  display: flex;
+  flex-direction: row;
+  grid-gap: 0.625rem;
+  align-items: center;
+  justify-content: center;
+
+  height: 3.5rem;
+  margin: 0rem 1.25rem 1rem;
+  padding: 0rem 0.625rem;
+
+  overflow: auto hidden;
+  overflow: overlay hidden;
+
+  background: rgb(0 0 0 / 14%);
+  border-radius: 0.5rem;
 }
-
-@media (max-width: 980px) {
-  nav {
-    position: fixed;
-    inset: auto auto 0rem auto;
-    justify-self: center;
-
-    flex: none;
-    display: flex;
-    flex-direction: row;
-    grid-gap: 0.625rem;
-    align-items: center;
-    justify-content: center;
-
-    height: 3.5rem;
-    margin: 0rem 1.25rem 1rem;
-    padding: 0rem 0.625rem;
-
-    overflow: auto hidden;
-    overflow: overlay hidden;
-
-    background: rgb(0 0 0 / 14%);
-    border-radius: 0.5rem;
-  }
-}
+/* } */
 
 /* */
 
@@ -184,11 +184,13 @@ section {
 .button:hover,
 .button-nav:focus-visible,
 .button-nav:hover {
-  background: #f1f1f4;
+  /* background: #f1f1f4; */
+  background: rgb(0 0 0 / 7%);
 }
 .button:active,
 .button-nav:active {
-  background: #ebebef;
+  /* background: #ebebef; */
+  background: rgb(0 0 0 / 10%);
 }
 
 .button-text {

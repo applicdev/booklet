@@ -168,35 +168,34 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
   <body>
     <nav>
       <!---->
-      <a class="button-nav" href="${option.hosted!.path}" target="_self">
-        <span class="button-icon"> ${internal.debugRenderIcon({ name: 'booklet' })} </span>
-      </a>
+      <button class="button-nav">
+        <span class="button-icon"> ${internal.debugRenderIcon({ name: 'page-back' })} </span>
+      </button>
       <!---->
       
       <!---->
-      <button class="button-nav" disabled>
+      <button class="button-nav">
         <span class="button-icon"> ${internal.debugRenderIcon({ name: 'booklet:search' })} </span>
       </button>
       <button class="button-nav">
-      <span class="button-icon"> ${internal.debugRenderIcon({ name: 'booklet:ankers' })} </span>
+        <span class="button-icon"> ${internal.debugRenderIcon({ name: 'booklet:ankers' })} </span>
       </button>
       <!---->
       
       <!---->
       <button class="button-nav">
-        <span class="button-icon"> ${internal.debugRenderIcon({ name: 'mardown:slides' })} </span>
-      </button>
-      <button class="button-nav">
-        <span class="button-icon"> ${internal.debugRenderIcon({ name: 'mardown:prints' })} </span>
+        <span class="button-icon"> ${internal.debugRenderIcon({ name: 'page-next' })} </span>
       </button>
       <!---->
     </nav>
 
     <main>
       <!---->
-      <section></section>
-      <section></section>
-      <section></section>
+      ${[{}, {}, {}].map(
+        (sec) => `
+          <section></section>
+        `
+      )}
       <!---->
     </main>
   </body>
@@ -219,11 +218,17 @@ internal.debugRenderIcon = ({ name }: { name: string }): string => {
     >
       ${
         {
-          booklet: `
+          'page-back': `
             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
             <path d="M4 12v-6a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v8" />
             <path d="M20 18h-17" />
             <path d="M6 15l-3 3l3 3" />
+          `,
+          'page-next': `
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M20 12v-6a2 2 0 0 0 -2 -2h-12a2 2 0 0 0 -2 2v8" />
+            <path d="M4 18h17" />
+            <path d="M18 15l3 3l-3 3" />
           `,
           'booklet:ankers': `
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
