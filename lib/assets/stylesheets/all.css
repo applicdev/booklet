@@ -14,7 +14,10 @@ html {
   --a4-mar: 4.375rem;
 
   --c: #363636;
-  --srim: rgb(0 0 0 / 23%);
+  --modal-ground: rgb(0 0 0 / 23%);
+  --modal-shadow: 0 0 2px 4px rgb(0 0 0 / 3%);
+
+  --paper-shadow: 0 0.5px 2px 1px rgb(0 0 0 / 8%);
 }
 
 /* */
@@ -114,15 +117,18 @@ nav {
   align-items: center;
   justify-content: center;
 
-  height: 3.5rem;
-  margin: 0rem 1.25rem 1rem;
-  padding: 0rem 0.625rem;
+  height: 2.5rem;
+  margin: 0rem 1.25rem 1.5rem;
+  padding: 0rem 1rem;
 
   overflow: auto hidden;
   overflow: overlay hidden;
 
-  background: rgb(0 0 0 / 14%);
-  border-radius: 0.5rem;
+  background: #fcfcfc;
+  border: 1px solid #fcfcfc;
+  border-radius: calc(2.5rem / 2);
+
+  box-shadow: var(--paper-shadow);
 }
 /* } */
 
@@ -171,13 +177,13 @@ section {
 }
 
 .button-nav {
-  height: 3rem;
-  width: 3rem;
+  height: 2rem;
+  width: 2rem;
 
   padding: 0rem;
   margin: 0rem;
 
-  border-radius: 0.5rem;
+  border-radius: 1rem;
 }
 
 .button:focus-visible,
@@ -217,8 +223,8 @@ section {
   color: #404041;
 }
 .button-icon > svg {
-  height: 1.375rem;
-  width: 1.375rem;
+  height: 1.25rem;
+  width: 1.25rem;
   margin: -0.0625rem;
 }
 

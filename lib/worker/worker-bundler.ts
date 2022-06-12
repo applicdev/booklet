@@ -191,11 +191,13 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
 
     <main>
       <!---->
-      ${[{}, {}, {}].map(
-        (sec) => `
+      ${[{}, {}, {}]
+        .map(
+          (sec) => `
           <section></section>
         `
-      )}
+        )
+        .join('')}
       <!---->
     </main>
   </body>
