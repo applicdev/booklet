@@ -25,6 +25,17 @@
     <script>
       if ('serviceWorker' in navigator) navigator.serviceWorker.register('/booklet/booklet.service-worker.js');
     </script>
+    <script>
+      let timeout;
+      document.addEventListener('scroll', () => {
+        document.body.setAttribute('active-scroll', '');
+
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          document.body.removeAttribute('active-scroll')
+        }, 1600);
+      }, true)
+    </script>
     <!---->
   </head>
   <body>
