@@ -9,15 +9,15 @@ html {
 
   --cm: 2.5rem; /* 40px/cm */
 
-  --a4-wid: 52.5rem; /* 840px -> 40px/cm */
-  --a4-hei: calc(52.5rem * (29.69 / 21));
-  --a4-mar: 4.375rem;
+  --paper-wid: 52.5rem; /* 840px -> 40px/cm */
+  --paper-ratio: 21 / 29.7;
+  --paper-margin: 4.375rem;
+  --paper-gutter: calc(var(--cm) * 0.75);
+  --paper-shadow: 0 0.5px 2px 1px rgb(0 0 0 / 8%);
 
   --c: #363636;
   --modal-ground: rgb(0 0 0 / 23%);
   --modal-shadow: 0 0 2px 4px rgb(0 0 0 / 3%);
-
-  --paper-shadow: 0 0.5px 2px 1px rgb(0 0 0 / 8%);
 }
 
 /* */
@@ -72,7 +72,7 @@ main {
   align-items: center;
   flex-direction: column;
 
-  gap: 1.875rem;
+  gap: var(--paper-gutter);
   margin: 2rem 0rem 0rem;
   padding: 3rem 0rem 10rem;
 
@@ -139,15 +139,13 @@ body[active-scroll] nav {
 /* */
 
 section {
-  max-width: 100% !important;
-
   flex: none;
   display: flex;
   flex-direction: column;
 
-  width: var(--a4-wid);
-  height: var(--a4-hei);
-  padding: var(--a4-mar);
+  width: min(100vw, var(--paper-wid));
+  aspect-ratio: var(--paper-ratio);
+  padding: var(--paper-mar);
 
   background: #fcfcfc;
   border-radius: 0.125rem;
@@ -189,7 +187,6 @@ section {
 }
 
 .button:focus-visible,
-.button:hover,
 .button-nav:focus-visible,
 .button-nav:hover {
   /* background: #f1f1f4; */
