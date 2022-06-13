@@ -74,7 +74,7 @@ main {
 
   gap: 1.875rem;
   margin: 2rem 0rem 0rem;
-  padding: 3rem 0rem 40vh;
+  padding: 3rem 0rem 10rem;
 
   overflow: visible;
 }
@@ -143,14 +143,12 @@ section {
 
   width: var(--a4-wid);
   height: var(--a4-hei);
+  padding: var(--a4-mar);
 
   background: #fcfcfc;
   border-radius: 0.125rem;
-  outline: 1px solid rgb(0 0 0 / 5%);
 
-  padding: var(--a4-mar);
-
-  box-shadow: 0 1px 0 0.5px rgb(22 29 37 / 5%);
+  box-shadow: var(--paper-shadow);
 }
 
 /* */

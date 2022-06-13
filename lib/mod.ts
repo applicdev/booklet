@@ -23,7 +23,7 @@ export async function* stream({ source, output, hosted }: InterfaceOption): Inte
   yield requestBundle({ source, output, hosted });
 
   // ? re-bundle on file changes
-  for await (const res of watcher({ source })) {
+  for await (const res of watcher({ source, output, hosted })) {
     await ouputWatcherResults({ res });
     yield requestBundle({ source, output, hosted });
   }

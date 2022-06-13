@@ -7,12 +7,15 @@ import * as path from 'https://deno.land/std@0.134.0/path/mod.ts';
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
-export async function* watcher({ source }: InterfaceOption): AsyncGenerator<{ [prop: string]: any }, void, void> {
+export async function* watcher({ source, hosted, output }: InterfaceOption): AsyncGenerator<{ [prop: string]: any }, void, void> {
   while (true) {
     let wat: any = Deno.watchFs(source!.urn);
     let clo: any = null;
 
     for await (const res of wat) {
+      if (res.paths[0].includes(hosted!.urn)) continue;
+      if (res.paths[0].includes(output!.urn)) continue;
+
       clearTimeout(clo);
       clo = setTimeout(() => wat.close(), 1000);
     }
