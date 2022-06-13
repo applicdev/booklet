@@ -164,14 +164,14 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
       if ('serviceWorker' in navigator) navigator.serviceWorker.register('${option.hosted!.path}booklet.service-worker.js');
     </script>
     <script>
-      let timeout;
+      let tim;
       document.addEventListener('scroll', () => {
         document.body.setAttribute('active-scroll', '');
-
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
+        
+        clearTimeout(tim);
+        tim = setTimeout(() => {
           document.body.removeAttribute('active-scroll')
-        }, 1600);
+        }, 1800);
       }, true)
     </script>
     <!---->
