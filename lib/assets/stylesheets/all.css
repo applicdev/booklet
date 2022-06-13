@@ -130,6 +130,10 @@ nav {
 
   box-shadow: var(--paper-shadow);
 }
+
+body[active-scroll] nav {
+  display: none;
+}
 /* } */
 
 /* */
