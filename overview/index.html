@@ -25,6 +25,7 @@
     <script>
       if ('serviceWorker' in navigator) navigator.serviceWorker.register('/booklet/booklet.service-worker.js');
     </script>
+    <script src="/booklet//assets/modules/booklet-inline.js"></script>
     <script>
       let tim;
       document.addEventListener('scroll', () => {
@@ -39,10 +40,11 @@
     <!---->
   </head>
   <body>
-    <nav>
-      <!---->
-      <button class="button-nav">
-        <span class="button-icon"> 
+    
+      <nav class="">
+        <!---->
+        <button class="button-nav" onclick="globalThis.dispatchEvent(new CustomEvent('request:focus-previous-paper'))">
+          <span class="type icon-sm"> 
     <svg 
       xmlns="http://www.w3.org/2000/svg" 
       width="24" 
@@ -61,12 +63,12 @@
           
     </svg>
    </span>
-      </button>
-      <!---->
-      
-      <!---->
-      <button class="button-nav">
-        <span class="button-icon"> 
+        </button>
+        <!---->
+        
+        <!---->
+        <button class="button-nav" onclick="globalThis.dispatchEvent(new CustomEvent('request:paper-close'))">
+          <span class="type icon-sm"> 
     <svg 
       xmlns="http://www.w3.org/2000/svg" 
       width="24" 
@@ -87,9 +89,9 @@
           
     </svg>
    </span>
-      </button>
-      <button class="button-nav">
-        <span class="button-icon"> 
+        </button>
+        <button class="button-nav" onclick="globalThis.dispatchEvent(new CustomEvent('request:paper-anker'))">
+          <span class="type icon-sm"> 
     <svg 
       xmlns="http://www.w3.org/2000/svg" 
       width="24" 
@@ -108,12 +110,12 @@
           
     </svg>
    </span>
-      </button>
-      <!---->
-      
-      <!---->
-      <button class="button-nav">
-        <span class="button-icon"> 
+        </button>
+        <!---->
+        
+        <!---->
+        <button class="button-nav" onclick="globalThis.dispatchEvent(new CustomEvent('request:focus-upcoming-paper'))">
+          <span class="type icon-sm"> 
     <svg 
       xmlns="http://www.w3.org/2000/svg" 
       width="24" 
@@ -132,9 +134,10 @@
           
     </svg>
    </span>
-      </button>
-      <!---->
-    </nav>
+        </button>
+        <!---->
+      </nav>
+    
 
     <main>
       <!---->

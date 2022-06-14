@@ -218,15 +218,6 @@ section {
   color: #636364;
 }
 
-.button-icon {
-  color: #404041;
-}
-.button-icon > svg {
-  height: 1.25rem;
-  width: 1.25rem;
-  margin: -0.0625rem;
-}
-
 .button[disabled],
 .button[disabled] *,
 .button-nav[disabled],
