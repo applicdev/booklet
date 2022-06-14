@@ -119,12 +119,12 @@ fragment.debug = async ({ bundle, option }: any): Promise<any> => {
       background_color: '#f8f8fa',
       theme_color: '#f8f8fa',
       icons: [
-        ...[72, 96, 128, 144, 152, 192, 384, 512].map((size) => ({
+        ...[512, 384, 192, 152, 144, 128, 96, 72].map((size) => ({
           src: `${option.hosted!.path}images/${size}w/booklet.png`,
           sizes: `${size}x${size}`,
           type: 'image/png',
         })),
-        ...[72, 96, 128, 144, 152, 192, 384, 512].map((size) => ({
+        ...[512, 384, 192, 152, 144, 128, 96, 72].map((size) => ({
           src: `${option.hosted!.path}images/${size}w/booklet-maskable.png`,
           sizes: `${size}x${size}`,
           type: 'image/png',
@@ -163,6 +163,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     <script>
       if ('serviceWorker' in navigator) navigator.serviceWorker.register('${option.hosted!.path}booklet.service-worker.js');
     </script>
+    <script src="${option.hosted!.path}/assets/modules/booklet-inline.js"></script>
     <script>
       let tim;
       document.addEventListener('scroll', () => {
@@ -177,28 +178,30 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     <!---->
   </head>
   <body>
-    <nav>
-      <!---->
-      <button class="button-nav">
-        <span class="button-icon"> ${internal.debugRenderIcon({ name: 'page-back' })} </span>
-      </button>
-      <!---->
-      
-      <!---->
-      <button class="button-nav">
-        <span class="button-icon"> ${internal.debugRenderIcon({ name: 'booklet:search' })} </span>
-      </button>
-      <button class="button-nav">
-        <span class="button-icon"> ${internal.debugRenderIcon({ name: 'booklet:ankers' })} </span>
-      </button>
-      <!---->
-      
-      <!---->
-      <button class="button-nav">
-        <span class="button-icon"> ${internal.debugRenderIcon({ name: 'page-next' })} </span>
-      </button>
-      <!---->
-    </nav>
+    ${`
+      <nav class="">
+        <!---->
+        <button class="button-nav" onclick="globalThis.dispatchEvent(new CustomEvent('request:focus-previous-paper'))">
+          <span class="type icon-sm"> ${internal.debugRenderIcon({ name: 'paper:previous' })} </span>
+        </button>
+        <!---->
+        
+        <!---->
+        <button class="button-nav" onclick="globalThis.dispatchEvent(new CustomEvent('request:paper-close'))">
+          <span class="type icon-sm"> ${internal.debugRenderIcon({ name: 'paper:close' })} </span>
+        </button>
+        <button class="button-nav" onclick="globalThis.dispatchEvent(new CustomEvent('request:paper-anker'))">
+          <span class="type icon-sm"> ${internal.debugRenderIcon({ name: 'paper:anker' })} </span>
+        </button>
+        <!---->
+        
+        <!---->
+        <button class="button-nav" onclick="globalThis.dispatchEvent(new CustomEvent('request:focus-upcoming-paper'))">
+          <span class="type icon-sm"> ${internal.debugRenderIcon({ name: 'paper:upcoming' })} </span>
+        </button>
+        <!---->
+      </nav>
+    `}
 
     <main>
       <!---->
@@ -231,40 +234,27 @@ internal.debugRenderIcon = ({ name }: { name: string }): string => {
     >
       ${
         {
-          'page-back': `
+          'paper:previous': `
             <path d="M4 12v-6a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v8" />
             <path d="M20 18h-17" />
             <path d="M6 15l-3 3l3 3" />
           `,
-          'page-next': `
+          'paper:upcoming': `
             <path d="M20 12v-6a2 2 0 0 0 -2 -2h-12a2 2 0 0 0 -2 2v8" />
             <path d="M4 18h17" />
             <path d="M18 15l3 3l-3 3" />
           `,
-          'booklet:ankers': `
+          'paper:anker': `
             <circle cx="6" cy="19" r="2"></circle>
             <circle cx="18" cy="5" r="2"></circle>
             <path d="M12 19h4.5a3.5 3.5 0 0 0 0 -7h-8a3.5 3.5 0 0 1 0 -7h3.5"></path>
           `,
-          // 'booklet:search': `
-          //   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          //   <circle cx="10" cy="10" r="7"></circle>
-          //   <line x1="21" y1="21" x2="15" y2="15"></line>
-          // `,
-          'booklet:search': `
+          'paper:close': `
             <path d="M21 12v3a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1h9" />
             <line x1="7" y1="20" x2="17" y2="20" />
             <line x1="9" y1="16" x2="9" y2="20" />
             <line x1="15" y1="16" x2="15" y2="20" />
             <path d="M17 8l4 -4m-4 0l4 4" />
-          `,
-          'mardown:slides': `
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
-          `,
-          'mardown:prints': `
-            <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"></path>
-            <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4"></path>
-            <rect x="7" y="13" width="10" height="8" rx="2"></rect>
           `,
         }[name]
       }
