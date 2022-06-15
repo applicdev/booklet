@@ -4,6 +4,7 @@
 
 .type {
   all: unset;
+  flex: none;
 
   font-family: 'Breeze Sans';
   font-variant-numeric: proportional-nums;
@@ -11,6 +12,17 @@
   line-height: 1em;
 
   margin: -0.22ex -0.15ch;
+}
+
+/* */
+
+.type.banner {
+  font-size: 2.65rem;
+  color: #252525;
+
+  font-weight: 300;
+
+  margin-right: auto;
 }
 
 /* */
