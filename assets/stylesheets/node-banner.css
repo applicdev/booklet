@@ -1,0 +1,8 @@
+.node.banner {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+
+  width: 100%;
+  height: 14.5rem;
+}

@@ -2,6 +2,9 @@
 @import url('./scheme-types.css');
 @import url('./scheme.css');
 
+@import url('./node-banner.css');
+@import url('./node-reader.css');
+
 /* */
 
 html {
@@ -9,15 +12,18 @@ html {
 
   --cm: 2.5rem; /* 40px/cm */
 
-  --paper-wid: 52.5rem; /* 840px -> 40px/cm */
+  --paper-wid: 52.5rem; /* 840px */
   --paper-ratio: 21 / 29.7;
   --paper-margin: 4.375rem;
   --paper-gutter: calc(var(--cm) * 0.75);
   --paper-shadow: 0 0.5px 2px 1px rgb(0 0 0 / 8%);
 
-  --c: #363636;
+  --type: #363636;
+
   --modal-ground: rgb(0 0 0 / 23%);
   --modal-shadow: 0 0 2px 4px rgb(0 0 0 / 3%);
+
+  accent-color: #d75e63;
 }
 
 /* */
@@ -73,7 +79,7 @@ main {
   flex-direction: column;
 
   gap: var(--paper-gutter);
-  margin: 2rem 0rem 0rem;
+  margin: 0rem 0rem;
   padding: 3rem 0rem 10rem;
 
   overflow: visible;
@@ -81,30 +87,6 @@ main {
 
 /* */
 
-/* @media (min-width: 981px) {
-  nav {
-    position: sticky;
-    top: -3.5rem;
-    align-self: start;
-
-    flex: none;
-    display: flex;
-    flex-direction: column;
-    grid-gap: 0.625rem;
-    align-items: center;
-
-    width: 4rem;
-    height: calc(100vh + 3.5rem);
-
-    margin: 1rem 0rem 0rem 0rem;
-    padding: 4rem 0rem 0.5rem;
-
-    overflow: hidden auto;
-    overflow: hidden overlay;
-  }
-} */
-
-/* @media (max-width: 980px) { */
 nav {
   position: fixed;
   inset: auto auto 0rem auto;
@@ -134,7 +116,6 @@ nav {
 body[active-scroll] nav {
   display: none;
 }
-/* } */
 
 /* */
 
