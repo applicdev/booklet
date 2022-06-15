@@ -3,5 +3,10 @@
   flex: none;
   flex-direction: column;
 
+  justify-content: center;
+  align-items: center;
+
   height: var(--banner-hei);
+  width: 100%;
+  opacity: var(--banner-vis);
 }

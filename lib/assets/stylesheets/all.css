@@ -59,6 +59,9 @@ body {
 /* */
 
 .node.bounds {
+  display: flex;
+  flex-direction: column;
+
   height: 100vh;
   width: 100vw;
 
@@ -101,14 +104,23 @@ body {
     font-size: calc(1cm / 40 * 16);
   }
 
+  body {
+    overflow: auto;
+  }
+
+  .node.bounds {
+    height: unset;
+    overflow: visible;
+  }
+
   body,
-  body > main {
+  .node.reader {
     padding: 0rem 0rem;
   }
 
   body,
-  body > main,
-  body > main > section {
+  .node.reader,
+  .node.reader > .reader-section {
     margin: 0rem 0rem;
 
     background: white;
@@ -117,13 +129,13 @@ body {
     box-shadow: none;
   }
 
-  main {
+  .node.reader {
     gap: 0rem;
     width: var(--a4-wid);
   }
 
-  header,
-  nav {
+  .node.banner,
+  .node.reader-nav {
     display: none;
   }
 }
