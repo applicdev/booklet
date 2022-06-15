@@ -116,8 +116,8 @@ fragment.debug = async ({ bundle, option }: any): Promise<any> => {
       start_url: `${option.hosted!.path}overview`,
       display: 'fullscreen',
       display_override: ['fullscreen', 'window-controls-overlay'],
-      background_color: '#f8f8fa',
-      theme_color: '#f8f8fa',
+      background_color: '#f6f6f7',
+      theme_color: '#f6f6f7',
       icons: [
         ...[512, 384, 192, 152, 144, 128, 96, 72].map((size) => ({
           src: `${option.hosted!.path}images/${size}w/booklet.png`,
@@ -148,8 +148,8 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     <!---->
 
     <!---->
-    <meta content="#f8f8fa" name="theme-color" />
-    <meta content="#f8f8fa" name="theme-color" media="(prefers-color-scheme: light)" />
+    <meta content="#f6f6f7" name="theme-color" />
+    <meta content="#f6f6f7" name="theme-color" media="(prefers-color-scheme: light)" />
     <meta content="#171b22" name="theme-color" media="(prefers-color-scheme: dark)" />
     <link rel="manifest" href="${option.hosted!.path}booklet.webmanifest" />
     <!---->
@@ -164,17 +164,6 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
       if ('serviceWorker' in navigator) navigator.serviceWorker.register('${option.hosted!.path}booklet.service-worker.js');
     </script>
     <script src="${option.hosted!.path}/assets/modules/booklet-inline.js"></script>
-    <script>
-      let tim;
-      document.addEventListener('scroll', () => {
-        document.body.setAttribute('active-scroll', '');
-        
-        clearTimeout(tim);
-        tim = setTimeout(() => {
-          document.body.removeAttribute('active-scroll')
-        }, 1800);
-      }, true)
-    </script>
     <!---->
   </head>
   <body>
