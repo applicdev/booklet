@@ -1,6 +1,18 @@
 /* */
 
-section {
+.node.reader {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  gap: var(--paper-gut);
+  margin: 0rem 0rem var(--banner-hei) 0rem;
+  padding: 3rem 0rem 3rem;
+
+  overflow: visible;
+}
+
+.reader-section {
   flex: none;
   display: flex;
   flex-direction: column;
@@ -10,14 +22,14 @@ section {
   padding: var(--paper-pad);
 
   background: #fcfcfc;
-  border-radius: 0.25rem;
+  border-radius: var(--paper-radius);
 
   box-shadow: var(--paper-shadow);
 }
 
 /* */
 
-nav {
+.node.reader-nav {
   position: fixed;
   inset: auto auto 0rem 50%;
   transform: translate(calc(-50% - 1.25rem), 0rem);
@@ -40,10 +52,10 @@ nav {
   border: 1px solid #fcfcfc;
   border-radius: calc(2.5rem / 2);
 
-  box-shadow: var(--paper-shadow);
+  box-shadow: var(--float-shadow);
 }
 
-body[active-scroll] nav {
+body[active-scroll] .node.reader-nav {
   display: none;
 }
 

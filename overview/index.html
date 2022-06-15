@@ -10,8 +10,8 @@
     <!---->
 
     <!---->
-    <meta content="#f8f8fa" name="theme-color" />
-    <meta content="#f8f8fa" name="theme-color" media="(prefers-color-scheme: light)" />
+    <meta content="#f6f6f7" name="theme-color" />
+    <meta content="#f6f6f7" name="theme-color" media="(prefers-color-scheme: light)" />
     <meta content="#171b22" name="theme-color" media="(prefers-color-scheme: dark)" />
     <link rel="manifest" href="/booklet/booklet.webmanifest" />
     <!---->
@@ -26,17 +26,6 @@
       if ('serviceWorker' in navigator) navigator.serviceWorker.register('/booklet/booklet.service-worker.js');
     </script>
     <script src="/booklet//assets/modules/booklet-inline.js"></script>
-    <script>
-      let tim;
-      document.addEventListener('scroll', () => {
-        document.body.setAttribute('active-scroll', '');
-        
-        clearTimeout(tim);
-        tim = setTimeout(() => {
-          document.body.removeAttribute('active-scroll')
-        }, 1800);
-      }, true)
-    </script>
     <!---->
   </head>
   <body>

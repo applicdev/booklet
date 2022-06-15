@@ -1,6 +1,20 @@
 const fragment = {};
 const internal = {};
 
+let tim;
+globalThis.addEventListener(
+  'scroll',
+  () => {
+    document.body.setAttribute('active-scroll', '');
+
+    clearTimeout(tim);
+    tim = setTimeout(() => {
+      document.body.removeAttribute('active-scroll');
+    }, 1800);
+  },
+  true
+);
+
 globalThis.addEventListener('DOMContentLoaded', async () => {
   document.body.innerHTML = await internal.debugRender({
     reader: {}, //false,
@@ -11,6 +25,9 @@ globalThis.addEventListener('DOMContentLoaded', async () => {
   if (location.hash == '') {
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     document.body.scroll(0, document.querySelector('.node.banner').offsetHeight);
+    requestAnimationFrame(() => {
+      document.body.removeAttribute('active-scroll');
+    });
   }
 });
 
@@ -29,7 +46,7 @@ internal.debugRender = async ({ reader, bundle, option }) => {
           </main>
           `
         : `
-          <nav class="">
+          <nav class="node reader-nav">
             <!---->
             <button class="button-nav" onclick="globalThis.dispatchEvent(new CustomEvent('request:focus-previous-paper'))">
               <span class="type icon-sm"> ${internal.debugRenderIcon({ name: 'paper:previous' })} </span>
@@ -52,12 +69,12 @@ internal.debugRender = async ({ reader, bundle, option }) => {
             <!---->
           </nav>
                 
-          <main>
+          <main class="node reader">
             <!---->
             ${[{}, {}, {}]
               .map(
                 (sec) => `
-                <section></section>
+                <section class="reader-section"></section>
               `
               )
               .join('')}

@@ -12,12 +12,15 @@ html {
 
   --cm: 2.5rem; /* 40px/cm */
 
-  --paper-wid: 52.5rem; /* 840px */
-  --paper-ratio: 21 / 29.7;
+  --paper-ratio: 21 / 29.7; /* A4 */
+  --paper-wid: 52.5rem; /* 840px -> 21cm */
   --paper-pad: 4.375rem;
-  --paper-mar: 0.5rem;
-  --paper-gut: 1.5rem;
-  --paper-shadow: 0 0.5px 2px 1px rgb(0 0 0 / 8%);
+  --paper-mar: 0.625rem;
+  --paper-gut: 0.75rem;
+  --paper-shadow: 0 0.4px 2px 0.5px rgb(0 0 0 / 6%);
+  --paper-radius: 0.5rem;
+
+  --float-shadow: 0 0.4px 2px 1px rgb(0 0 0 / 6%);
 
   --type: #363636;
 
@@ -45,7 +48,7 @@ body script {
 
 body {
   all: unset;
-  background: #f8f8fa;
+  background: #f6f6f7;
 
   display: flex;
   flex-direction: column;
@@ -65,20 +68,6 @@ body {
   color: #ffffff;
   background: #191919;
   text-decoration: none;
-}
-
-/* */
-
-main {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-
-  gap: var(--paper-gut);
-  margin: 0rem 0rem var(--banner-hei) 0rem;
-  padding: 3rem 0rem 3rem;
-
-  overflow: visible;
 }
 
 /* */
