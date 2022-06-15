@@ -59,11 +59,14 @@ body {
 /* */
 
 .node.bounds {
+  position: fixed;
+  inset: 0rem 0rem;
+
+  height: calc(100% - 0.35px);
+  width: 100%;
+
   display: flex;
   flex-direction: column;
-
-  height: 100vh;
-  width: 100vw;
 
   overflow: hidden auto;
   overflow: hidden overlay;
@@ -109,6 +112,8 @@ body {
   }
 
   .node.bounds {
+    position: unset;
+    inset: unset;
     height: unset;
     overflow: visible;
   }
