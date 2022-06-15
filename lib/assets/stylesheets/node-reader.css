@@ -20,7 +20,7 @@ section {
 nav {
   position: fixed;
   inset: auto auto 0rem 50%;
-  transform: translate(-50%, 0rem);
+  transform: translate(calc(-50% - 1.25rem), 0rem);
 
   flex: none;
   display: flex;
