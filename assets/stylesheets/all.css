@@ -129,7 +129,7 @@ section {
   padding: var(--paper-mar);
 
   background: #fcfcfc;
-  border-radius: 0.125rem;
+  border-radius: 0.25rem;
 
   box-shadow: var(--paper-shadow);
 }
