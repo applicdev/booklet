@@ -124,7 +124,7 @@ section {
   display: flex;
   flex-direction: column;
 
-  width: min(100vw, var(--paper-wid));
+  width: min(calc(100vw - 2rem), var(--paper-wid));
   aspect-ratio: var(--paper-ratio);
   padding: var(--paper-mar);
 
