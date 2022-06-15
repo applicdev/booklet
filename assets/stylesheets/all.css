@@ -53,9 +53,29 @@ body {
   display: flex;
   flex-direction: column;
 
-  overflow: hidden scroll;
+  overflow: hidden;
+}
+
+/* */
+
+.node.bounds {
+  height: 100vh;
+  width: 100vw;
+
+  overflow: hidden auto;
   overflow: hidden overlay;
 
+  scroll-snap-type: y proximity;
+}
+
+.node.banner,
+.node.reader {
+  scroll-snap-align: start;
+}
+
+/* */
+
+* {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
