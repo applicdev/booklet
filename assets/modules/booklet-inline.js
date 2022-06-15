@@ -7,10 +7,10 @@ globalThis.addEventListener('DOMContentLoaded', async () => {
     option: {},
   });
 
-  if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
+  if (location.hash == '') {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    document.body.scroll(0, document.querySelector('.node.banner').offsetHeight);
   }
-  document.body.scroll(0, document.querySelector('.node.banner').offsetHeight);
 });
 
 internal.debugRender = async ({ bundle, option }) => {

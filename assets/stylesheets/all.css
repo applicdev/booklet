@@ -14,8 +14,9 @@ html {
 
   --paper-wid: 52.5rem; /* 840px */
   --paper-ratio: 21 / 29.7;
-  --paper-margin: 4.375rem;
-  --paper-gutter: calc(var(--cm) * 0.75);
+  --paper-pad: 4.375rem;
+  --paper-mar: 1.5rem;
+  --paper-gut: 1.5rem;
   --paper-shadow: 0 0.5px 2px 1px rgb(0 0 0 / 8%);
 
   --type: #363636;
@@ -81,7 +82,7 @@ main {
   align-items: center;
   flex-direction: column;
 
-  gap: var(--paper-gutter);
+  gap: var(--paper-gut);
   margin: 0rem 0rem var(--banner-hei) 0rem;
   padding: 3rem 0rem 3rem;
 
@@ -127,9 +128,9 @@ section {
   display: flex;
   flex-direction: column;
 
-  width: min(calc(100vw - 2rem), var(--paper-wid));
+  width: min(calc(100vw - var(--paper-mar) * 2), var(--paper-wid));
   aspect-ratio: var(--paper-ratio);
-  padding: var(--paper-mar);
+  padding: var(--paper-pad);
 
   background: #fcfcfc;
   border-radius: 0.25rem;
