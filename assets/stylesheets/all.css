@@ -23,6 +23,8 @@ html {
   --modal-ground: rgb(0 0 0 / 23%);
   --modal-shadow: 0 0 2px 4px rgb(0 0 0 / 3%);
 
+  --banner-hei: 14.5rem;
+
   accent-color: #d75e63;
 }
 
@@ -43,6 +45,7 @@ body script {
 body {
   all: unset;
   background: #f8f8fa;
+  background: #f6f6f6;
 
   display: grid;
   grid-template-columns: 4rem calc(100vw - 8rem) 4rem;
@@ -79,8 +82,8 @@ main {
   flex-direction: column;
 
   gap: var(--paper-gutter);
-  margin: 0rem 0rem;
-  padding: 3rem 0rem 10rem;
+  margin: 0rem 0rem var(--banner-hei) 0rem;
+  padding: 3rem 0rem 3rem;
 
   overflow: visible;
 }

@@ -1,11 +1,16 @@
 const fragment = {};
 const internal = {};
 
-globalThis.addEventListener('load', async () => {
+globalThis.addEventListener('DOMContentLoaded', async () => {
   document.body.innerHTML = await internal.debugRender({
     bundle: {},
     option: {},
   });
+
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  document.body.scroll(0, document.querySelector('.node.banner').offsetHeight);
 });
 
 internal.debugRender = async ({ bundle, option }) => {
