@@ -22,7 +22,7 @@
   align-items: center;
 
   height: var(--banner-hei);
-  padding: 3rem 1.25rem 0rem;
+  padding: 3rem calc(1.25rem - var(--paper-mar)) 0rem;
 
   text-align: center;
   overflow: visible;
@@ -41,7 +41,7 @@
   flex-direction: row;
   grid-gap: 0.825rem;
 
-  padding: 1rem 1rem 0rem;
+  padding: 1rem calc(1rem - var(--paper-mar)) 0rem;
 }
 
 .node.banner > .banner-actions::before {
