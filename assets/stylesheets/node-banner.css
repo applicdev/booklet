@@ -5,6 +5,9 @@
 
   align-items: center;
 }
+.node.banner > * {
+  width: min(100vw, var(--paper-wid));
+}
 
 .node.banner > .banner-content {
   display: flex;
@@ -13,18 +16,15 @@
   justify-content: center;
   align-items: center;
 
-  width: 100%;
   height: var(--banner-hei);
   padding: 3rem 1.25rem 0rem;
 
   text-align: center;
   overflow: visible;
-  opacity: var(--banner-vis, 1);
+  opacity: var(--banner-vis);
 }
 
 .node.banner > .banner-actions {
-  width: 100%;
-
   display: flex;
   flex: none;
   flex-direction: row;
@@ -46,5 +46,5 @@
   align-items: center;
 }
 .node.banner > .banner-actions > *:nth-child(2) {
-  opacity: calc(1 - var(--banner-vis, 0));
+  opacity: calc(1 - var(--banner-vis));
 }

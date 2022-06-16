@@ -28,6 +28,7 @@ html {
   --modal-shadow: 0 0 2px 4px rgb(0 0 0 / 3%);
 
   --banner-hei: 14.5rem;
+  --banner-vis: 0;
 
   accent-color: #d75e63;
 
