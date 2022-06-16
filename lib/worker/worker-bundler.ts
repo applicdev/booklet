@@ -167,7 +167,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         bundle: { }
       }
     </script>
-    <script src="${option.hosted!.path}/assets/modules/booklet-inline.js"></script>
+    <script defer="" src="${option.hosted!.path}/assets/modules/booklet-inline.js"></script>
     <!---->
   </head>
   <body>
