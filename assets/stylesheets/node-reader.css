@@ -29,38 +29,6 @@
 
 /* */
 
-.node.reader-nav {
-  position: fixed;
-  inset: auto auto 0rem 50%;
-  transform: translate(calc(-50% - 1.25rem), 0rem);
-
-  flex: none;
-  display: flex;
-  flex-direction: row;
-  grid-gap: 0.625rem;
-  align-items: center;
-  justify-content: center;
-
-  height: 2.5rem;
-  margin: 0rem 1.25rem 1.5rem;
-  padding: 0rem 1rem;
-
-  overflow: auto hidden;
-  overflow: overlay hidden;
-
-  background: #fcfcfc;
-  border: 1px solid #fcfcfc;
-  border-radius: calc(2.5rem / 2);
-
-  box-shadow: var(--float-shadow);
-}
-
-body[active-scroll] .node.reader-nav {
-  display: none;
-}
-
-/* */
-
 .action-icon,
 .action-icon-sm {
   all: unset;
