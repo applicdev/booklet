@@ -19,7 +19,7 @@
 
   text-align: center;
   overflow: visible;
-  opacity: var(--banner-vis);
+  opacity: var(--banner-vis, 1);
 }
 
 .node.banner > .banner-actions {
@@ -46,5 +46,5 @@
   align-items: center;
 }
 .node.banner > .banner-actions > *:nth-child(2) {
-  opacity: calc(1 - var(--banner-vis));
+  opacity: calc(1 - var(--banner-vis, 0));
 }
