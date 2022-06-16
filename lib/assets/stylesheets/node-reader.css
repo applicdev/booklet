@@ -7,7 +7,7 @@
 
   gap: var(--paper-gut);
   margin: 0rem 0rem var(--banner-hei) 0rem;
-  padding: 3rem 0rem 3rem;
+  padding: var(--paper-gut) 0rem calc(3rem + var(--paper-gut));
 
   overflow: visible;
 }
@@ -61,28 +61,23 @@ body[active-scroll] .node.reader-nav {
 
 /* */
 
-.button,
-.button-nav {
+.action-icon,
+.action-icon-sm {
   all: unset;
+  position: relative;
 
   flex: none;
   display: flex;
   flex-direction: row;
-  grid-gap: 0.3125rem;
   align-items: center;
   justify-content: center;
-
-  height: 1.875rem;
-  padding: 0rem 0.3125rem;
-
-  border-radius: 0.125rem;
 
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
 
-.button-nav {
+.action-icon {
   height: 2rem;
   width: 2rem;
 
@@ -92,42 +87,47 @@ body[active-scroll] .node.reader-nav {
   border-radius: 1rem;
 }
 
-.button:focus-visible,
-.button-nav:focus-visible,
-.button-nav:hover {
-  /* background: #f1f1f4; */
-  background: rgb(0 0 0 / 7%);
-}
-.button:active,
-.button-nav:active {
-  /* background: #ebebef; */
-  background: rgb(0 0 0 / 10%);
+.action-icon-sm {
+  height: 2rem;
+  width: 2rem;
+
+  padding: 0rem;
+  margin: 0rem;
+
+  border-radius: 1rem;
 }
 
-.button-text {
-  all: unset;
+.action-icon::after,
+.action-icon-sm::after {
+  content: '';
 
-  font-family: 'Breeze Sans';
-  font-variant-numeric: proportional-nums;
-  line-height: 1em;
-  margin: -0.22ex -0.15ch;
-  padding: 0rem 0.3125rem;
+  position: absolute;
+  inset: 0rem 0rem;
 
-  font-size: 0.875rem;
-  color: #404041;
+  background: #000;
+  opacity: 0;
+  border-radius: 50%;
+
+  transition: inset 200ms;
 }
 
-.button-nav .button-text {
-  padding: 0.3125rem 0.3125rem 0rem 0.3125rem;
-
-  font-size: 0.75rem;
-  color: #636364;
+.action-icon::after {
+  inset: -0.5rem -0.5rem;
 }
 
-.button[disabled],
-.button[disabled] *,
-.button-nav[disabled],
-.button-nav[disabled] * {
+.action-icon:hover::after,
+.action-icon-sm:hover::after {
+  opacity: 0.07;
+}
+.action-icon:active::after,
+.action-icon-sm:active::after {
+  opacity: 0.1;
+}
+
+.action-icon[disabled],
+.action-icon[disabled] *,
+.action-icon-sm[disabled],
+.action-icon-sm[disabled] * {
   color: #b3b3b4 !important;
   pointer-events: none;
 }

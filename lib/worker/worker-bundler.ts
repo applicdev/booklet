@@ -162,6 +162,10 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     <!---->
     <script>
       if ('serviceWorker' in navigator) navigator.serviceWorker.register('${option.hosted!.path}booklet.service-worker.js');
+      globalThis.booklet = {
+        hosted: { path: ${option.hosted!.path} },
+        bundle: { }
+      }
     </script>
     <script src="${option.hosted!.path}/assets/modules/booklet-inline.js"></script>
     <!---->

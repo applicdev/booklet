@@ -30,6 +30,9 @@ html {
   --banner-hei: 14.5rem;
 
   accent-color: #d75e63;
+
+  overflow: hidden;
+  overscroll-behavior: none;
 }
 
 /* */
@@ -39,21 +42,21 @@ body * {
   box-sizing: border-box;
 }
 
-body style,
-body script {
-  display: none;
-}
-
 /* */
 
 body {
   all: unset;
-  background: #f6f6f7;
 
-  display: flex;
-  flex-direction: column;
+  position: fixed;
 
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  margin: 0rem 0rem;
+  padding: 0rem 0rem;
+
+  overflow: auto;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* */
@@ -62,20 +65,25 @@ body {
   position: fixed;
   inset: 0rem 0rem;
 
-  height: calc(100% - 0.35px);
-  width: 100%;
-
   display: flex;
   flex-direction: column;
+  flex: none;
+
+  background: #f6f6f7;
+  overflow: hidden;
+}
+.node.bounds > .bounds-inner {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 
   overflow: hidden auto;
   overflow: hidden overlay;
-
   scroll-snap-type: y proximity;
 }
 
-.node.banner,
-.node.reader {
+.node.banner > .banner-content,
+.node.banner > .banner-actions {
   scroll-snap-align: start;
 }
 
