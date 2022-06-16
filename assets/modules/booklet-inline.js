@@ -11,7 +11,6 @@ internal.requestScrollUpdate = () => {
 
   let vis = Math.max(hei - pos + 150, 0) / hei;
   document.querySelector('.node.banner').setAttribute('style', `--banner-vis: ${vis};`);
-  console.log(vis);
 
   // ? scroll
   document.body.setAttribute('active-scroll', '');
@@ -25,25 +24,6 @@ internal.requestScrollUpdate = () => {
 globalThis.addEventListener('scroll', internal.requestScrollUpdate, true);
 
 /* */
-
-globalThis.addEventListener('DOMContentLoaded', async () => {
-  document.body.innerHTML = internal.debugRender({
-    reader: {}, //false,
-    option: {},
-  });
-
-  // ? snap to header
-  if (location.hash == '') {
-    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-
-    let hei = document.querySelector('.node.banner').offsetHeight;
-    document.querySelector('.node.bounds > .bounds-inner').scroll(0, hei);
-
-    requestAnimationFrame(() => {
-      document.body.removeAttribute('active-scroll');
-    });
-  }
-});
 
 internal.debugRender = ({ reader, option }) => {
   const { hosted, bundle } = globalThis.booklet;
@@ -174,3 +154,22 @@ internal.debugRenderIcon = ({ name }) => {
   `;
 };
 // ---
+
+globalThis.addEventListener('DOMContentLoaded', async () => {
+  document.body.innerHTML = internal.debugRender({
+    reader: {}, //false,
+    option: {},
+  });
+
+  // ? snap to header
+  if (location.hash == '') {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+    let hei = document.querySelector('.node.banner').offsetHeight;
+    document.querySelector('.node.bounds > .bounds-inner').scroll(0, hei);
+
+    requestAnimationFrame(() => {
+      document.body.removeAttribute('active-scroll');
+    });
+  }
+});
