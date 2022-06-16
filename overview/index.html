@@ -24,6 +24,10 @@
     <!---->
     <script>
       if ('serviceWorker' in navigator) navigator.serviceWorker.register('/booklet/booklet.service-worker.js');
+      globalThis.booklet = {
+        hosted: { path: /booklet/ },
+        bundle: { }
+      }
     </script>
     <script src="/booklet//assets/modules/booklet-inline.js"></script>
     <!---->

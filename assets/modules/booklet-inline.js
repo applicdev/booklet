@@ -7,9 +7,9 @@ globalThis.addEventListener(
   () => {
     // ? banner visibility
     let hei = document.querySelector('.node.banner').offsetHeight * 0.5;
-    let pos = document.querySelector('.node.bounds').scrollTop;
+    let pos = document.querySelector('.node.bounds > .bounds-inner').scrollTop;
 
-    let vis = Math.max(Math.min(hei - pos), 0) / hei;
+    let vis = Math.max(Math.min(hei - pos + 20), 0) / hei;
     document.querySelector('.node.banner').setAttribute('style', `--banner-vis: ${vis};`);
 
     // ? scroll
@@ -26,15 +26,15 @@ globalThis.addEventListener(
 globalThis.addEventListener('DOMContentLoaded', async () => {
   document.body.innerHTML = await internal.debugRender({
     reader: {}, //false,
-    bundle: {},
     option: {},
   });
 
+  // ? snap to header
   if (location.hash == '') {
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
     let hei = document.querySelector('.node.banner').offsetHeight;
-    document.querySelector('.node.bounds').scroll(0, hei);
+    document.querySelector('.node.bounds > .bounds-inner').scroll(0, hei);
 
     requestAnimationFrame(() => {
       document.body.removeAttribute('active-scroll');
@@ -42,59 +42,88 @@ globalThis.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-internal.debugRender = async ({ reader, bundle, option }) => {
+internal.debugRender = async ({ reader, option }) => {
+  const { hosted, bundle } = globalThis.booklet;
+
   return `
     <div class="node bounds">
-      <header class="node banner">
-        <!---->
-        <div class="banner-content"><span class="type banner">Untitled document</span></div>
-        <!---->
-      </header>
+      <div class="bounds-inner">
+        <header class="node banner">
+          <div class="banner-content">
+            <!---->
+            <div class="type-block">
+              <span class="type banner">Booklet</span>
+              <span class="type banner-caption">Debugging-Document</span>
+            </div>
+            <!---->
+          </div>
+          <div class="banner-actions">
+            <!---->
+            <div>
+              <!---->
+              <!---->
+            </div>
+            <div>
+              <!---->
+              <div class="type-block-sm">
+                <span class="type action">Booklet</span>
+                <span class="type action-sm">Debugging-Document</span>
+              </div>
+              <!---->
+            </div>
+            <div>
+              <!---->
+              <!---->
+            </div>
+            <!---->
+          </div>
+        </header>
 
-      ${
-        !reader
-          ? `
-            <main>
+        ${
+          !reader
+            ? `
+              <main>
 
-            </main>
-            `
-          : `
-            <nav class="node reader-nav">
-              <!---->
-              <button class="button-nav" onclick="globalThis.dispatchEvent(new CustomEvent('request:focus-previous-paper'))">
-                <span class="type icon-sm"> ${internal.debugRenderIcon({ name: 'paper:previous' })} </span>
-              </button>
-              <!---->
-              
-              <!---->
-              <button class="button-nav" onclick="globalThis.dispatchEvent(new CustomEvent('request:paper-close'))">
-                <span class="type icon-sm"> ${internal.debugRenderIcon({ name: 'paper:close' })} </span>
-              </button>
-              <button class="button-nav" onclick="globalThis.dispatchEvent(new CustomEvent('request:paper-anker'))">
-                <span class="type icon-sm"> ${internal.debugRenderIcon({ name: 'paper:anker' })} </span>
-              </button>
-              <!---->
-              
-              <!---->
-              <button class="button-nav" onclick="globalThis.dispatchEvent(new CustomEvent('request:focus-upcoming-paper'))">
-                <span class="type icon-sm"> ${internal.debugRenderIcon({ name: 'paper:upcoming' })} </span>
-              </button>
-              <!---->
-            </nav>
-                  
-            <main class="node reader">
-              <!---->
-              ${[{}, {}, {}]
-                .map(
-                  (sec) => `
-                  <section class="reader-section"></section>
-                `
-                )
-                .join('')}
-              <!---->
-            </main>
-            `
-      }
+              </main>
+              `
+            : `
+              <nav class="node reader-nav">
+                <!---->
+                <button class="action-icon-sm" onclick="globalThis.dispatchEvent(new CustomEvent('request:focus-previous-paper'))">
+                  <span class="type icon-sm"> ${internal.debugRenderIcon({ name: 'paper:previous' })} </span>
+                </button>
+                <!---->
+                
+                <!---->
+                <button class="action-icon-sm" onclick="globalThis.dispatchEvent(new CustomEvent('request:paper-close'))">
+                  <span class="type icon-sm"> ${internal.debugRenderIcon({ name: 'paper:close' })} </span>
+                </button>
+                <button class="action-icon-sm" onclick="globalThis.dispatchEvent(new CustomEvent('request:paper-anker'))">
+                  <span class="type icon-sm"> ${internal.debugRenderIcon({ name: 'paper:anker' })} </span>
+                </button>
+                <!---->
+                
+                <!---->
+                <button class="action-icon-sm" onclick="globalThis.dispatchEvent(new CustomEvent('request:focus-upcoming-paper'))">
+                  <span class="type icon-sm"> ${internal.debugRenderIcon({ name: 'paper:upcoming' })} </span>
+                </button>
+                <!---->
+              </nav>
+                    
+              <main class="node reader">
+                <!---->
+                ${[{}, {}, {}]
+                  .map(
+                    (sec) => `
+                    <section class="reader-section"></section>
+                  `
+                  )
+                  .join('')}
+                <!---->
+              </main>
+              `
+        }
+      </div>
     </div>
   `;
 };
