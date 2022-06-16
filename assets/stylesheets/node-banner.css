@@ -1,4 +1,7 @@
 .node.banner {
+  position: sticky;
+  top: calc(0rem - var(--banner-hei) - var(--paper-gut));
+
   display: flex;
   flex: none;
   flex-direction: column;
@@ -6,10 +9,12 @@
   align-items: center;
 }
 .node.banner > * {
-  width: min(100vw, var(--paper-wid));
+  width: min(calc(100vw - var(--paper-mar) * 2), var(--paper-wid));
 }
 
 .node.banner > .banner-content {
+  z-index: 10;
+
   display: flex;
   flex: none;
   flex-direction: column;
@@ -24,7 +29,13 @@
   opacity: var(--banner-vis);
 }
 
+.node.banner > .banner-content > * {
+  z-index: 10;
+}
+
 .node.banner > .banner-actions {
+  position: relative;
+
   display: flex;
   flex: none;
   flex-direction: row;
@@ -33,7 +44,23 @@
   padding: 1rem 1rem 0rem;
 }
 
+.node.banner > .banner-actions::before {
+  z-index: 8;
+  content: '';
+
+  position: absolute;
+  inset: calc(-10rem + 6rem - var(--paper-gut)) calc(-10rem - var(--paper-mar)) 0rem;
+
+  height: 2rem;
+
+  border: 10rem solid #f6f6f7;
+  border-radius: calc(10rem + 0.75rem) calc(10rem + 0.75rem) 0rem 0rem;
+  border-bottom: none;
+}
+
 .node.banner > .banner-actions > * {
+  z-index: 10;
+
   display: flex;
   flex: none;
   flex-direction: row;
