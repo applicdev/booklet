@@ -54,7 +54,7 @@
   height: 2rem;
 
   border: 10rem solid #f6f6f7;
-  border-radius: calc(10rem + 0.75rem) calc(10rem + 0.75rem) 0rem 0rem;
+  border-radius: calc(10rem + 1rem) calc(10rem + 1rem) 0rem 0rem;
   border-bottom: none;
   pointer-events: none;
 }

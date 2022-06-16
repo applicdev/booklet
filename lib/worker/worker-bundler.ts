@@ -114,8 +114,8 @@ fragment.debug = async ({ bundle, option }: any): Promise<any> => {
       name: 'Booklet',
       short_name: 'Booklet',
       start_url: `${option.hosted!.path}overview`,
-      display: 'fullscreen',
-      display_override: ['fullscreen', 'window-controls-overlay'],
+      display: 'standalone',
+      display_override: ['standalone', 'window-controls-overlay'],
       background_color: '#f6f6f7',
       theme_color: '#f6f6f7',
       icons: [
