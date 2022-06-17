@@ -5,7 +5,7 @@ const internal = {};
 
 internal.requestScrollUpdate = () => {
   // ? banner visibility
-  let hei = document.querySelector('.node.banner > .banner-content').offsetHeight / 2.5;
+  let hei = document.querySelector('.node.banner > .banner-content').offsetHeight / 3;
   let pos = document.querySelector('.node.bounds > .bounds-inner').scrollTop;
 
   let vis = Math.max(hei - pos + 50, 0) / hei;
@@ -35,6 +35,9 @@ internal.debugRender = ({ reader, option }) => {
             <!---->
             <div>
               <!---->
+              <a class="action-icon" href="${booklet.hosted.path}">
+                <span class="type icon">${internal.debugRenderIcon({ name: 'paper:previous' })}</span>
+              </a>
               <!---->
             </div>
             <div>
@@ -86,7 +89,7 @@ internal.debugRenderIcon = ({ name }) => {
       width="24" 
       height="24" 
       viewBox="0 0 24 24" 
-      stroke-width="2" 
+      stroke-width="1.6" 
       stroke="currentColor" 
       fill="none" 
       stroke-linecap="round" 
@@ -95,9 +98,12 @@ internal.debugRenderIcon = ({ name }) => {
       ${
         {
           'paper:previous': `
-            <path d="M4 12v-6a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v8" />
-            <path d="M20 18h-17" />
-            <path d="M6 15l-3 3l3 3" />
+            <polyline class="st1" points="15.7,19.3 8.2,11.9 15.7,4.4 "/>
+          `,
+          'paper:navigate': `
+            <line class="st0" x1="5.4" y1="12" x2="18.4" y2="12"/>
+            <line class="st0" x1="5.4" y1="5.5" x2="18.4" y2="5.5"/>
+            <line class="st0" x1="5.4" y1="18.5" x2="18.4" y2="18.5"/>
           `,
           'paper:upcoming': `
             <path d="M20 12v-6a2 2 0 0 0 -2 -2h-12a2 2 0 0 0 -2 2v8" />
