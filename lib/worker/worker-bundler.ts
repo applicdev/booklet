@@ -81,7 +81,7 @@ fragment.finalize = async ({ bundle, option }: any): Promise<any> => {
   const pre = { urn: snippet.path.resolve(option.hosted.urn, './output/') };
 
   snippet.file.emptyDir(pri.urn);
-  snippet.file.emptyDir(pre.urn);
+  // snippet.file.emptyDir(pre.urn);
 
   for await (const dis of bundles.finalize.display({ bundle, option })) {
     await bundles.finalize.preview({ bundle, option }, { page: dis.page, urn: snippet.path.resolve(pre.urn, `./${dis.hash}.png`) });
@@ -101,11 +101,12 @@ fragment.finalize = async ({ bundle, option }: any): Promise<any> => {
 // ---
 fragment.debug = async ({ bundle, option }: any): Promise<any> => {
   const plain = await internal.debugRender({ bundle, option });
-  const out = { urn: snippet.path.resolve(option.hosted!.urn, `./overview/index.html`) };
+  const out = { urn: snippet.path.resolve(option.hosted!.urn, `./404.html`) };
+  // const out = { urn: snippet.path.resolve(option.hosted!.urn, `./overview/index.html`) };
   const man = { urn: snippet.path.resolve(option.hosted!.urn, `./booklet.webmanifest`) };
   const ser = { urn: snippet.path.resolve(option.hosted!.urn, `./booklet.service-worker.js`) };
 
-  await snippet.file.emptyDir(snippet.path.dirname(out.urn));
+  // await snippet.file.emptyDir(snippet.path.dirname(out.urn));
   await snippet.file.writeTextFile(out.urn, plain);
   await snippet.file.writeTextFile(ser.urn, `self.addEventListener('fetch', () => {});`);
   await snippet.file.writeTextFile(
@@ -113,7 +114,7 @@ fragment.debug = async ({ bundle, option }: any): Promise<any> => {
     JSON.stringify({
       name: 'Booklet',
       short_name: 'Booklet',
-      start_url: `${option.hosted!.path}overview`,
+      start_url: `${option.hosted!.path}`,
       display: 'standalone',
       display_override: ['standalone', 'window-controls-overlay'],
       background_color: '#f6f6f7',
@@ -155,7 +156,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
     <!---->
 
     <!---->
-    <link href="${option.hosted!.path}/images/192w/booklet.png" rel="icon" />
+    <link href="${option.hosted!.path}images/192w/booklet.png" rel="icon" />
     <link href="${option.hosted!.path}assets/stylesheets/all.css" rel="stylesheet" />
     <!---->
 
@@ -167,7 +168,7 @@ internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
         bundle: { }
       }
     </script>
-    <script defer="" src="${option.hosted!.path}/assets/modules/booklet-inline.js"></script>
+    <script defer="" src="${option.hosted!.path}assets/modules/booklet-inline.js"></script>
     <!---->
   </head>
   <body>
