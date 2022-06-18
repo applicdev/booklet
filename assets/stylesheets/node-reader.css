@@ -4,12 +4,10 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-
   gap: var(--paper-gut);
-  margin: 0rem 0rem var(--banner-hei) 0rem;
-  padding: var(--paper-gut) 0rem calc(3rem + var(--paper-gut));
 
-  overflow: visible;
+  margin: 0rem 0rem var(--banner-hei) 0rem;
+  padding: var(--paper-gut) 0rem 0rem;
 }
 
 .reader-section {

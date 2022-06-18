@@ -23,13 +23,16 @@
 
     <!---->
     <script>
-      if ('serviceWorker' in navigator) navigator.serviceWorker.register('/booklet/booklet.service-worker.js');
       globalThis.booklet = {
         hosted: { path: /booklet/ },
         bundle: { }
       }
     </script>
-    <script defer="" src="/booklet/assets/modules/booklet-inline.js"></script>
+    <!---->
+
+    <!---->
+    <script type="module" src="/booklet/assets/modules/booklet-inline.js"></script>
+    <script type="module">if ('serviceWorker' in navigator) navigator.serviceWorker.register('/booklet/booklet.service-worker.js');</script>
     <!---->
   </head>
   <body>
