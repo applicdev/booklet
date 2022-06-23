@@ -24,26 +24,29 @@ Options:
   -f                  force file writes
 ```
 
-### Workflows
+### Workflow integration
+
+Add `deploy_booklet` from the following snippet to your workflow jobs for intended-use:
 
 ```yaml
-- name: Deploy Booklet
-  uses: applicdev/booklet/.github/workflows/deploy.yaml@main
-  secrets:
-    booklet_token: ${{ secrets.GITHUB_TOKEN }}
-    booklet_cname: example.com
+jobs:
+  # [...]
+
+  deploy_booklet:
+    uses: applicdev/booklet/.github/workflows/deploy.yaml@main
+    secrets:
+      booklet_token: ${{ secrets.GITHUB_TOKEN }}
+    # booklet_cname: example.com
+
+  # [...]
 ```
 
-[deno:install-latest]: https://github.com/denoland/deno_install#install-latest-version
-[puppeteer:install-latest]: https://github.com/lucacasonato/deno-puppeteer#installation
+[booklet:template]: https://github.com/applicdev/booklet-starter-md
+[booklet:deploy-workflow]: https://github.com/applicdev/booklet/blob/main/.github/workflows/deploy.yaml
 
 ### Download and install
 
 Install the [latest version of Deno][deno:install-latest], then run the following two commands to install this tool and, if required, [Puppeteer][puppeteer:install-latest]:
-
-<!-- ```sh
-deno install -A --unstable --name booklet https://deno.land/x/booklet/lib/index.ts
-``` -->
 
 ```sh
 deno install -A --unstable --name booklet https://github.com/applicdev/booklet/raw/main/lib/index.ts
@@ -55,10 +58,9 @@ $Env:PUPPETEER_PRODUCT="chrome"; deno run -A --unstable https://deno.land/x/pupp
 
 To update a previously installed version run:
 
-<!-- ```sh
-deno install -A --unstable --reload -f --name booklet https://deno.land/x/booklet/lib/index.ts
-``` -->
-
 ```sh
 deno install -A --unstable --reload -f --name booklet https://github.com/applicdev/booklet/raw/main/lib/index.ts
 ```
+
+[deno:install-latest]: https://github.com/denoland/deno_install#install-latest-version
+[puppeteer:install-latest]: https://github.com/lucacasonato/deno-puppeteer#installation
