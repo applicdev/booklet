@@ -22,7 +22,7 @@ jobs:
         run: deno run -A --unstable https://deno.land/x/puppeteer@9.0.2/install.ts
 
       - name: Create Booklet
-        run: deno run -A --unstable https://github.com/applicdev/booklet/raw/main/lib/index.ts --bundle -f
+        run: deno run -A --unstable https://raw.githubusercontent.com/applicdev/booklet/main/lib/index.ts --bundle -f
 
       - name: Deploy Booklet
         uses: peaceiris/actions-gh-pages@v3
