@@ -1,42 +1,42 @@
-import { default as snippet } from './snippet/index.ts';
-import { default as bundles } from './bundles/index.ts';
+import { defined } from './defined/index.ts';
+import { snippet } from './snippet/index.ts';
+import { runners } from './runners/index.ts';
 
-const fragment: { [prop: string]: any } = {};
+// const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
-export async function* bundler(option: InterfaceOption): AsyncGenerator<
-  { [prop: string]: any }, //
-  void,
-  void
-> {
-  const bundle: any = { locate: {}, orderd: {}, tasked: {} };
+// 📦 ensure correct property values and apply standard; when required
+// 🏷️ index and order relevant files from the work directories
+// 🗃️ run all interlinked tasks
+// 🗂️ run remaining tasks in parallel
+// ❌ stop write; when another change event was instantiated
 
-  // ?
-  await fragment.initialize({ bundle, option });
+export async function* bundler(option: defined['runner:option']): defined['bundler*'] {
+  const bundle: defined['runner:bundle'] = {};
+
+  // 🔍 locate the work directories
+  await internal.whenTraverse({ bundle, option });
+
+  // ✔️ ensure, and clear out contents of, output directory
+  await internal.whenPrepared({ bundle, option });
+
+  // ✏️ clean-up output directory
+  await internal.whenComplete({ bundle, option });
+  snippet.print.done('finalized', '.booklet');
+
   yield { bundle, option };
-
-  // // ?
-  // await fragment.order({ bundle, option });
-  // yield { bundle, option };
-
-  // // ?
-  // await fragment.preps({ bundle, option });
-  // yield { bundle, option };
-
-  // // ?
-  // await fragment.tasks({ bundle, option });
-  // yield { bundle, option };
-
-  // ---
-  await fragment.debug({ bundle, option });
-  // ---
-
-  // ?
-  // await fragment.finalize({ bundle, option });
-  // yield { bundle, option };
 }
 
-fragment.initialize = async ({ bundle, option }: any): Promise<any> => {
+internal.whenTraverse = async ({ bundle, option }: any): Promise<any> => {
+  const { hosted, output } = option;
+
+  for await (const node of runners.order.traverse({ bundle, option })) {
+    runners.order.manage({ bundle, option }, { node });
+    // [...]
+  }
+};
+
+internal.whenPrepared = async ({ bundle, option }: any): Promise<any> => {
   const { hosted, output } = option;
 
   // ? empty and ensure output directory
@@ -44,49 +44,31 @@ fragment.initialize = async ({ bundle, option }: any): Promise<any> => {
   await snippet.file.emptyDir(output.urn);
 
   // ? ensure static files
-  const fil = { urn: snippet.path.dirname(snippet.path.fromFileUrl(import.meta.url)) };
-  const ass = { urn: snippet.path.resolve(option.hosted.urn, './assets/') };
-  const img = { urn: snippet.path.resolve(option.hosted.urn, './images/') };
+  const asset = { urn: snippet.path.resolve(option.hosted.urn, './assets/') };
+  const image = { urn: snippet.path.resolve(option.hosted.urn, './images/') };
 
-  await snippet.file.copy(snippet.path.resolve(fil.urn, '../assets/'), ass.urn);
-  await snippet.file.copy(snippet.path.resolve(fil.urn, '../images/'), img.urn);
+  await snippet.file.copy(snippet.path.resolve(option.module.urn, './assets/'), asset.urn);
+  await snippet.file.copy(snippet.path.resolve(option.module.urn, './images/'), image.urn);
+
+  // ---
+  await internal.debug({ bundle, option });
+  // ---
 };
 
-fragment.order = async ({ bundle, option }: any): Promise<any> => {
-  const { hosted, output } = option;
-
-  for await (const node of bundles.order.traverse({ bundle, option })) {
-    bundles.order.manage({ bundle, option }, { node });
-    // [...]
-  }
-};
-
-fragment.preps = async ({ bundle, option }: any): Promise<any> => {
-  const { hosted, output } = option;
-
-  // [...]
-};
-
-fragment.tasks = async ({ bundle, option }: any): Promise<any> => {
-  const { hosted, output } = option;
-
-  // [...]
-};
-
-fragment.finalize = async ({ bundle, option }: any): Promise<any> => {
+internal.whenComplete = async ({ bundle, option }: any): Promise<any> => {
   const { hosted, output } = option;
 
   // ? create previews and print pages
-  const pri = { urn: snippet.path.resolve(option.hosted.urn, './output/') };
-  const pre = { urn: snippet.path.resolve(option.hosted.urn, './output/') };
+  const previ = { urn: snippet.path.resolve(option.hosted.urn, './output/') };
+  const print = { urn: snippet.path.resolve(option.hosted.urn, './output/') };
 
-  snippet.file.emptyDir(pri.urn);
-  // snippet.file.emptyDir(pre.urn);
+  snippet.file.emptyDir(previ.urn);
+  // snippet.file.emptyDir(print.urn);
 
-  for await (const dis of bundles.finalize.display({ bundle, option })) {
-    await bundles.finalize.preview({ bundle, option }, { page: dis.page, urn: snippet.path.resolve(pre.urn, `./${dis.hash}.png`) });
-    await bundles.finalize.printed({ bundle, option }, { page: dis.page, urn: snippet.path.resolve(pri.urn, `./${dis.hash}.pdf`) });
-  }
+  // for await (const dis of runners.finalize.display({ bundle, option })) {
+  //   await runners.finalize.preview({ bundle, option }, { page: dis.page, urn: snippet.path.resolve(pre.urn, `./${dis.hash}.png`) });
+  //   await runners.finalize.printed({ bundle, option }, { page: dis.page, urn: snippet.path.resolve(pri.urn, `./${dis.hash}.pdf`) });
+  // }
 
   // ? create github configs
   const noj = { urn: './.nojekyll', plain: '' };
@@ -99,15 +81,18 @@ fragment.finalize = async ({ bundle, option }: any): Promise<any> => {
 };
 
 // ---
-fragment.debug = async ({ bundle, option }: any): Promise<any> => {
-  const plain = await internal.debugRender({ bundle, option });
-  const out = { urn: snippet.path.resolve(option.hosted!.urn, `./404.html`) };
-  // const out = { urn: snippet.path.resolve(option.hosted!.urn, `./overview/index.html`) };
-  const man = { urn: snippet.path.resolve(option.hosted!.urn, `./booklet.webmanifest`) };
-  const ser = { urn: snippet.path.resolve(option.hosted!.urn, `./booklet.service-worker.js`) };
+internal.debug = async ({ bundle, option }: any): Promise<void> => {
+  // ?
+  const fal = { urn: snippet.path.resolve(option.hosted!.urn, `./404.html`) };
+  const doc = { urn: snippet.path.resolve(option.hosted!.urn, `./index.html`) };
 
-  // await snippet.file.emptyDir(snippet.path.dirname(out.urn));
-  await snippet.file.writeTextFile(out.urn, plain);
+  await snippet.file.writeTextFile(fal.urn, await internal.debugRender({ role: 'fallback', bundle, option }));
+  await snippet.file.writeTextFile(doc.urn, await internal.debugRender({ role: 'document', bundle, option }));
+
+  // ?
+  const ser = { urn: snippet.path.resolve(option.hosted!.urn, `./booklet.service-worker.js`) };
+  const man = { urn: snippet.path.resolve(option.hosted!.urn, `./booklet.webmanifest`) };
+
   await snippet.file.writeTextFile(ser.urn, `self.addEventListener('fetch', () => {});`);
   await snippet.file.writeTextFile(
     man.urn,
@@ -136,47 +121,47 @@ fragment.debug = async ({ bundle, option }: any): Promise<any> => {
   );
 };
 
-internal.debugRender = async ({ bundle, option }: any): Promise<string> => {
-  return `
-<html lang="en-NL">
-  <head>
-    <meta charset="UTF-8" />
-    <meta content="noarchive, notranslate, noindex" name="robots" />
-    <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport" />
+internal.debugRender = async ({ role, bundle, option }: any): Promise<string> => {
+  const pattern = (await import(`../pattern/${role}.ts`)).default;
+  return pattern.create({ role }).render({
+    parsed: {
+      title: 'Booklet',
+      urn: `${option.hosted!.path}`,
 
-    <!---->
-    <title>Debugging-Document</title>
-    <!---->
+      field: {
+        caption: null,
+        keyword: null,
+      },
 
-    <!---->
-    <meta content="#f6f6f7" name="theme-color" />
-    <meta content="#f6f6f7" name="theme-color" media="(prefers-color-scheme: light)" />
-    <meta content="#171b22" name="theme-color" media="(prefers-color-scheme: dark)" />
-    <link rel="manifest" href="${option.hosted!.path}booklet.webmanifest" />
-    <!---->
+      figure: {
+        '512w': `${option.hosted!.path}images/512w/booklet.png`,
+        '384w': `${option.hosted!.path}images/384w/booklet.png`,
+        '192w': `${option.hosted!.path}images/192w/booklet.png`,
+        '152w': `${option.hosted!.path}images/152w/booklet.png`,
+        '144w': `${option.hosted!.path}images/144w/booklet.png`,
+        '128w': `${option.hosted!.path}images/128w/booklet.png`,
+        '96w': `${option.hosted!.path}images/96w/booklet.png`,
+        '72w': `${option.hosted!.path}images/72w/booklet.png`,
 
-    <!---->
-    <link href="${option.hosted!.path}images/192w/booklet.png" rel="icon" />
-    <link href="${option.hosted!.path}assets/stylesheets/all.css" rel="stylesheet" />
-    <!---->
+        maskable: {
+          '512w': `${option.hosted!.path}images/512w/booklet-maskable.png`,
+          '384w': `${option.hosted!.path}images/384w/booklet-maskable.png`,
+          '192w': `${option.hosted!.path}images/192w/booklet-maskable.png`,
+          '152w': `${option.hosted!.path}images/152w/booklet-maskable.png`,
+          '144w': `${option.hosted!.path}images/144w/booklet-maskable.png`,
+          '128w': `${option.hosted!.path}images/128w/booklet-maskable.png`,
+          '96w': `${option.hosted!.path}images/96w/booklet-maskable.png`,
+          '72w': `${option.hosted!.path}images/72w/booklet-maskable.png`,
+        },
+      },
 
-    <!---->
-    <script>
-      globalThis.booklet = {
-        hosted: { path: ${option.hosted!.path} },
-        bundle: { }
-      }
-    </script>
-    <!---->
+      static: {
+        webmanifest: `${option.hosted!.path}booklet.webmanifest`,
+      },
 
-    <!---->
-    <script type="module" src="${option.hosted!.path}assets/modules/booklet-inline.js"></script>
-    <script type="module">if ('serviceWorker' in navigator) navigator.serviceWorker.register('${option.hosted!.path}booklet.service-worker.js');</script>
-    <!---->
-  </head>
-  <body>
-  </body>
-</html>
-`;
+      append: ``,
+      module: ``,
+    },
+  });
 };
 // ---

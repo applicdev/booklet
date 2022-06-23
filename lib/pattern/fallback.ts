@@ -22,7 +22,17 @@ internal.createPattern = ({}) => {
     <!---->
 
     <!---->
-    <script src="${'parsed.where(source == booklet-direct.ts)'}"></script>
+    <script>
+      globalThis.booklet = {
+        outline: [
+          { urn: ${parsed.urn} }
+        ]
+      }
+    </script>
+    <!---->
+
+    <!---->
+    <script src="${parsed.urn}assets/modules/booklet-direct.js"></script>
     <!---->
   </head>
 </html>

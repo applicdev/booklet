@@ -1,3 +1,4 @@
+import { default as standardExit } from './standard/standard-exit.ts';
 import { default as standardFile } from './standard/standard-file.ts';
 import { default as standardFlag } from './standard/standard-flag.ts';
 import { default as standardHash } from './standard/standard-hash.ts';
@@ -9,18 +10,26 @@ import { default as standardRepo } from './standard/standard-repo.ts';
 import { default as terminalInput } from './terminal/terminal-input.ts';
 import { default as terminalPrint } from './terminal/terminal-print.ts';
 
-export default {
-  // ? Deno
-  file: { ...standardFile },
-  flag: { ...standardFlag },
-  hash: { ...standardHash },
-  mime: { ...standardMime },
-  path: { ...standardPath },
+import { default as packagesBuild } from './packages/packages-build.ts';
 
-  // ? Git
-  repo: { ...standardRepo },
+export class snippet {
+  // ? deno
+  static exit = { ...standardExit };
+  static file = { ...standardFile };
+  static flag = { ...standardFlag };
+  static hash = { ...standardHash };
+  static mime = { ...standardMime };
+  static path = { ...standardPath };
 
-  // ? Terminal Interaction
-  input: { ...terminalInput },
-  print: { ...terminalPrint },
-};
+  // ? git
+  static repo = { ...standardRepo };
+
+  // ? terminal interaction
+  static input = { ...terminalInput };
+  static print = { ...terminalPrint };
+
+  // ? package tasks
+  static build = { ...packagesBuild };
+}
+
+export default snippet;

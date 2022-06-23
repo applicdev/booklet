@@ -13,19 +13,14 @@ internal.createPattern = ({}) => {
     <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport" />
 
     <!---->
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <!---->
-
-    <!---->
     <title>${parsed.title}</title>
     <meta content="${parsed.field.caption}" name="description" />
     <meta content="${parsed.field.keyword}" name="keywords" />
     <!---->
 
     <!---->
-    <link href="${parsed.figure_48w}" rel="icon" />
-    <link href="${parsed.figure_192w}" rel="apple-touch-icon" />
+    <link href="${parsed.figure['72w']}" rel="icon" />
+    <link href="${parsed.figure['192w']}" rel="apple-touch-icon" />
     <!---->
 
     <!---->
@@ -37,24 +32,12 @@ internal.createPattern = ({}) => {
 
     <!---->
     <meta content="en-NL" property="og:locale" />
-    <meta content="${parsed.image_512w}" property="og:image" />
+    <meta content="${parsed.figure.maskable['512w']}" property="og:image" />
     <meta content="${parsed.title}" property="og:title" />
     <meta content="${parsed.url}" property="og:url" />
     <meta content="${parsed.field.caption}" property="og:description" />
     <meta content="summary_large_image" property="twitter:card" />
     <!---->
-
-    <!---->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@350;400;450;550&display=block" rel="stylesheet" />
-    <!---->
-
-    <!---->
-    ${parsed.style_inline}
-    <!---->
-
-    <!---->
-    ${parsed.module_inline}
-    <!----> 
   </head>
 
   <body>
@@ -70,10 +53,6 @@ internal.createPattern = ({}) => {
 
     <!---->
     ${parsed.module}
-    <!---->
-
-    <!---->
-    <template>${parsed.content}</template>
     <!---->
   </body>
 </html>
