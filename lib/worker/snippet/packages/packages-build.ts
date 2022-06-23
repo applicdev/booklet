@@ -1,4 +1,4 @@
-import { rollup } from 'https://deno.land/x/drollup@2.58.0+0.20.0/mod.ts';
+// import { rollup } from 'https://deno.land/x/drollup@2.58.0+0.20.0/mod.ts';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};

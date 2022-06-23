@@ -13,7 +13,7 @@ export async function* bundle(inputs: defined['interface:inputs']): defined['bun
   const { source, output, hosted, module } = option;
 
   // 📦 bundle once
-  requestBundle({ source, output, hosted, module });
+  await requestBundle({ source, output, hosted, module });
 }
 
 export async function* stream(inputs: defined['interface:inputs']): defined['bundler*'] {
@@ -22,7 +22,7 @@ export async function* stream(inputs: defined['interface:inputs']): defined['bun
   const { source, output, hosted, module } = option;
 
   // 📦 bundle once before initializing watcher
-  requestBundle({ source, output, hosted, module });
+  await requestBundle({ source, output, hosted, module });
 
   // ? stream bundled asset directory
   await requestStream({ source, output, hosted, module });
@@ -30,7 +30,7 @@ export async function* stream(inputs: defined['interface:inputs']): defined['bun
   // 📦 re-bundle on file changes
   for await (const res of watcher({ source, output, hosted, module })) {
     await ouputWatcherResults({ res });
-    requestBundle({ source, output, hosted, module });
+    await requestBundle({ source, output, hosted, module });
   }
 }
 
