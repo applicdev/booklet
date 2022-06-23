@@ -1,0 +1,37 @@
+name: Deploy Booklet
+
+on:
+  workflow_call:
+    secrets:
+      booklet_token:
+        required: true
+      booklet_cname:
+        required: false
+
+env:
+  PUPPETEER_PRODUCT: chrome
+
+jobs:
+  action-debug:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello, World!"
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: denolib/setup-deno@v2
+
+      - name: Use Puppeteer Latest Stable
+        run: deno run -A --unstable https://deno.land/x/puppeteer@9.0.2/install.ts
+
+      - name: Create Booklet
+        run: deno run -A --unstable https://deno.land/x/booklet/lib/index.ts --bundle -f
+
+      - name: Deploy Booklet
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_dir: ./docs/.booklet/
+          github_token: ${{ secrets.booklet_token }}
+          cname: ${{ secrets.booklet_cname }}
