@@ -26,8 +26,6 @@ Options:
 
 ### Workflows
 
-The next example step will deploy ./public directory to the remote gh-pages branch.
-
 ```yaml
 - name: Deploy Booklet
   uses: applicdev/booklet/.github/workflows/deploy.yaml@main
