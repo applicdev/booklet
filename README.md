@@ -24,12 +24,31 @@ Options:
   -f                  force file writes
 ```
 
+### Workflows
+
+The next example step will deploy ./public directory to the remote gh-pages branch.
+
+```yaml
+- name: Deploy Booklet
+  uses: applicdev/booklet/.github/workflows/deploy.yaml@main
+  secrets:
+    booklet_token: ${{ secrets.GITHUB_TOKEN }}
+    booklet_cname: example.com
+```
+
+[deno:install-latest]: https://github.com/denoland/deno_install#install-latest-version
+[puppeteer:install-latest]: https://github.com/lucacasonato/deno-puppeteer#installation
+
 ### Download and install
 
 Install the [latest version of Deno][deno:install-latest], then run the following two commands to install this tool and, if required, [Puppeteer][puppeteer:install-latest]:
 
-```sh
+<!-- ```sh
 deno install -A --unstable --name booklet https://deno.land/x/booklet/lib/index.ts
+``` -->
+
+```sh
+deno install -A --unstable --name booklet https://github.com/applicdev/booklet/raw/main/lib/index.ts
 ```
 
 ```sh
@@ -38,9 +57,10 @@ $Env:PUPPETEER_PRODUCT="chrome"; deno run -A --unstable https://deno.land/x/pupp
 
 To update a previously installed version run:
 
-```sh
+<!-- ```sh
 deno install -A --unstable --reload -f --name booklet https://deno.land/x/booklet/lib/index.ts
-```
+``` -->
 
-[deno:install-latest]: https://github.com/denoland/deno_install#install-latest-version
-[puppeteer:install-latest]: https://github.com/lucacasonato/deno-puppeteer#installation
+```sh
+deno install -A --unstable --reload -f --name booklet https://github.com/applicdev/booklet/raw/main/lib/index.ts
+```

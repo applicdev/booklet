@@ -12,5 +12,5 @@ jobs:
   deploy:
     uses: applicdev/booklet/.github/workflows/deploy.yaml@main
     secrets:
-      booklet_token: ${{ secrets.booklet_token }}
-      booklet_cname: ${{ secrets.booklet_cname }}
+      booklet_token: ${{ secrets.GITHUB_TOKEN }}
+      # booklet_cname: example.com
