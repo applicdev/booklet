@@ -3,10 +3,10 @@ name: Deploy Booklet
 on:
   push:
     branches: [main]
-    paths: [docs/**]
+    # paths: [docs/**]
   pull_request:
     branches: [main]
-    paths: [docs/**]
+    # paths: [docs/**]
 
 jobs:
   deploy:
