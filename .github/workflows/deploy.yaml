@@ -12,11 +12,6 @@ env:
   PUPPETEER_PRODUCT: chrome
 
 jobs:
-  action-debug:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Hello, World!"
-
   deploy:
     runs-on: ubuntu-latest
     steps:
@@ -27,7 +22,7 @@ jobs:
         run: deno run -A --unstable https://deno.land/x/puppeteer@9.0.2/install.ts
 
       - name: Create Booklet
-        run: deno run -A --unstable https://deno.land/x/booklet/lib/index.ts --bundle -f
+        run: deno run -A --unstable ./lib/index.ts --bundle -f
 
       - name: Deploy Booklet
         uses: peaceiris/actions-gh-pages@v3
