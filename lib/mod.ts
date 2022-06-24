@@ -19,6 +19,8 @@ export async function* bundle(inputs: defined['interface:inputs']): defined['bun
 
   // 📦 bundle once
   await requestBundle({ ...option });
+
+  Deno.exit();
 }
 
 export async function* stream(inputs: defined['interface:inputs']): defined['bundler*'] {
@@ -57,10 +59,11 @@ async function requestAssets({ ...option }: defined['interface:option']): Promis
   const des = { urn: snippet.path.resolve(option.stable.urn, './') };
 
   await snippet.file.emptyDir(des.urn);
+  console.log('');
   await Deno.run({
     cmd: ['git', 'clone', 'https://github.com/applicdev/booklet.git', des.urn],
-    stdout: 'piped',
-    stderr: 'piped',
+    // stdout: 'piped',
+    // stderr: 'piped',
   }).status();
 }
 
@@ -72,8 +75,6 @@ async function requestStream({ ...option }: defined['streams:option']): Promise<
       await ouputStreamsResults({ res });
     }
   })();
-
-  return new Promise((resolve) => setTimeout(() => resolve, 200));
 }
 
 // === Bundle

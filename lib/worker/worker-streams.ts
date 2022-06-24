@@ -13,18 +13,19 @@ export async function* streams({ output, hosted }: defined['streams:option']): A
   void,
   void
 > {
-  const handler = async (req: Request): Promise<Response> => {
-    const loc = urlParse(req.url);
-    return requestStatic({ output, hosted, req, loc });
-  };
-
   snippet.print.info(`
 HTTP webserver running. Access it at –
 
   ${snippet.print.bold(`http://localhost:8080${hosted!.path}`)}
 `);
 
-  serve(handler, { port: 8080 });
+  serve(
+    async (req: Request): Promise<Response> => {
+      const loc = urlParse(req.url);
+      return requestStatic({ output, hosted, req, loc });
+    },
+    { port: 8080 }
+  );
 }
 
 async function requestStatic({ output, hosted, req, loc }: { [prop: string]: any }) {
