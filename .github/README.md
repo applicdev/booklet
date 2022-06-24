@@ -27,7 +27,7 @@ Options:
 Add the following to your workflow jobs for intended-use:
 
 ```yaml
-deploy_booklet:
+booklet:
   uses: applicdev/booklet/.github/workflows/deploy.yaml@main
   secrets:
     booklet_token: ${{ secrets.booklet_token || secrets.GITHUB_TOKEN }}
