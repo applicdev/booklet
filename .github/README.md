@@ -32,8 +32,8 @@ Add the following to your workflow jobs for intended-use:
 deploy_booklet:
   uses: applicdev/booklet/.github/workflows/deploy.yaml@main
   secrets:
-    booklet_token: ${{ secrets.GITHUB_TOKEN }}
-  # booklet_cname: optional
+    booklet_token: ${{ secrets.booklet_token || secrets.GITHUB_TOKEN }}
+    booklet_cname: ${{ secrets.booklet_cname }}
 ```
 
 [booklet:template]: https://github.com/applicdev/booklet-starter-md
