@@ -21,8 +21,11 @@ jobs:
       - name: Use Puppeteer Latest Stable
         run: deno run -A --unstable https://deno.land/x/puppeteer@9.0.2/install.ts
 
+      - name: Use Booklet Latest Stable
+        run: git clone https://github.com/applicdev/booklet.git
+
       - name: Create Booklet
-        run: deno run -A --unstable https://github.com/applicdev/booklet/raw/main/lib/index.ts --bundle -f
+        run: deno run -A --unstable ./booklet/lib/index.ts --bundle -f
 
       - name: Deploy Booklet
         uses: peaceiris/actions-gh-pages@v3
