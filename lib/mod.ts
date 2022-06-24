@@ -14,6 +14,9 @@ export async function* bundle(inputs: defined['interface:inputs']): defined['bun
   // 📦 fetch stable assets
   await requestAssets({ ...option });
 
+  // ? stream bundled asset directory
+  await requestStream({ ...option });
+
   // 📦 bundle once
   await requestBundle({ ...option });
 }
@@ -26,11 +29,11 @@ export async function* stream(inputs: defined['interface:inputs']): defined['bun
   // 📦 fetch stable assets
   await requestAssets({ ...option });
 
-  // 📦 bundle once before initializing watcher
-  await requestBundle({ ...option });
-
   // ? stream bundled asset directory
   await requestStream({ ...option });
+
+  // 📦 bundle once before initializing watcher
+  await requestBundle({ ...option });
 
   // 📦 re-bundle on file changes
   for await (const res of watcher({ ...option })) {
@@ -85,15 +88,15 @@ async function requestBundle({ ...option }: defined['bundler:option']): Promise<
 // === Audit
 
 async function ouputRunnersResults({ res }: any): Promise<void> {
-  console.log({ type: 'runners', res });
+  // console.log({ type: 'runners', res });
 }
 
 async function ouputStreamsResults({ res }: any): Promise<void> {
-  console.log({ type: 'streams', res });
+  // console.log({ type: 'streams', res });
 }
 
 async function ouputWatcherResults({ res }: any): Promise<void> {
-  console.log({ type: 'watcher', res });
+  // console.log({ type: 'watcher', res });
 }
 
 export default { bundle, stream };

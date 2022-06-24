@@ -17,10 +17,12 @@ fragment.request = async function* ({ bundle, option }: any): AsyncGenerator<any
   const page = await browser.newPage();
 
   try {
-    const hash = `${option.hosted.path}overview`.replace(/^\/|\/$/g, '').replace(/\//g, '-');
-    const url = `http://localhost:8080${option.hosted.path}overview`;
+    const hash = `${option.hosted.path}`.replace(/^\/|\/$/g, '').replace(/\//g, '-');
+    const url = `http://localhost:8080${option.hosted.path}`;
 
-    await page.goto(url, { waitUntil: ['networkidle2'] });
+    await page.goto(url, { waitUntil: ['networkidle2'] }).catch((err) => {
+      console.log({ url, err });
+    });
 
     yield { page, hash };
   } catch (err) {

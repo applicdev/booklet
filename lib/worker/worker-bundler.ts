@@ -21,8 +21,9 @@ export async function* bundler(option: defined['runner:option']): defined['bundl
   await internal.whenPrepared({ bundle, option });
 
   // ✏️ clean-up output directory
+  const fin = performance.now();
   await internal.whenComplete({ bundle, option });
-  snippet.print.done('finalized', '.booklet');
+  snippet.print.done('finalized', `took ${~~(performance.now() - fin)} ms`);
 
   yield { bundle, option };
 }
@@ -45,10 +46,10 @@ internal.whenPrepared = async ({ bundle, option }: any): Promise<any> => {
 
   // ? ensure static files
   const asset = { urn: snippet.path.resolve(option.hosted.urn, './assets/') };
-  const image = { urn: snippet.path.resolve(option.hosted.urn, './images/') };
+  // const image = { urn: snippet.path.resolve(option.hosted.urn, './images/') };
 
   await snippet.file.copy(snippet.path.resolve(option.module.urn, './assets/'), asset.urn);
-  await snippet.file.copy(snippet.path.resolve(option.module.urn, './images/'), image.urn);
+  // await snippet.file.copy(snippet.path.resolve(option.module.urn, './images/'), image.urn);
 
   // ---
   await internal.debug({ bundle, option });
@@ -65,10 +66,10 @@ internal.whenComplete = async ({ bundle, option }: any): Promise<any> => {
   snippet.file.emptyDir(previ.urn);
   // snippet.file.emptyDir(print.urn);
 
-  // for await (const dis of runners.finalize.display({ bundle, option })) {
-  //   await runners.finalize.preview({ bundle, option }, { page: dis.page, urn: snippet.path.resolve(pre.urn, `./${dis.hash}.png`) });
-  //   await runners.finalize.printed({ bundle, option }, { page: dis.page, urn: snippet.path.resolve(pri.urn, `./${dis.hash}.pdf`) });
-  // }
+  for await (const dis of runners.finalize.display({ bundle, option })) {
+    await runners.finalize.preview({ bundle, option }, { page: dis.page, urn: snippet.path.resolve(previ.urn, `./${dis.hash}.png`) });
+    await runners.finalize.printed({ bundle, option }, { page: dis.page, urn: snippet.path.resolve(print.urn, `./${dis.hash}.pdf`) });
+  }
 
   // ? create github configs
   const noj = { urn: './.nojekyll', plain: '' };
@@ -106,12 +107,12 @@ internal.debug = async ({ bundle, option }: any): Promise<void> => {
       theme_color: '#f6f6f7',
       icons: [
         ...[512, 384, 192, 152, 144, 128, 96, 72].map((size) => ({
-          src: `${option.hosted!.path}images/${size}w/booklet.png`,
+          src: `${option.hosted!.path}assets/images/${size}w/booklet.png`,
           sizes: `${size}x${size}`,
           type: 'image/png',
         })),
         ...[512, 384, 192, 152, 144, 128, 96, 72].map((size) => ({
-          src: `${option.hosted!.path}images/${size}w/booklet-maskable.png`,
+          src: `${option.hosted!.path}assets/images/${size}w/booklet-maskable.png`,
           sizes: `${size}x${size}`,
           type: 'image/png',
           purpose: 'maskable',
@@ -134,24 +135,24 @@ internal.debugRender = async ({ role, bundle, option }: any): Promise<string> =>
       },
 
       figure: {
-        '512w': `${option.hosted!.path}images/512w/booklet.png`,
-        '384w': `${option.hosted!.path}images/384w/booklet.png`,
-        '192w': `${option.hosted!.path}images/192w/booklet.png`,
-        '152w': `${option.hosted!.path}images/152w/booklet.png`,
-        '144w': `${option.hosted!.path}images/144w/booklet.png`,
-        '128w': `${option.hosted!.path}images/128w/booklet.png`,
-        '96w': `${option.hosted!.path}images/96w/booklet.png`,
-        '72w': `${option.hosted!.path}images/72w/booklet.png`,
+        '512w': `${option.hosted!.path}assets/images/512w/booklet.png`,
+        '384w': `${option.hosted!.path}assets/images/384w/booklet.png`,
+        '192w': `${option.hosted!.path}assets/images/192w/booklet.png`,
+        '152w': `${option.hosted!.path}assets/images/152w/booklet.png`,
+        '144w': `${option.hosted!.path}assets/images/144w/booklet.png`,
+        '128w': `${option.hosted!.path}assets/images/128w/booklet.png`,
+        '96w': `${option.hosted!.path}assets/images/96w/booklet.png`,
+        '72w': `${option.hosted!.path}assets/images/72w/booklet.png`,
 
         maskable: {
-          '512w': `${option.hosted!.path}images/512w/booklet-maskable.png`,
-          '384w': `${option.hosted!.path}images/384w/booklet-maskable.png`,
-          '192w': `${option.hosted!.path}images/192w/booklet-maskable.png`,
-          '152w': `${option.hosted!.path}images/152w/booklet-maskable.png`,
-          '144w': `${option.hosted!.path}images/144w/booklet-maskable.png`,
-          '128w': `${option.hosted!.path}images/128w/booklet-maskable.png`,
-          '96w': `${option.hosted!.path}images/96w/booklet-maskable.png`,
-          '72w': `${option.hosted!.path}images/72w/booklet-maskable.png`,
+          '512w': `${option.hosted!.path}assets/images/512w/booklet-maskable.png`,
+          '384w': `${option.hosted!.path}assets/images/384w/booklet-maskable.png`,
+          '192w': `${option.hosted!.path}assets/images/192w/booklet-maskable.png`,
+          '152w': `${option.hosted!.path}assets/images/152w/booklet-maskable.png`,
+          '144w': `${option.hosted!.path}assets/images/144w/booklet-maskable.png`,
+          '128w': `${option.hosted!.path}assets/images/128w/booklet-maskable.png`,
+          '96w': `${option.hosted!.path}assets/images/96w/booklet-maskable.png`,
+          '72w': `${option.hosted!.path}assets/images/72w/booklet-maskable.png`,
         },
       },
 
