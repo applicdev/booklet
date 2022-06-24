@@ -2,8 +2,8 @@
 
 [![Page preview of Booklet's "Overview" section][banner:preview]][banner:landing]
 
-[banner:preview]: https://applic.dev/booklet/output/booklet-overview.png
-[banner:landing]: https://applic.dev/booklet/overview
+[banner:preview]: https://applic.dev/booklet/output/booklet.png
+[banner:landing]: https://applic.dev/booklet
 
 ## Getting Started
 
