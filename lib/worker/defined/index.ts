@@ -2,6 +2,7 @@
 type InterfaceOption = {
   source: { urn: string };
   output: { urn: string };
+  stable: { urn: string };
   hosted: { urn: string; path: string };
   module: { urn: string };
 };
@@ -40,6 +41,7 @@ type WatcherGenerator = AsyncGenerator<
 type InterfaceInputs = {
   source?: InterfaceOption['source'];
   output?: InterfaceOption['output'];
+  stable?: InterfaceOption['stable'];
   hosted?: InterfaceOption['hosted'];
 };
 

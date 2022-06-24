@@ -10,10 +10,12 @@ import { watcher } from './worker/worker-watcher.ts';
 export async function* bundle(inputs: defined['interface:inputs']): defined['bundler*'] {
   // 📦 ensure correct property values and apply standard; when required
   const option: defined['interface:option'] = await filter(inputs);
-  const { source, output, hosted, module } = option;
+
+  // 📦 fetch stable assets
+  await requestAssets({ ...option });
 
   // 📦 bundle once
-  await requestBundle({ source, output, hosted, module });
+  await requestBundle({ ...option });
 }
 
 export async function* stream(inputs: defined['interface:inputs']): defined['bundler*'] {
@@ -21,25 +23,42 @@ export async function* stream(inputs: defined['interface:inputs']): defined['bun
   const option: defined['interface:option'] = await filter(inputs);
   const { source, output, hosted, module } = option;
 
+  // 📦 fetch stable assets
+  await requestAssets({ ...option });
+
   // 📦 bundle once before initializing watcher
-  await requestBundle({ source, output, hosted, module });
+  await requestBundle({ ...option });
 
   // ? stream bundled asset directory
-  await requestStream({ source, output, hosted, module });
+  await requestStream({ ...option });
 
   // 📦 re-bundle on file changes
-  for await (const res of watcher({ source, output, hosted, module })) {
+  for await (const res of watcher({ ...option })) {
     await ouputWatcherResults({ res });
-    await requestBundle({ source, output, hosted, module });
+    await requestBundle({ ...option });
   }
 }
 
 // === Input -> Option
 
 async function filter(inputs: defined['interface:inputs']): Promise<defined['interface:option']> {
-  const module = { urn: snippet.path.dirname(snippet.path.fromFileUrl(import.meta.url)) };
+  // const module = { urn: snippet.path.dirname(snippet.path.fromFileUrl(import.meta.url)) };
+  const module = { urn: snippet.path.resolve(inputs.stable!.urn, './lib/') };
 
   return { ...(inputs as defined['interface:option']), module };
+}
+
+// === Stable assets
+
+async function requestAssets({ ...option }: defined['interface:option']): Promise<void> {
+  const des = { urn: snippet.path.resolve(option.stable.urn, './') };
+
+  await snippet.file.emptyDir(des.urn);
+  await Deno.run({
+    cmd: ['git', 'clone', 'https://github.com/applicdev/booklet.git', des.urn],
+    stdout: 'piped',
+    stderr: 'piped',
+  }).status();
 }
 
 // === Stream

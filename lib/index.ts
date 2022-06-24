@@ -65,10 +65,13 @@ ${Object.values(internal.flagConfig) //
 }
 
 // ?
-const { source, output, hosted } = {
+const { source, output, stable, hosted } = {
   source: { urn: snippet.path.resolve('./') },
   output: {
     urn: await Deno.makeTempDir({ prefix: 'booklet-output-' }),
+  },
+  stable: {
+    urn: await Deno.makeTempDir({ prefix: 'booklet-stable-' }),
   },
   hosted: {
     urn: snippet.path.resolve('./docs/.booklet'),
@@ -87,8 +90,8 @@ const tempDir = snippet.path.resolve(tempRef, '../');
 Deno.remove(tempRef, { recursive: true });
 for await (const dirEntry of Deno.readDir(tempDir)) {
   if (
-    dirEntry.name.includes('workflows-output') || //
-    dirEntry.name.includes('workflows-hosted')
+    dirEntry.name.includes('booklet-output') || //
+    dirEntry.name.includes('booklet-stable')
   ) {
     const urn = snippet.path.resolve(tempDir, `./${dirEntry.name}`);
     if (urn != output.urn && urn != hosted.urn) {
@@ -125,7 +128,7 @@ snippet.exit.whenClosed().then(() => {
 
 // ? initialize bundle or bundle and stream
 const worker = 'b' in internal.flag ? workers.bundle : workers.stream;
-for await (const res of worker({ source, output, hosted })) {
+for await (const res of worker({ source, output, stable, hosted })) {
   // [...]
 }
 

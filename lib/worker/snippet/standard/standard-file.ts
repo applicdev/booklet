@@ -7,6 +7,9 @@ fragment.copy = async (path: string, target: string): Promise<void> => {
   return file.copy(path, target);
 };
 
+fragment.ensureDir = async (path: string): Promise<void> => {
+  return file.ensureDir(path);
+};
 fragment.emptyDir = async (path: string): Promise<void> => {
   return file.emptyDir(path);
 };
