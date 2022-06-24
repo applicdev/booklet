@@ -26,19 +26,14 @@ Options:
 
 ### Workflow integration
 
-Add `deploy_booklet` from the following snippet to your workflow jobs for intended-use:
+Add the following to your workflow jobs for intended-use:
 
 ```yaml
-jobs:
-  # [...]
-
-  deploy_booklet:
-    uses: applicdev/booklet/.github/workflows/deploy.yaml@main
-    secrets:
-      booklet_token: ${{ secrets.GITHUB_TOKEN }}
-    # booklet_cname: example.com
-
-  # [...]
+deploy_booklet:
+  uses: applicdev/booklet/.github/workflows/deploy.yaml@main
+  secrets:
+    booklet_token: ${{ secrets.GITHUB_TOKEN }}
+  # booklet_cname: optional
 ```
 
 [booklet:template]: https://github.com/applicdev/booklet-starter-md
