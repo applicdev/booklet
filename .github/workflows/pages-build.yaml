@@ -1,0 +1,16 @@
+name: pages-build
+
+on:
+  push:
+    branches: [main]
+  # paths: [docs/**]
+  pull_request:
+    branches: [main]
+  # paths: [docs/**]
+
+jobs:
+  deploy_booklet:
+    uses: applicdev/booklet/.github/workflows/deploy.yaml@main
+    secrets:
+      booklet_token: ${{ secrets.booklet_token || secrets.GITHUB_TOKEN }}
+      booklet_cname: ${{ secrets.booklet_cname }}
