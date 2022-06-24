@@ -24,8 +24,6 @@ Options:
   -f                  force file writes
 ```
 
-### Workflow integration
-
 Add the following to your workflow jobs for intended-use:
 
 ```yaml
