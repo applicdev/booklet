@@ -20,6 +20,10 @@ export async function* bundler(option: defined['runner:option']): defined['bundl
   // ✔️ ensure, and clear out contents of, output directory
   await internal.whenPrepared({ bundle, option });
 
+  // ---
+  await internal.debug({ bundle, option });
+  // ---
+
   // ✏️ clean-up output directory
   const fin = performance.now();
   await internal.whenComplete({ bundle, option });
@@ -46,14 +50,9 @@ internal.whenPrepared = async ({ bundle, option }: any): Promise<any> => {
 
   // ? ensure static files
   const asset = { urn: snippet.path.resolve(option.hosted.urn, './assets/') };
-  // const image = { urn: snippet.path.resolve(option.hosted.urn, './images/') };
+  const modul = { urn: snippet.path.resolve(option.module.urn, './assets/') };
 
-  await snippet.file.copy(snippet.path.resolve(option.module.urn, './assets/'), asset.urn);
-  // await snippet.file.copy(snippet.path.resolve(option.module.urn, './images/'), image.urn);
-
-  // ---
-  await internal.debug({ bundle, option });
-  // ---
+  await snippet.file.copy(modul.urn, asset.urn);
 };
 
 internal.whenComplete = async ({ bundle, option }: any): Promise<any> => {

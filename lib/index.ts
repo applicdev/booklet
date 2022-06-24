@@ -121,10 +121,10 @@ You are about to initialize the following directories as booklets –
   }
 }
 
-snippet.exit.whenClosed().then(() => {
-  snippet.print.fail('Error:', 'Aborted by user.');
-  Deno.exit();
-});
+// snippet.exit.whenClosed().then(() => {
+//   snippet.print.fail('Error:', 'Aborted by user.');
+//   Deno.exit();
+// });
 
 // ? initialize bundle or bundle and stream
 const worker = 'b' in internal.flag ? workers.bundle : workers.stream;
