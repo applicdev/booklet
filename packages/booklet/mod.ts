@@ -1,9 +1,9 @@
-import { snippet } from './worker/snippet/index.ts';
-import { defined } from './worker/defined/index.ts';
+import { snippet } from './lib/worker/snippet/index.ts';
+import { defined } from './lib/worker/defined/index.ts';
 
-import { bundler } from './worker/worker-bundler.ts';
-import { streams } from './worker/worker-streams.ts';
-import { watcher } from './worker/worker-watcher.ts';
+import { bundler } from './lib/worker/worker-bundler.ts';
+import { streams } from './lib/worker/worker-streams.ts';
+import { watcher } from './lib/worker/worker-watcher.ts';
 
 // === Interface
 
