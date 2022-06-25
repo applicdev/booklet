@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: denolib/setup-deno@v2
 
-      - run: deno run -A --unstable https://github.com/applicdev/booklet/raw/main/install.ts
+      - run: deno run -A --unstable https://github.com/applicdev/booklet/raw/main/packages/booklet/install.ts
       - run: booklet --bundle -f
 
       - uses: peaceiris/actions-gh-pages@v3
