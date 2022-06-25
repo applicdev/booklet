@@ -19,12 +19,9 @@ Usage: booklet [options]
 Options:
   -v, --version       output version number
   -h, --help          output usage information
-  -s, --stream        start a local server for bundled assets
-  -b, --bundle        write bundled assets to the repository workflows
+  -b, --bundle        write bundled assets to the repository docs
   -f                  force file writes
 ```
-
-Add the following to your workflow jobs for intended-use:
 
 ```yaml
 booklet:
@@ -39,20 +36,16 @@ booklet:
 
 ### Download and install
 
-Install the [latest version of Deno][deno:install-latest], then run the following two commands to install this tool and, if required, [Puppeteer][puppeteer:install-latest]:
+Install the [latest version of Deno][deno:install-latest], then run the following command to install this tool and, if required, [Puppeteer][puppeteer:install-latest]:
 
 ```sh
-deno install -A --unstable --name booklet https://github.com/applicdev/booklet/raw/main/lib/index.ts
-```
-
-```sh
-$Env:PUPPETEER_PRODUCT="chrome"; deno run -A --unstable https://deno.land/x/puppeteer@9.0.2/install.ts
+deno run --allow-run https://github.com/applicdev/booklet/raw/main/packages/booklet/install.ts
 ```
 
 To update a previously installed version run:
 
 ```sh
-deno install -A --unstable --reload -f --name booklet https://github.com/applicdev/booklet/raw/main/lib/index.ts
+deno run --allow-run https://github.com/applicdev/booklet/raw/main/packages/booklet/install.ts --upgrade
 ```
 
 [deno:install-latest]: https://github.com/denoland/deno_install#install-latest-version
