@@ -122,7 +122,7 @@ internal.debug = async ({ bundle, option }: any): Promise<void> => {
 };
 
 internal.debugRender = async ({ role, bundle, option }: any): Promise<string> => {
-  const pattern = (await import(`../pattern/${role}.ts`)).default;
+  const pattern = (await import(`../../../booklet-content/lib/pattern/${role}.ts`)).default;
   return pattern.create({ role }).render({
     parsed: {
       title: 'Booklet',
