@@ -14,7 +14,7 @@ await Deno.run({
   env: {},
   cmd: [
     ...['deno', 'install', '-A', '--unstable', '-f'], //
-    ...('upgrade' in flags ? ['--reload'] : ['']),
+    ...('upgrade' in flags ? ['--reload'] : []),
     ...['--name', 'booklet', './packages/booklet/bin/booklet.ts'],
   ],
 }).status();
