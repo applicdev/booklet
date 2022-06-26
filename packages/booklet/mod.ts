@@ -48,7 +48,7 @@ export async function* stream(inputs: defined['interface:inputs']): defined['bun
 
 async function filter(inputs: defined['interface:inputs']): Promise<defined['interface:option']> {
   // const module = { urn: snippet.path.dirname(snippet.path.fromFileUrl(import.meta.url)) };
-  const module = { urn: snippet.path.resolve(inputs.stable!.urn, './lib/') };
+  const module = { urn: snippet.path.resolve(inputs.stable!.urn, './') };
 
   return { ...(inputs as defined['interface:option']), module };
 }

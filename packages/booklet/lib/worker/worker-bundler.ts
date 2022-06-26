@@ -50,7 +50,7 @@ internal.whenPrepared = async ({ bundle, option }: any): Promise<any> => {
 
   // ? ensure static files
   const asset = { urn: snippet.path.resolve(option.hosted.urn, './assets/') };
-  const modul = { urn: snippet.path.resolve(option.module.urn, './assets/') };
+  const modul = { urn: snippet.path.resolve(option.module.urn, './packages/booklet-content/lib/assets/') };
 
   await snippet.file.copy(modul.urn, asset.urn);
 };
