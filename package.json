@@ -1,0 +1,17 @@
+{
+  "name": "booklet",
+  "version": "0.1.3",
+  "main": "packages/booklet/mod.ts",
+  "repository": "https://github.com/applicdev/booklet.git",
+  "author": "Milo <54866561+MiloTheirself@users.noreply.github.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "booklet:install": "deno run --allow-run https://github.com/applicdev/booklet/raw/main/packages/booklet/install.ts --upgrade",
+    "booklet": "booklet --bundle",
+    "release": "standard-version"
+  },
+  "devDependencies": {
+    "standard-version": "^9.0.0"
+  }
+}
