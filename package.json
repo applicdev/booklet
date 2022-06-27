@@ -1,6 +1,6 @@
 {
   "name": "booklet",
-  "version": "0.1.3",
+  "version": "0.0.1",
   "main": "packages/booklet/mod.ts",
   "repository": "https://github.com/applicdev/booklet.git",
   "author": "Milo <54866561+MiloTheirself@users.noreply.github.com>",
