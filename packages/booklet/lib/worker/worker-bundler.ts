@@ -32,7 +32,7 @@ export async function* bundler(option: defined['runner:option']): defined['bundl
   yield { bundle, option };
 }
 
-internal.whenTraverse = async ({ bundle, option }: any): Promise<any> => {
+internal.whenTraverse = async ({ bundle, option }: any): Promise<void> => {
   const { hosted, output } = option;
 
   for await (const node of runners.order.traverse({ bundle, option })) {
@@ -41,7 +41,7 @@ internal.whenTraverse = async ({ bundle, option }: any): Promise<any> => {
   }
 };
 
-internal.whenPrepared = async ({ bundle, option }: any): Promise<any> => {
+internal.whenPrepared = async ({ bundle, option }: any): Promise<void> => {
   const { hosted, output } = option;
 
   // ? empty and ensure output directory
@@ -55,7 +55,7 @@ internal.whenPrepared = async ({ bundle, option }: any): Promise<any> => {
   await snippet.file.copy(modul.urn, asset.urn);
 };
 
-internal.whenComplete = async ({ bundle, option }: any): Promise<any> => {
+internal.whenComplete = async ({ bundle, option }: any): Promise<void> => {
   const { hosted, output } = option;
 
   // ? create previews and print pages
