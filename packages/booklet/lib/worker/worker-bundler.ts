@@ -94,7 +94,7 @@ internal.debug = async ({ bundle, option }: any): Promise<void> => {
   const ser = { urn: snippet.path.resolve(option.hosted!.urn, `./booklet.service-worker.js`) };
   const man = { urn: snippet.path.resolve(option.hosted!.urn, `./booklet.webmanifest`) };
 
-  await snippet.file.writeTextFile(ser.urn, `
+  await snippet.file.writeTextFile(ind.urn, `
 import { serve } from "https://deno.land/std@0.142.0/http/server.ts";
 
 serve((req: Request) => new Response("Hello World"));
