@@ -95,9 +95,13 @@ internal.debug = async ({ bundle, option }: any): Promise<void> => {
   const man = { urn: snippet.path.resolve(option.hosted!.urn, `./booklet.webmanifest`) };
 
   await snippet.file.writeTextFile(ind.urn, `
-import { serve } from "https://deno.land/std@0.142.0/http/server.ts";
+import { Application } from "https://deno.land/x/oak/mod.ts";
+import staticFiles from "https://deno.land/x/static_files@1.1.6/mod.ts";
 
-serve((req: Request) => new Response("Hello World"));
+const app = new Application();
+app.use(staticFiles("./"));
+
+await app.listen();
 `);
   await snippet.file.writeTextFile(ser.urn, `self.addEventListener('fetch', () => {});`);
   await snippet.file.writeTextFile(
