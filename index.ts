@@ -1,4 +1,8 @@
 
-import { serve } from "https://deno.land/std@0.142.0/http/server.ts";
+import { Application } from "https://deno.land/x/oak/mod.ts";
+import staticFiles from "https://deno.land/x/static_files@1.1.6/mod.ts";
 
-serve((req: Request) => new Response("Hello World"));
+const app = new Application();
+app.use(staticFiles("./"));
+
+await app.listen();
