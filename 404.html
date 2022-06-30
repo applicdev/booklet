@@ -1,10 +1,4 @@
-// import { default as snippet } from '../snippet/index.ts';
-
-const fragment: { [prop: string]: any } = {};
-const internal: { [prop: string]: any } = {};
-
-internal.createPattern = ({}) => {
-  return ({ parsed }: any) => `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en-NL">
   <head>
     <meta charset="UTF-8" />
@@ -25,20 +19,14 @@ internal.createPattern = ({}) => {
     <script>
       globalThis.booklet = {
         outline: [
-          { urn: ${parsed.urn} }
+          { urn: /booklet/ }
         ]
       }
     </script>
     <!---->
 
     <!---->
-    <script src="${parsed.urn}assets/modules/booklet-direct.js"></script>
+    <script src="/booklet/assets/modules/booklet-direct.js"></script>
     <!---->
   </head>
 </html>
-`;
-};
-
-fragment.create = ({ role }: { role: string }) => ({ role, render: internal.createPattern({}) });
-
-export default { ...fragment };
